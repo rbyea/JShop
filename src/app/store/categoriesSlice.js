@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import categoryService from "../services/categories.services";
-import { isOutDated } from "../utils/isOutDate";
+import { createSelector } from "reselect";
 
 const initialState = {
   entities: null,
   error: null,
-  isLoading: true,
-  lastFetch: null
+  isLoading: true
 };
 
 const categorySlice = createSlice({
@@ -14,7 +13,7 @@ const categorySlice = createSlice({
   initialState,
   reducers: {
     categoriesRequested: (state) => {
-      state.isLoading = false;
+      state.isLoading = true;
     },
     categoriesFailed: (state, action) => {
       state.isLoading = true;
@@ -32,38 +31,38 @@ const { actions, reducer: categoriesReducer } = categorySlice;
 const { categoriesRequested, categoriesFailed, categoriesReceived } = actions;
 
 export const loadListCategories = () => async (dispatch, useState) => {
-  const { lastFetch } = useState().categories;
+  dispatch(categoriesRequested);
 
-  if (isOutDated(lastFetch)) {
-    dispatch(categoriesRequested);
-
-    try {
-      const { content } = await categoryService.get();
-      dispatch(categoriesReceived(content));
-    } catch (error) {
-      dispatch(categoriesFailed(error.message));
-    }
+  try {
+    const { content } = await categoryService.get();
+    dispatch(categoriesReceived(content));
+  } catch (error) {
+    dispatch(categoriesFailed(error.message));
   }
 };
 
-export const loadSliderCategory = (payload) => (state) => {
-  const arrayCategories = [];
+const selectCategoriesEntities = (state) => state.categories.entities;
 
-  if (
-    state.categories.entities &&
-    typeof state.categories.entities[Symbol.iterator] === "function"
-  ) {
-    for (const categorySlider of payload) {
-      for (const category of state.categories.entities) {
-        if (categorySlider === category._id) {
-          arrayCategories.push(category);
+export const loadSliderCategory = createSelector(
+  selectCategoriesEntities,
+  (_, payload) => payload,
+  (categories, payload) => {
+    const arrayCategories = [];
+
+    if (categories && typeof categories[Symbol.iterator] === "function") {
+      for (const categorySlider of payload) {
+        for (const category of categories) {
+          if (categorySlider === category._id) {
+            arrayCategories.push(category);
+            break;
+          }
         }
       }
     }
-  }
 
-  return arrayCategories;
-};
+    return arrayCategories;
+  }
+);
 
 export const getListCategories = () => (state) => state.categories.entities;
 export const getLoadingStatusCategories = () => (state) =>

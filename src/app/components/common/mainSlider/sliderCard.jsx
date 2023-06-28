@@ -1,14 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-import { loadSliderCategory } from "../../store/categoriesSlice";
+import { loadSliderCategory } from "../../../store/categoriesSlice";
 
 const SliderCard = ({ image, title, gameId, description, category }) => {
-  const sliderCategories = useSelector(loadSliderCategory(category));
+  const sliderCategories = useSelector((state) =>
+    loadSliderCategory(state, category)
+  );
 
   const handleClick = (id) => {
     console.log(id);
   };
+
   return (
     <>
       <div className="osahan-slider">
@@ -27,12 +30,13 @@ const SliderCard = ({ image, title, gameId, description, category }) => {
 
                 <p className="font-weight-normal mb-3 text-white-50">
                   Жанр:
-                  {sliderCategories.map((category) => (
-                    <span className="slider-category" key={category._id}>
-                      {" "}
-                      {category.name}
-                    </span>
-                  ))}
+                  {sliderCategories &&
+                    sliderCategories.map((category) => (
+                      <span className="slider-category" key={category._id}>
+                        {" "}
+                        {category.name}
+                      </span>
+                    ))}
                 </p>
                 <a
                   href="#"

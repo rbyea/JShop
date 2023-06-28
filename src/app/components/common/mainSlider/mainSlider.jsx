@@ -8,9 +8,12 @@ import { EffectFade } from "swiper";
 import "swiper/swiper.min.css";
 import "swiper/css/effect-fade";
 import { useSelector } from "react-redux";
-import { getLoadingSliderStatus, getSliderList } from "../../store/sliderSlice";
+import {
+  getLoadingSliderStatus,
+  getSliderList
+} from "../../../store/sliderSlice";
 import SliderCard from "./sliderCard";
-import { getLoadingStatusCategories } from "../../store/categoriesSlice";
+import { getLoadingStatusCategories } from "../../../store/categoriesSlice";
 
 const MainSlider = (props) => {
   const sliderRef = React.useRef(null);
@@ -39,6 +42,7 @@ const MainSlider = (props) => {
                   <Swiper
                     ref={sliderRef}
                     effect={"fade"}
+                    loop={true}
                     modules={[EffectFade]}
                     spaceBetween={10}
                     slidesPerView={1}

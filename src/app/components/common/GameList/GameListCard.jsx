@@ -2,7 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { discountFunc } from "../../../utils/discountFunc";
 
-const TopSalesCard = ({ title, discount, data, price, picture, _id: id }) => {
+const GameListCard = ({
+  title,
+  discount,
+  data,
+  price,
+  picture,
+  _id: id,
+  receipts
+}) => {
   const handleClick = (id) => {
     console.log(id);
   };
@@ -20,7 +28,11 @@ const TopSalesCard = ({ title, discount, data, price, picture, _id: id }) => {
             <div className="price mt-3">
               {Number(discount) !== 0 && (
                 <>
-                  <div className="bg-primary d-inline-block text-center px-2 py-1 text-white">
+                  <div
+                    className={`${
+                      Number(discount) > 20 ? "bg-danger" : "bg-primary"
+                    }  d-inline-block text-center px-2 py-1 text-white`}
+                  >
                     -{discount}%
                   </div>
                   <s className="text-white-50 mx-1">{price} руб.</s>
@@ -38,13 +50,14 @@ const TopSalesCard = ({ title, discount, data, price, picture, _id: id }) => {
   );
 };
 
-TopSalesCard.propTypes = {
+GameListCard.propTypes = {
   _id: PropTypes.string,
   title: PropTypes.string,
   discount: PropTypes.string,
   data: PropTypes.string,
   price: PropTypes.string,
-  picture: PropTypes.string
+  picture: PropTypes.string,
+  receipts: PropTypes.string
 };
 
-export default TopSalesCard;
+export default GameListCard;

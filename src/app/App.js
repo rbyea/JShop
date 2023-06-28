@@ -1,21 +1,23 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Main from "./components/page/main/main";
-import Header from "./components/ui/header";
+import Header from "./components/common/header/header";
 
 import LoaderDate from "./components/ui/hoc/loaderDate";
+import Catalog from "./components/page/catalog/catalog";
 // import useMockData from "./utils/mockData";
 
 function App() {
   // const { initialData } = useMockData();
-  React.useEffect(() => {
-    // initialData();
-  }, []);
+  // React.useEffect(() => {
+  //   initialData();
+  // }, []);
 
   return (
     <LoaderDate>
       <Header />
       <Switch>
+        <Route path="/catalog" component={Catalog} />
         <Route exact path="/" component={Main} />
       </Switch>
     </LoaderDate>
