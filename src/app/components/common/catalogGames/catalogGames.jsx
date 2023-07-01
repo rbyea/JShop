@@ -8,8 +8,6 @@ const CatalogGames = (props) => {
   const listGames = useSelector(getListGames());
   const loadingGames = useSelector(getLoadingStatusGames());
 
-  console.log(listGames);
-
   return (
     <div className="row">
       {!loadingGames

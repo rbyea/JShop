@@ -7,6 +7,7 @@ import {
 } from "../../../store/gamesSlice";
 import GameListCard from "./GameListCard";
 import PropTypes from "prop-types";
+import Button from "../../ui/button";
 
 const GameList = ({ title, guid }) => {
   const [data, setData] = React.useState([]);
@@ -34,9 +35,10 @@ const GameList = ({ title, guid }) => {
       <div className="container">
         <div className="d-flex align-item-center title mb-3">
           <h5 className="m-0 font-weight-normal">{title}</h5>
-          <a href="store.html" className="btn btn-sm btn-outline-light ml-auto">
-            Смотреть все
-          </a>
+          <Button
+            title="Смотреть все"
+            name="btn-sm btn-outline-light ml-auto"
+          />
         </div>
         <div className="row">
           {data.map((game) => (

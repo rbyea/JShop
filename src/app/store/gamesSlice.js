@@ -41,6 +41,7 @@ export const loadListGames = () => async (dispatch) => {
 };
 
 const getGames = (state) => state.games.entities;
+const getGameId = (_, id) => id;
 
 export const getListGames = () => (state) => state.games.entities;
 export const getListGamesLength = () => (state) => state.games.entities.length;
@@ -53,5 +54,12 @@ export const getReceiptsGames = createSelector([getGames], (games) => {
   const currentTimestamp = Date.now();
   return games ? games.filter((game) => game.receipts > currentTimestamp) : [];
 });
+
+export const getGamePage = createSelector(
+  [getGames, getGameId],
+  (games, id) => {
+    return games ? games.find((game) => game._id === id) : null;
+  }
+);
 
 export default gamesReducer;

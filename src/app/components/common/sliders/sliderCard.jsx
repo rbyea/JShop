@@ -2,15 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { loadSliderCategory } from "../../../store/categoriesSlice";
+import { Link } from "react-router-dom";
 
 const SliderCard = ({ image, title, gameId, description, category }) => {
   const sliderCategories = useSelector((state) =>
     loadSliderCategory(state, category)
   );
-
-  const handleClick = (id) => {
-    console.log(id);
-  };
 
   return (
     <>
@@ -38,13 +35,12 @@ const SliderCard = ({ image, title, gameId, description, category }) => {
                       </span>
                     ))}
                 </p>
-                <a
-                  href="#"
-                  onClick={() => handleClick(gameId)}
+                <Link
+                  to={`card/${gameId}`}
                   className="btn btn-primary"
                 >
                   Перейти
-                </a>
+                </Link>
               </div>
             </div>
           </div>

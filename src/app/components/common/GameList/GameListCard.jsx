@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { discountFunc } from "../../../utils/discountFunc";
+import { Link } from "react-router-dom";
 
 const GameListCard = ({
   title,
@@ -11,14 +12,10 @@ const GameListCard = ({
   _id: id,
   receipts
 }) => {
-  const handleClick = (id) => {
-    console.log(id);
-  };
-
   return (
     <div className="col-lg-3 col-md-6">
       <div className="osahan-card">
-        <a href="#" onClick={() => handleClick(id)}>
+        <Link to={`card/${id}`}>
           <div className="osahan-card__image">
             <img className="img-fluid" src={picture} alt="" />
           </div>
@@ -44,7 +41,7 @@ const GameListCard = ({
               </span>
             </div>
           </div>
-        </a>
+        </Link>
       </div>
     </div>
   );

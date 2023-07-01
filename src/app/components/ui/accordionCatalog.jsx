@@ -19,6 +19,19 @@ const AccordionCatalog = ({ title, data }) => {
     setVisibleList(!visibleList);
   };
 
+  const [entities, setEntities] = React.useState();
+
+  const handleChange = (target) => {
+    setEntities((prevState) => ({
+      ...prevState,
+      [target.name]: target.value
+    }));
+  };
+
+  React.useEffect(() => {
+    console.log(entities);
+  }, [entities]);
+
   return (
     <>
       <div className="filters-card border-bottom py-4">
@@ -39,16 +52,23 @@ const AccordionCatalog = ({ title, data }) => {
 
         <div className={`${activeAccordion ? "" : "show"} collapse`}>
           <div className="filters-card-body card-shop-filters">
-            {data.map((category, index) => (
-              <div
-                key={category._id}
-                className={`filters-card__item ${
-                  index > 3 && !visibleList ? "hidden" : ""
-                }`}
-              >
-                <CheckField title={category.name} name={category._id} />
-              </div>
-            ))}
+            {data &&
+              data.map((category, index) => (
+                <div
+                  key={category._id}
+                  className={`filters-card__item ${
+                    index > 3 && !visibleList ? "hidden" : ""
+                  }`}
+                >
+                  <CheckField
+                    type="checkbox"
+                    value={entities && entities[category._id]}
+                    onChange={handleChange}
+                    title={category.name}
+                    name={category._id}
+                  />
+                </div>
+              ))}
 
             <div className="mt-2">
               <a href="#" onClick={handleClickBtn} className="link">
