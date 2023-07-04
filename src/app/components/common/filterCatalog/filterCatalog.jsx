@@ -9,8 +9,6 @@ import SearchCatalog from "../form/searchCatalog";
 const FilterCatalog = () => {
   const categoriesList = useSelector(getListCategories());
   const featuresList = useSelector(getListFeatures());
-  // const listGames = useSelector(getListGames());
-
   const [data, setData] = React.useState({ search: "" });
 
   const handleChange = (target) => {
@@ -19,15 +17,6 @@ const FilterCatalog = () => {
       [target.name]: target.value.toLowerCase()
     }));
   };
-
-  const searchGames =
-    data.search.length > 0
-      ? data.search.filter((game) =>
-          game.name.toLowerCase().includes(data.search)
-        )
-      : data.search;
-
-  console.log(searchGames);
 
   return (
     <div className="filters rounded mb-4">

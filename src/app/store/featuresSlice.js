@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import featuresService from "../services/features.services";
+import { createSelector } from "reselect";
 
 const initialState = {
   entities: [],
@@ -39,5 +40,28 @@ export const loadFeaturesList = () => async (dispatch) => {
 };
 
 export const getListFeatures = () => (state) => state.features.entities;
+
+const selectFeaturesEntities = (state) => state.features.entities;
+
+export const loadFeaturesCardPage = createSelector(
+  selectFeaturesEntities,
+  (_, payload) => payload,
+  (features, payload) => {
+    const arrayFeatures = [];
+
+    if (features && typeof features[Symbol.iterator] === "function") {
+      for (const featuresItem of payload) {
+        for (const categoryList of features) {
+          if (featuresItem === categoryList._id) {
+            arrayFeatures.push(categoryList);
+            break;
+          }
+        }
+      }
+    }
+
+    return arrayFeatures;
+  }
+);
 
 export default featuresReducer;

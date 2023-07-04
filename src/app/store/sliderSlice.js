@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import sliderServices from "../services/slider.services";
+import { createSelector } from "reselect";
 
 const initialState = {
   entities: null,
@@ -38,7 +39,17 @@ export const loadSliderList = () => async (dispatch) => {
   }
 };
 
+const getSliderPictures = (state) => state.slider.entities;
+const getGameIdSlider = (_, id) => id;
+
 export const getSliderList = () => (state) => state.slider.entities;
 export const getLoadingSliderStatus = () => (state) => state.slider.isLoading;
+
+export const getSliderCard = createSelector(
+  [getSliderPictures, getGameIdSlider],
+  (slider, id) => {
+    return slider ? slider.find((slide) => slide.gameId === id) : null;
+  }
+);
 
 export default sliderReducer;

@@ -86,3 +86,59 @@
 .filters-card__item.hidden {
   display: none;
 }
+
+.feature-card-item {
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 3px;
+  position: relative;
+}
+
+.feature-card-item:last-child {
+  margin-right: 0;
+}
+
+.swiper-slide {
+  opacity: 0 !important;
+}
+
+.swiper-slide.swiper-slide-active {
+  opacity: 1 !important;
+}
+
+.card-slider {
+  position: relative;
+}
+
+.basket-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.basket-list:last-child {
+  margin-bottom: 0;
+}
+
+.basket__image img {
+  height: 150px;
+}
+
+.modal-dialog {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.show {
+  display: block;
+  background-color: #00000082;
+}
+
+.modal-body .list-group-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

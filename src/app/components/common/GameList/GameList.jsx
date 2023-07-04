@@ -36,6 +36,7 @@ const GameList = ({ title, guid }) => {
         <div className="d-flex align-item-center title mb-3">
           <h5 className="m-0 font-weight-normal">{title}</h5>
           <Button
+            link="catalog/"
             title="Смотреть все"
             name="btn-sm btn-outline-light ml-auto"
           />

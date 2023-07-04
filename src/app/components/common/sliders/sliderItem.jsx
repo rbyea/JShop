@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { loadSliderCategory } from "../../../store/categoriesSlice";
 import { Link } from "react-router-dom";
 
-const SliderCard = ({ image, title, gameId, description, category }) => {
+const SliderItem = ({ image, title, gameId, description, category }) => {
   const sliderCategories = useSelector((state) =>
     loadSliderCategory(state, category)
   );
@@ -50,7 +50,7 @@ const SliderCard = ({ image, title, gameId, description, category }) => {
   );
 };
 
-SliderCard.propTypes = {
+SliderItem.propTypes = {
   image: PropTypes.string,
   title: PropTypes.string,
   gameId: PropTypes.string,
@@ -58,4 +58,4 @@ SliderCard.propTypes = {
   category: PropTypes.array
 };
 
-export default SliderCard;
+export default SliderItem;

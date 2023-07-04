@@ -15,6 +15,8 @@ import {
   loadSliderList
 } from "../../../store/sliderSlice";
 import { loadFeaturesList } from "../../../store/featuresSlice";
+import { loadListSpecifications } from "../../../store/specificationSlice";
+import { loadSliderCardList } from "../../../store/sliderCardSlice";
 
 const loaderDate = ({ children }) => {
   const dispatch = useDispatch();
@@ -27,6 +29,8 @@ const loaderDate = ({ children }) => {
     dispatch(loadListCategories());
     dispatch(loadSliderList());
     dispatch(loadFeaturesList());
+    dispatch(loadListSpecifications());
+    dispatch(loadSliderCardList());
   }, []);
 
   if (loadingStatusGames) {

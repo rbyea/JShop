@@ -1,17 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-const Button = ({ title, name }) => {
+const Button = ({ title, name, link }) => {
   return (
-    <a href="#" className={`btn ${name}`}>
+    <Link to={link} className={`btn ${name}`}>
       {title}
-    </a>
+    </Link>
   );
 };
 
 Button.propTypes = {
   title: PropTypes.string,
-  name: PropTypes.string
+  name: PropTypes.string,
+  link: PropTypes.string
 };
 
 export default Button;
