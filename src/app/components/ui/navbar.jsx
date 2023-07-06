@@ -2,17 +2,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 import NavProfile from "./NavProfile";
 import { FaRegHeart, FaShoppingBasket } from "react-icons/fa";
-import { getLengthBasket, getListBasket } from "../../store/basketSlice";
+import {
+  getLengthBasket,
+  getListBasket,
+  getTotalPrice
+} from "../../store/basketSlice";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const listBasket = useSelector(getListBasket());
   const basketLength = useSelector(getLengthBasket());
+  const basketTotalPrice = useSelector(getTotalPrice());
 
   React.useEffect(() => {
     const jsonGamesCount = JSON.stringify(listBasket);
+    const jsonTotalPrice = JSON.stringify(basketTotalPrice);
     localStorage.setItem("basketGames", jsonGamesCount);
-  }, [listBasket]);
+    localStorage.setItem("basketTotalPrice", jsonTotalPrice);
+  }, [listBasket, basketTotalPrice]);
   return (
     <>
       <ul className="navbar-nav ml-auto d-flex align-items-center">

@@ -1,17 +1,23 @@
 import React from "react";
 import { getGamePage } from "../../../store/gamesSlice";
+import {
+  addGameInBasket,
+  searchGameInBasket
+} from "../../../store/basketSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { addGameInBasket } from "../../../store/basketSlice";
 import Popup from "../popup/popup";
 
 const GamePageArticle = () => {
+  const dispatch = useDispatch();
   const { gameId } = useParams();
 
-  const dispatch = useDispatch();
+  const searchGameBasket = useSelector(searchGameInBasket(gameId));
+
   const gamePage = useSelector((state) => getGamePage(state, gameId));
   const [activeNavbarLink, setActiveNavbarLink] = React.useState("");
   const [visibleModal, setVisibleModal] = React.useState(false);
+  const [visibleContent, setVisibleContent] = React.useState(false);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -37,18 +43,21 @@ const GamePageArticle = () => {
     };
   }, []);
 
-  const addItemGame = (e) => {
-    e.preventDefault();
-    const item = {
-      gameId: gamePage._id,
-      discount: gamePage.discount,
-      title: gamePage.title,
-      price: gamePage.price,
-      picture: gamePage.picture
-    };
-
-    dispatch(addGameInBasket(item));
-    setVisibleModal(true);
+  const addGame = () => {
+    if (!searchGameBasket) {
+      const initialItem = {
+        gameId: gamePage._id,
+        discount: gamePage.discount,
+        title: gamePage.title,
+        price: gamePage.price,
+        picture: gamePage.picture
+      };
+      dispatch(addGameInBasket(initialItem));
+      setVisibleModal(true);
+    } else {
+      setVisibleModal(true);
+      setVisibleContent(true);
+    }
   };
 
   return (
@@ -65,7 +74,7 @@ const GamePageArticle = () => {
             </div>
             <a
               href="#"
-              onClick={addItemGame}
+              onClick={addGame}
               className="btn btn-warning col-4 px-2"
             >
               <i className="feather-download-cloud mr-1"></i> Купить
@@ -112,6 +121,7 @@ const GamePageArticle = () => {
       {visibleModal && (
         <Popup
           title="Товар добавлен в корзину!"
+          visibleDescription={visibleContent}
           gameObj={gamePage}
           visibleModal={visibleModal}
           setVisibleModal={setVisibleModal}

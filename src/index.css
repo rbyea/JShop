@@ -115,6 +115,12 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #dae0e5;
+}
+
+.basket-list:last-child {
+  border-bottom: none;
 }
 
 .basket-list:last-child {
@@ -122,7 +128,13 @@
 }
 
 .basket__image img {
-  height: 150px;
+  height: 120px;
+}
+
+.basket-left-side {
+  display: flex;
+  align-items: center;
+  width: 50%;
 }
 
 .modal-dialog {
@@ -141,4 +153,114 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.basket__name {
+  margin-right: 20px;
+  font-size: 16px;
+  font-weight: 900;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+.basket__name:hover {
+  color: #007bff;
+}
+
+.basket__image {
+  margin-right: 20px;
+}
+
+.basket-minus,.basket-plus {
+  color: #595d60;
+  font-size: 25px;
+  transition: all 0.3s ease-in-out;
+}
+
+.basket-minus:hover ,.basket-plus:hover {
+  color: #dae0e5
+}
+
+.basket-right-side {
+  display: flex;
+  align-items: center;
+}
+
+.basket-right-side__count {
+  display: flex;
+  align-items: center;
+  width: 13%;
+}
+
+.basket-count {
+  font-size: 20px;
+  margin: 0 15px;
+}
+
+.game-price {
+  font-size: 20px;
+  margin: 0 20px;
+  width: 10%;
+}
+
+.basket-right-side {
+  width: 4%;
+}
+
+.basket-right-side__delete {
+  font-size: 25px;
+  color: #dae0e5;
+  transition: all 0.3s ease-in-out;
+}
+.basket-right-side__delete:hover {
+  color: #dc3545
+}
+
+
+.basket-content-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.basket-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.basket-container p {
+  text-align: center;
+  font-size: 20px;
+}
+
+.cart__bottom {
+  margin-top: 40px;
+}
+
+.cart__bottom-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.cart__bottom-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cart__bottom-details {
+  font-size: 20px;
+}
+
+.cart__bottom-details b {
+  margin-left: 10px;
+}
+
+.basket-minus.disabled {
+  pointer-events: none;
+  opacity: 0.4;
 }

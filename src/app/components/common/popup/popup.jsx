@@ -1,19 +1,18 @@
 import React from "react";
-import Button from "../../ui/button";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
-import { searchGameInBasket } from "../../../store/basketSlice";
+import { Link } from "react-router-dom";
+import { discountFunc } from "../../../utils/discountFunc";
 
-const Popup = ({ title, gameObj, visibleModal, setVisibleModal }) => {
+const Popup = ({
+  title,
+  gameObj,
+  visibleModal,
+  visibleDescription,
+  setVisibleModal
+}) => {
   const handleClose = (e) => {
     setVisibleModal(false);
   };
-
-  const findGame = useSelector(searchGameInBasket(gameObj._id));
-
-  React.useEffect(() => {
-    console.log(findGame.count);
-  }, []);
 
   return (
     <div className={`modal ${visibleModal ? "show" : ""}`} id="exampleModal">
@@ -33,14 +32,17 @@ const Popup = ({ title, gameObj, visibleModal, setVisibleModal }) => {
             </button>
           </div>
           <div className="modal-body">
-            {findGame.count === 1 ? (
+            {!visibleDescription ? (
               <ul className="list-group list-group-horizontal">
                 <li className="list-group-item flex-fill">
                   {" "}
                   <img src={gameObj.picture} height={150} alt="" />
                 </li>
                 <li className="list-group-item flex-fill ">{gameObj.title}</li>
-                <li className="list-group-item flex-fill">{gameObj.price}</li>
+                <li className="list-group-item flex-fill">
+                  {gameObj.price -
+                    discountFunc(gameObj.price, gameObj.discount)}
+                </li>
               </ul>
             ) : (
               "Товар уже добавлен"
@@ -56,12 +58,13 @@ const Popup = ({ title, gameObj, visibleModal, setVisibleModal }) => {
               Закрыть
             </button>
 
-            <Button
-              closeModal={handleClose}
-              link="/basket"
-              name="btn-primary"
-              title="Перейти в корзину"
-            />
+            <Link
+              to="/basket"
+              className="btn btn-primary"
+              onClick={handleClose}
+            >
+              Перейти в корзину
+            </Link>
           </div>
         </div>
       </div>
@@ -73,6 +76,7 @@ Popup.propTypes = {
   visibleModal: PropTypes.bool.isRequired,
   setVisibleModal: PropTypes.func,
   title: PropTypes.string,
+  visibleDescription: PropTypes.bool,
   gameObj: PropTypes.object
 };
 
