@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { getListCategories } from "../../../store/categoriesSlice";
 import { getListFeatures } from "../../../store/featuresSlice";
 import AccordionCatalog from "./AccordionCatalog";
-import SearchCatalog from "../Form/SearchCatalog";
+import SearchCatalog from "../../ui/Form/SearchCatalog";
 // import { getListGames } from "../../../store/gamesSlice";
 
 const FilterCatalog = () => {

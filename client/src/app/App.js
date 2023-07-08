@@ -10,6 +10,7 @@ import Footer from "./components/common/Footer/Footer";
 import Basket from "./components/page/basket";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Login from "./components/page/login";
 // import useMockData from "./utils/mockData";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
       <Switch>
         <Route path="/catalog" component={Catalog} />
         <Route path="/basket" component={Basket} />
+        <Route path="/login/:type?" component={Login} />
         <Route path="/card/:gameId" component={Card} />
         <Route exact path="/" component={Main} />
       </Switch>

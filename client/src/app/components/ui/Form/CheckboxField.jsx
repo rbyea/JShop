@@ -1,33 +1,36 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const CheckField = ({ type, value, onChange, title, name }) => {
+const CheckBoxField = ({ value, onChange, children, name }) => {
   const handleChange = (e) => {
-    const { checked } = e.target;
-    onChange({ name, value: checked });
+    onChange({ name: name, value: !value });
   };
   return (
     <div className="custom-control custom-checkbox">
       <input
         onChange={handleChange}
-        checked={value || false}
-        type={type}
+        checked={value}
+        type="checkbox"
         className="custom-control-input"
         id={name}
+        value=""
       />
       <label className="custom-control-label" htmlFor={name}>
-        {title}
+        {children}
       </label>
     </div>
   );
 };
 
-CheckField.propTypes = {
+CheckBoxField.propTypes = {
   title: PropTypes.string,
   name: PropTypes.string,
-  type: PropTypes.string,
   value: PropTypes.bool,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
 };
 
-export default CheckField;
+export default CheckBoxField;
