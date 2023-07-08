@@ -1,0 +1,18 @@
+.basketContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.center {
+  text-align: center;
+  font-size: 18px;
+}
+
+.basketListTopSide {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}

@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { getListCategories } from "../../../store/categoriesSlice";
 import { getListFeatures } from "../../../store/featuresSlice";
-import AccordionCatalog from "../../ui/accordionCatalog";
-import SearchCatalog from "../form/searchCatalog";
+import AccordionCatalog from "./AccordionCatalog";
+import SearchCatalog from "../Form/SearchCatalog";
 // import { getListGames } from "../../../store/gamesSlice";
 
 const FilterCatalog = () => {

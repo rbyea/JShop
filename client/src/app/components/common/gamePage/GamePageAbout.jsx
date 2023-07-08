@@ -1,9 +1,9 @@
 import React from "react";
-import { getGamePage } from "../../store/gamesSlice";
+import { getGamePage } from "../../../store/gamesSlice";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { loadFeaturesCardPage } from "../../store/featuresSlice";
-import { convectorTime } from "../../utils/convectorTime";
+import { loadFeaturesCardPage } from "../../../store/featuresSlice";
+import { convectorTime } from "../../../utils/convectorTime";
 
 const GamePageAbout = () => {
   const { gameId } = useParams();

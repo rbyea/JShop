@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { getSpecificationItem } from "../../store/specificationSlice";
+import { getSpecificationItem } from "../../../store/specificationSlice";
 import { useParams } from "react-router-dom";
 
 const GamePageSpecification = (props) => {

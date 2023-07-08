@@ -1,13 +1,15 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Main from "./components/page/main/main";
-import Header from "./components/common/header/header";
+import Main from "./components/page/main";
+import Header from "./components/common/Header/Header";
 
 import LoaderDate from "./components/ui/hoc/loaderDate";
-import Catalog from "./components/page/catalog/catalog";
-import Card from "./components/page/card/card";
-import Footer from "./components/common/footer/footer";
-import Basket from "./components/page/basket/basket";
+import Catalog from "./components/page/catalog";
+import Card from "./components/page/card";
+import Footer from "./components/common/Footer/Footer";
+import Basket from "./components/page/basket";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import useMockData from "./utils/mockData";
 
 function App() {
@@ -25,7 +27,7 @@ function App() {
         <Route path="/card/:gameId" component={Card} />
         <Route exact path="/" component={Main} />
       </Switch>
-
+      <ToastContainer />
       <Footer />
     </LoaderDate>
   );

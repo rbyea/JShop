@@ -53,18 +53,24 @@ const basketSlice = createSlice({
       }, 0);
     },
     remove: (state, action) => {
-      state.entities = state.entities.filter((game) => game.gameId !== action.payload);
+      state.entities = state.entities.filter(
+        (game) => game.gameId !== action.payload
+      );
       state.totalPrice = state.entities.reduce((sum, obj) => {
         const discountGame = obj.price - discountFunc(obj.price, obj.discount);
         return discountGame * obj.count + sum;
       }, 0);
+    },
+    clear: (state) => {
+      state.entities = [];
+      state.totalPrice = 0;
     }
   }
 });
 
 const { actions, reducer: basketReducer } = basketSlice;
 
-const { setAddGame, increment, decrement, remove } = actions;
+const { setAddGame, increment, decrement, remove, clear } = actions;
 
 export const addGameInBasket = (obj) => (dispatch) => {
   dispatch(setAddGame(obj));
@@ -80,6 +86,10 @@ export const decrementGame = (gameId) => (dispatch) => {
 
 export const removeGame = (gameId) => (dispatch) => {
   dispatch(remove(gameId));
+};
+
+export const basketClear = () => (dispatch) => {
+  dispatch(clear());
 };
 
 export const getListBasket = () => (state) => state.basket.entities;

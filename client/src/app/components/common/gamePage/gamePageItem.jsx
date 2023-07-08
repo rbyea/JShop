@@ -1,7 +1,7 @@
 import React from "react";
-import CardSlider from "../sliders/cardSlider";
-import GamePageAbout from "../../ui/gamePageAbout";
-import GamePageSpecification from "../../ui/gamePageSpecification";
+import CardSlider from "../Sliders/CardSlider";
+import GamePageAbout from "./GamePageAbout";
+import GamePageSpecification from "./GamePageSpecification";
 
 const GamePageItem = () => {
   return (

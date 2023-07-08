@@ -1,8 +1,8 @@
 import React from "react";
-import FilterCatalog from "../../common/filterCatalog/filterCatalog";
-import SortCatalog from "../../common/sortCatalog/sortCatalog";
-import CatalogGames from "../../common/catalogGames/catalogGames";
-import { windowScroll } from "../../../utils/windowScroll";
+import SortCatalog from "../common/CatalogBlock/SortCatalog";
+import CatalogGames from "../common/CatalogBlock/CatalogGames";
+import { windowScroll } from "../../utils/windowScroll";
+import FilterCatalog from "../common/CatalogBlock/FilterCatalog";
 
 const Catalog = (props) => {
   React.useEffect(() => {

@@ -6,7 +6,7 @@ import {
 } from "../../../store/basketSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Popup from "../popup/popup";
+import Popup from "../../ui/Popup/Popup";
 
 const GamePageArticle = () => {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 import React from "react";
-import GamePageArticle from "../../common/gamePage/gamePageArticle";
-import GamePageItem from "../../common/gamePage/gamePageItem";
-import { windowScroll } from "../../../utils/windowScroll";
+import GamePageArticle from "../common/GamePage/GamePageArticle";
+import GamePageItem from "../common/GamePage/GamePageItem";
+import { windowScroll } from "../../utils/windowScroll";
 
 const Card = () => {
   React.useEffect(() => {
