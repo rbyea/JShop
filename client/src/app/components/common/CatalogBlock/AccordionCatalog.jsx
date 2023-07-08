@@ -64,9 +64,10 @@ const AccordionCatalog = ({ title, data }) => {
                     type="checkbox"
                     value={entities && entities[category._id]}
                     onChange={handleChange}
-                    title={category.name}
                     name={category._id}
-                  />
+                  >
+                    {category.name}
+                  </CheckField>
                 </div>
               ))}
 
