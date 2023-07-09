@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import featuresService from "../services/features.services";
+import featuresService from "../services/features.service";
 import { createSelector } from "reselect";
 
 const initialState = {

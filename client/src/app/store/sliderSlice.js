@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import sliderServices from "../services/slider.services";
+import sliderServices from "../services/slider.service";
 import { createSelector } from "reselect";
 
 const initialState = {

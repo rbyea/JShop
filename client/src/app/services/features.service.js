@@ -1,4 +1,4 @@
-import httpService from "./http.services";
+import httpService from "./http.service";
 const featuresEndpoint = "features/";
 
 const featuresService = {

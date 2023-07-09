@@ -1,32 +1,43 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const InputField = ({ type, title, value, onChange, name, placeholder }) => {
+const InputField = ({
+  error,
+  type,
+  title,
+  value,
+  onChange,
+  name,
+  placeholder
+}) => {
   const handleChange = (value) => {
     onChange({ name, value: value });
   };
+
   return (
     <div className="form-group">
       {title && <label htmlFor={name}>{title}</label>}
       <input
         type={type}
         onChange={(e) => handleChange(e.target.value)}
-        className="form-control"
+        className={error ? "form-control is-invalid" : "form-control is-valid"}
         id={name}
         value={value}
         name={name}
         placeholder={placeholder}
       />
+      <div className="invalid-feedback">{error}</div>
     </div>
   );
 };
 
 InputField.propTypes = {
-  type: PropTypes.string,
+  error: PropTypes.string,
+  type: PropTypes.string.isRequired,
   title: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  name: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
   placeholder: PropTypes.string
 };
 

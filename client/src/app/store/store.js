@@ -6,6 +6,7 @@ import featuresReducer from "./featuresSlice";
 import specificationReducer from "./specificationSlice";
 import sliderCardReducer from "./sliderCardSlice";
 import basketReducer from "./basketSlice";
+import usersReducer from "./usersSlice";
 
 const rootReducer = combineReducers({
   games: gamesReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   features: featuresReducer,
   specifications: specificationReducer,
   sliderCard: sliderCardReducer,
-  basket: basketReducer
+  basket: basketReducer,
+  users: usersReducer
 });
 
 export function createStore() {

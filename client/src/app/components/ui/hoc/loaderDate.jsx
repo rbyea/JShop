@@ -17,10 +17,17 @@ import {
 import { loadFeaturesList } from "../../../store/featuresSlice";
 import { loadListSpecifications } from "../../../store/specificationSlice";
 import { loadSliderCardList } from "../../../store/sliderCardSlice";
+import {
+  getIsLoggedIn,
+  getLoadingUsersStatus,
+  loadUsersList
+} from "../../../store/usersSlice";
 
 const loaderDate = ({ children }) => {
   const dispatch = useDispatch();
   const loadingStatusGames = useSelector(getLoadingStatusGames());
+  const isLoggetIn = useSelector(getIsLoggedIn());
+  const usersStatusLoading = useSelector(getLoadingUsersStatus());
   // const loadingStatusCategories = useSelector(getLoadingStatusCategories());
   // const loadingStatusSlider = useSelector(getLoadingSliderStatus());
 
@@ -31,9 +38,12 @@ const loaderDate = ({ children }) => {
     dispatch(loadFeaturesList());
     dispatch(loadListSpecifications());
     dispatch(loadSliderCardList());
-  }, []);
+    if (isLoggetIn) {
+      dispatch(loadUsersList());
+    }
+  }, [isLoggetIn]);
 
-  if (loadingStatusGames) {
+  if ((loadingStatusGames, usersStatusLoading)) {
     return <Preloader />;
   }
   return children;
