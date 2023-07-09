@@ -4,11 +4,13 @@ import InputField from "../Form/InputField";
 import CheckBoxField from "../Form/CheckboxField";
 import { Link } from "react-router-dom";
 import { validator } from "../../../utils/validator";
-import { useDispatch } from "react-redux";
-import { signUp } from "../../../store/usersSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getLoadingRegistration, signUp } from "../../../store/usersSlice";
+import Preloader from "../preloader/preloader";
 
 const RegistrationForm = (props) => {
   const dispatch = useDispatch();
+  const loadingRegistration = useSelector(getLoadingRegistration());
   const [data, setData] = React.useState({
     name: "",
     password: "",
@@ -89,53 +91,57 @@ const RegistrationForm = (props) => {
   };
 
   return (
-    <form onSubmit={onSubmitForm}>
-      <InputField
-        error={error.name}
-        type="text"
-        title="Имя"
-        value={data.name}
-        name="name"
-        onChange={handleChange}
-      />
-      <InputField
-        error={error.email}
-        type="email"
-        title="Почта"
-        value={data.email}
-        name="email"
-        onChange={handleChange}
-      />
-      <InputField
-        error={error.password}
-        type="password"
-        title="Пароль"
-        value={data.password}
-        name="password"
-        onChange={handleChange}
-      />
+    <>
+      {loadingRegistration && <Preloader />}
 
-      <CheckBoxField
-        error={error.license}
-        value={data.license}
-        name="license"
-        onChange={handleChange}
-      >
-        Я ознакомлен с <Link to="/license">пользовательским соглашением</Link> и
-        даю согласие на обработку
-        <Link to="/personal-data">персональных данных</Link>
-      </CheckBoxField>
+      <form onSubmit={onSubmitForm}>
+        <InputField
+          error={error.name}
+          type="text"
+          title="Имя"
+          value={data.name}
+          name="name"
+          onChange={handleChange}
+        />
+        <InputField
+          error={error.email}
+          type="email"
+          title="Почта"
+          value={data.email}
+          name="email"
+          onChange={handleChange}
+        />
+        <InputField
+          error={error.password}
+          type="password"
+          title="Пароль"
+          value={data.password}
+          name="password"
+          onChange={handleChange}
+        />
 
-      <div className="text-center mt-3 border-bottom">
-        <button
-          disabled={!isValid}
-          className="btn btn-warning btn-lg btn-block"
-          type="submit"
+        <CheckBoxField
+          error={error.license}
+          value={data.license}
+          name="license"
+          onChange={handleChange}
         >
-          Зарегистрироваться
-        </button>
-      </div>
-    </form>
+          Я ознакомлен с <Link to="/license">пользовательским соглашением</Link>{" "}
+          и даю согласие на обработку
+          <Link to="/personal-data">персональных данных</Link>
+        </CheckBoxField>
+
+        <div className="text-center mt-3 border-bottom">
+          <button
+            disabled={!isValid}
+            className="btn btn-warning btn-lg btn-block"
+            type="submit"
+          >
+            Зарегистрироваться
+          </button>
+        </div>
+      </form>
+    </>
   );
 };
 

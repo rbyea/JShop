@@ -11,7 +11,8 @@ const initialState = localStorageService.getTokenKey()
       error: null,
       auth: { userId: localStorageService.getLocalIdKey() },
       isLoggedIn: true,
-      dataLoader: false
+      dataLoader: false,
+      isLoadingReg: false
     }
   : {
       entities: null,
@@ -19,7 +20,8 @@ const initialState = localStorageService.getTokenKey()
       error: null,
       auth: null,
       isLoggedIn: false,
-      dataLoader: false
+      dataLoader: false,
+      isLoadingReg: false
     };
 
 const usersSlice = createSlice({
@@ -50,6 +52,10 @@ const usersSlice = createSlice({
         state.entities = [];
       }
       state.entities.push(action.payload);
+      state.isLoadingReg = false;
+    },
+    userCreatedRequested: (state) => {
+      state.isLoadingReg = true;
     }
   }
 });
@@ -60,12 +66,12 @@ const {
   usersRequestFailed,
   usersReceived,
   authRequestSuccess,
+  userCreatedRequested,
   authRequestFailed,
   userCreated
 } = actions;
 
 const authRequested = createAction("users/authRequested");
-const userCreatedRequested = createAction("user/userCreatedRequested");
 const createUserFailed = createAction("user/createUserFailed");
 
 function createUser(payload) {
@@ -74,7 +80,7 @@ function createUser(payload) {
     try {
       const { content } = await userService.create(payload);
       dispatch(userCreated(content));
-      history.push("/catalog");
+      history.push("/");
     } catch (error) {
       dispatch(createUserFailed(error.message));
     }
@@ -114,5 +120,6 @@ export const loadUsersList = () => async (dispatch) => {
 
 export const getIsLoggedIn = () => (state) => state.users.isLoggedIn;
 export const getLoadingUsersStatus = () => (state) => state.users.isLoading;
+export const getLoadingRegistration = () => (state) => state.users.isLoadingReg;
 
 export default usersReducer;

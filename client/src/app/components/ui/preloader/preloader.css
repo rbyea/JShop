@@ -68,9 +68,11 @@
 }
 
 .preloader-wrapper {
-  position: absolute;
+  position: fixed;
+  background-color: #000000d6;
   left: 0;
   right: 0;
+  z-index: 9999;
   top: 0;
   bottom: 0;
   display: flex;
