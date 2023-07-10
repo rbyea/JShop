@@ -5,12 +5,12 @@ import CheckBoxField from "../Form/CheckboxField";
 import { Link } from "react-router-dom";
 import { validator } from "../../../utils/validator";
 import { useDispatch, useSelector } from "react-redux";
-import { getLoadingRegistration, signUp } from "../../../store/usersSlice";
+import { getLoadingForm, signUp } from "../../../store/usersSlice";
 import Preloader from "../preloader/preloader";
 
 const RegistrationForm = (props) => {
   const dispatch = useDispatch();
-  const loadingRegistration = useSelector(getLoadingRegistration());
+  const loadingRegistration = useSelector(getLoadingForm());
   const [data, setData] = React.useState({
     name: "",
     password: "",
@@ -70,6 +70,7 @@ const RegistrationForm = (props) => {
   const validate = () => {
     const errors = validator(data, validatorConfig);
     setError(errors);
+
     return Object.keys(errors).length === 0;
   };
 

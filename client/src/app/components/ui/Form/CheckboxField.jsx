@@ -12,12 +12,12 @@ const CheckBoxField = ({ error, value, onChange, children, name }) => {
         checked={value}
         type="checkbox"
         className={
-          error ? "form-check-input is-invalid" : "form-check-input is-valid"
+          error ? "custom-control-input is-invalid" : "custom-control-input is-valid"
         }
         id={name}
         value=""
       />
-      <label className="form-check-label" htmlFor={name}>
+      <label className="custom-control-label" htmlFor={name}>
         {children}
       </label>
       {error && <div className="invalid-feedback">{error}</div>}

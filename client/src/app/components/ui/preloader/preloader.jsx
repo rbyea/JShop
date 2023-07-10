@@ -1,12 +1,12 @@
 import React from "react";
-import "./preloader.css";
+import styles from "./preloader.module.scss";
 
 const Preloader = (props) => {
   return (
-    <div className="preloader-wrapper">
-      <div className="pswp__preloader__icn">
-        <div className="pswp__preloader__cut">
-          <div className="pswp__preloader__donut"></div>
+    <div className={styles.preloaderWrapper}>
+      <div className={styles.pswpPreloaderIcn}>
+        <div className={styles.pswpPreloaderCut}>
+          <div className={styles.pswpPreloaderDonut}></div>
         </div>
       </div>
     </div>

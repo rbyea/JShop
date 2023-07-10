@@ -1,12 +1,12 @@
-.pswp__preloader__icn {
-  opacity:0.75;
+.pswpPreloaderIcn {
+  opacity: 0.75;
   width: 30px;
   height: 30px;
   -webkit-animation: clockwise 500ms linear infinite;
   animation: clockwise 500ms linear infinite;
 }
 
-.pswp__preloader__cut {
+.pswpPreloaderCut {
   position: relative;
   width: 15px;
   height: 30px;
@@ -16,23 +16,23 @@
   left: 0;
 }
 
-.pswp__preloader__donut--fake {
+.pswpPreloaderDonutFake {
   box-sizing: border-box;
   width: 30px;
-	height: 30px;
+  height: 30px;
   border: 2px solid red;
   border-radius: 50%;
   position: absolute;
   top: 0;
   left: 0;
-	background: none;
-	margin:0;
+  background: none;
+  margin: 0;
 }
 
-.pswp__preloader__donut {
+.pswpPreloaderDonut {
   box-sizing: border-box;
   width: 30px;
-	height: 30px;
+  height: 30px;
   border: 2px solid #FFF;
   border-radius: 50%;
   border-left-color: transparent;
@@ -40,34 +40,63 @@
   position: absolute;
   top: 0;
   left: 0;
-	position: absolute;
+  position: absolute;
   top: 0;
   left: 0;
-	background: none;
-	margin:0;
-  animation: donut-rotate 1000ms cubic-bezier(.4,0,.22,1) infinite;
+  background: none;
+  margin: 0;
+  animation: donut-rotate 1000ms cubic-bezier(.4, 0, .22, 1) infinite;
 }
 
 @-webkit-keyframes clockwise {
-  0% { -webkit-transform: rotate(0deg) }
-  100% { -webkit-transform: rotate(360deg) }
-}
-@keyframes clockwise {
-  0% { transform: rotate(0deg) }
-  100% { transform: rotate(360deg) }
-}
-@-webkit-keyframes donut-rotate {
-  0% { -webkit-transform: rotate(0) }
-  50% { -webkit-transform: rotate(-140deg) }
-  100% { -webkit-transform: rotate(0) }
-}
-@keyframes donut-rotate {
-  0% { transform: rotate(0) }
-  50% { transform: rotate(-140deg) }
-  100% { transform: rotate(0) }
+  0% {
+    -webkit-transform: rotate(0deg)
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg)
+  }
 }
 
-.preloader-wrapper {
+@keyframes clockwise {
+  0% {
+    transform: rotate(0deg)
+  }
+
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
+@-webkit-keyframes donut-rotate {
+  0% {
+    -webkit-transform: rotate(0)
+  }
+
+  50% {
+    -webkit-transform: rotate(-140deg)
+  }
+
+  100% {
+    -webkit-transform: rotate(0)
+  }
+}
+
+@keyframes donut-rotate {
+  0% {
+    transform: rotate(0)
+  }
+
+  50% {
+    transform: rotate(-140deg)
+  }
+
+  100% {
+    transform: rotate(0)
+  }
+}
+
+.preloaderWrapper {
   position: fixed;
   background-color: #000000d6;
   left: 0;

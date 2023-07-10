@@ -2,8 +2,13 @@ import React from "react";
 // import styles from "./Registration.module.scss";
 import InputField from "../Form/InputField";
 import { validator } from "../../../utils/validator";
+import { getLoadingForm, login } from "../../../store/usersSlice";
+import { useDispatch, useSelector } from "react-redux";
+import Preloader from "../preloader/preloader";
 
 const LoginForm = (props) => {
+  const dispatch = useDispatch();
+  const loadingJoin = useSelector(getLoadingForm());
   const [data, setData] = React.useState({
     password: "",
     email: ""
@@ -47,39 +52,44 @@ const LoginForm = (props) => {
 
   const onSubmitForm = (e) => {
     e.preventDefault();
+    const redirect = "/";
 
-    console.log(data);
+    dispatch(login({ payload: data, redirect }));
   };
 
   return (
-    <form onSubmit={onSubmitForm}>
-      <InputField
-        error={error.email}
-        type="email"
-        title="Почта"
-        value={data.email}
-        name="email"
-        onChange={handleChange}
-      />
-      <InputField
-        error={error.password}
-        type="password"
-        title="Пароль"
-        value={data.password}
-        name="password"
-        onChange={handleChange}
-      />
+    <>
+      {loadingJoin && <Preloader />}
 
-      <div className="text-center mt-3 border-bottom">
-        <button
-          disabled={!isValid}
-          className="btn btn-warning btn-lg btn-block"
-          type="submit"
-        >
-          Войти
-        </button>
-      </div>
-    </form>
+      <form onSubmit={onSubmitForm}>
+        <InputField
+          error={error.email}
+          type="email"
+          title="Почта"
+          value={data.email}
+          name="email"
+          onChange={handleChange}
+        />
+        <InputField
+          error={error.password}
+          type="password"
+          title="Пароль"
+          value={data.password}
+          name="password"
+          onChange={handleChange}
+        />
+
+        <div className="text-center mt-3 border-bottom">
+          <button
+            disabled={!isValid}
+            className="btn btn-warning btn-lg btn-block"
+            type="submit"
+          >
+            Войти
+          </button>
+        </div>
+      </form>
+    </>
   );
 };
 

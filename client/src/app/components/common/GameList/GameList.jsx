@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import {
   getLoadingStatusGames,
-  getReceiptsGames,
+  // getReceiptsGames,
   getTopSalesGames
 } from "../../../store/gamesSlice";
 import GameListCard from "./GameListCard";
@@ -14,21 +14,13 @@ const GameList = ({ title, guid }) => {
 
   const loadingGames = useSelector(getLoadingStatusGames());
   const topSalesGames = useSelector(getTopSalesGames);
-  const receiptsGames = useSelector(getReceiptsGames);
+  // const receiptsGames = useSelector(getReceiptsGames);
+
+  if (loadingGames) return "Загрузка...";
 
   React.useEffect(() => {
-    switch (guid) {
-      case "leader":
-        setData(topSalesGames || []);
-        break;
-      case "new":
-        setData(receiptsGames || []);
-        break;
-      default:
-        break;
-    }
+    setData(topSalesGames);
   }, []);
-  if (loadingGames) return "Загрузка...";
 
   return (
     <section className="pb-5">

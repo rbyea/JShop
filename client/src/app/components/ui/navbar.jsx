@@ -8,11 +8,13 @@ import {
   getTotalPrice
 } from "../../store/basketSlice";
 import { useSelector } from "react-redux";
+import { getIsLoggedIn } from "../../store/usersSlice";
 
 const Navbar = () => {
   const listBasket = useSelector(getListBasket());
   const basketLength = useSelector(getLengthBasket());
   const basketTotalPrice = useSelector(getTotalPrice());
+  const isLoggetIn = useSelector(getIsLoggedIn());
 
   React.useEffect(() => {
     const jsonGamesCount = JSON.stringify(listBasket);
@@ -20,6 +22,7 @@ const Navbar = () => {
     localStorage.setItem("basketGames", jsonGamesCount);
     localStorage.setItem("basketTotalPrice", jsonTotalPrice);
   }, [listBasket, basketTotalPrice]);
+
   return (
     <>
       <ul className="navbar-nav ml-auto d-flex align-items-center">
@@ -33,13 +36,16 @@ const Navbar = () => {
             Новости
           </Link>
         </li>
-        <li className="nav-item dropdown no-arrow mx-1 osahan-list-dropdown">
-          <Link className="nav-link dropdown-toggle" to="/favorite">
-            <FaRegHeart />
+        {isLoggetIn && (
+          <li className="nav-item dropdown no-arrow mx-1 osahan-list-dropdown">
+            <Link className="nav-link dropdown-toggle" to="/favorite">
+              <FaRegHeart />
 
-            <span className="badge badge-danger badge-counter">8</span>
-          </Link>
-        </li>
+              <span className="badge badge-danger badge-counter">8</span>
+            </Link>
+          </li>
+        )}
+
         <li className="nav-item dropdown no-arrow mx-1 osahan-list-dropdown">
           <Link className="nav-link dropdown-toggle" to="/basket">
             <FaShoppingBasket />
@@ -52,7 +58,14 @@ const Navbar = () => {
           </Link>
         </li>
 
-        <NavProfile />
+        {!isLoggetIn && (
+          <li className="nav-item dropdown mr-2">
+            <Link className="nav-link pr-0" to="/login">
+              Вход
+            </Link>
+          </li>
+        )}
+        {isLoggetIn && <NavProfile />}
       </ul>
     </>
   );
