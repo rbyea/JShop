@@ -30,6 +30,7 @@ function transformData(data) {
 http.interceptors.response.use(
   (res) => {
     if (configFire.isFireBase) {
+      console.log("res.data", res.data);
       res.data = { content: transformData(res.data) };
     }
     return res;

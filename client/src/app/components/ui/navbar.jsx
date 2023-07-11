@@ -37,26 +37,27 @@ const Navbar = () => {
           </Link>
         </li>
         {isLoggetIn && (
-          <li className="nav-item dropdown no-arrow mx-1 osahan-list-dropdown">
-            <Link className="nav-link dropdown-toggle" to="/favorite">
-              <FaRegHeart />
+          <>
+            <li className="nav-item dropdown no-arrow mx-1 osahan-list-dropdown">
+              <Link className="nav-link dropdown-toggle" to="/favorite">
+                <FaRegHeart />
 
-              <span className="badge badge-danger badge-counter">8</span>
-            </Link>
-          </li>
+                <span className="badge badge-danger badge-counter">8</span>
+              </Link>
+            </li>
+            <li className="nav-item dropdown no-arrow mx-1 osahan-list-dropdown">
+              <Link className="nav-link dropdown-toggle" to="/basket">
+                <FaShoppingBasket />
+
+                {basketLength > 0 && (
+                  <span className="badge badge-info badge-counter">
+                    {basketLength}
+                  </span>
+                )}
+              </Link>
+            </li>
+          </>
         )}
-
-        <li className="nav-item dropdown no-arrow mx-1 osahan-list-dropdown">
-          <Link className="nav-link dropdown-toggle" to="/basket">
-            <FaShoppingBasket />
-
-            {basketLength > 0 && (
-              <span className="badge badge-info badge-counter">
-                {basketLength}
-              </span>
-            )}
-          </Link>
-        </li>
 
         {!isLoggetIn && (
           <li className="nav-item dropdown mr-2">

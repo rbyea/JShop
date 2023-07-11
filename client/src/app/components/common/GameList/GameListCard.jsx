@@ -32,7 +32,7 @@ const GameListCard = ({
                   >
                     -{discount}%
                   </div>
-                  <s className="text-white-50 mx-1">{price} руб.</s>
+                  <del className="text-white-50 mx-1">{price} руб.</del>
                 </>
               )}
 

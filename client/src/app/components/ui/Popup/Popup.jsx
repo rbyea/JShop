@@ -20,7 +20,7 @@ const Popup = ({
         <div className="modal-content bg-dark">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">
-              {title}
+              {!visibleDescription ? title : "Товар уже добавлен!"}
             </h5>
             <button
               type="button"
@@ -31,8 +31,9 @@ const Popup = ({
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div className="modal-body">
-            {!visibleDescription ? (
+
+          {!visibleDescription ? (
+            <div className="modal-body">
               <ul className="list-group list-group-horizontal">
                 <li className="list-group-item flex-fill">
                   {" "}
@@ -44,10 +45,10 @@ const Popup = ({
                     discountFunc(gameObj.price, gameObj.discount)}
                 </li>
               </ul>
-            ) : (
-              "Товар уже добавлен"
-            )}
-          </div>
+            </div>
+          ) : (
+            ""
+          )}
           <div className="modal-footer">
             <button
               type="button"

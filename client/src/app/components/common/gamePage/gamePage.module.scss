@@ -1,0 +1,15 @@
+.priceWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.btnWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  i {
+    line-height: 1;
+  }
+}
