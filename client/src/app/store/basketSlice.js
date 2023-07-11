@@ -16,6 +16,14 @@ const basketSlice = createSlice({
     basketRequested: (state) => {
       state.isLoading = true;
     },
+    basketReceived: (state, action) => {
+      state.entities = action.payload;
+      state.isLoading = false;
+      state.totalPrice = state.entities.reduce((sum, obj) => {
+        const discountGame = obj.price - discountFunc(obj.price, obj.discount);
+        return discountGame * obj.count + sum;
+      }, 0);
+    },
     basketRequestFailed: (state, action) => {
       state.isLoading = true;
       state.error = action.payload;
@@ -39,11 +47,10 @@ const basketSlice = createSlice({
       state.isLoading = false;
     },
     increment: (state, action) => {
-      const countGame = state.entities.find(
-        (obj) => obj.gameId === action.payload
-      );
-      if (countGame) {
-        countGame.count++;
+      const game = state.entities.find((obj) => obj.gameId === action.payload);
+      if (game) {
+        game.count++;
+        updateFirebaseBasket(game);
       }
 
       state.totalPrice = state.entities.reduce((sum, obj) => {
@@ -53,12 +60,12 @@ const basketSlice = createSlice({
       state.isLoading = false;
     },
     decrement: (state, action) => {
-      const countGame = state.entities.find(
-        (obj) => obj.gameId === action.payload
-      );
-      if (countGame) {
-        countGame.count--;
+      const game = state.entities.find((obj) => obj.gameId === action.payload);
+      if (game && game.count > 0) {
+        game.count--;
+        updateFirebaseBasket(game);
       }
+
       state.totalPrice = state.entities.reduce((sum, obj) => {
         const discountGame = obj.price - discountFunc(obj.price, obj.discount);
         return discountGame * obj.count + sum;
@@ -91,22 +98,42 @@ const {
   decrement,
   remove,
   clear,
+  basketReceived,
   basketRequested,
   basketRequestFailed
 } = actions;
+
+const updateFirebaseBasket = async (game) => {
+  try {
+    await basketService.updateBasket(game);
+  } catch (error) {
+    console.log("Ошибка при обновлении корзины в Firebase:", error);
+  }
+};
+
+export const loadListBasket = (userId) => async (dispatch) => {
+  dispatch(basketRequested());
+  try {
+    const { content } = await basketService.getBasketGames(userId);
+    console.log("content", content);
+    dispatch(basketReceived(content));
+  } catch (error) {
+    dispatch(basketRequestFailed(error.message));
+  }
+};
 
 export const addGameInBasket = (obj) => async (dispatch) => {
   dispatch(basketRequested());
   try {
     const { content } = await basketService.create(obj);
-    console.log(content);
+    console.log("content", content);
     dispatch(setAddGame(content));
   } catch (error) {
     dispatch(basketRequestFailed(error.message));
   }
 };
 
-export const incrementGame = (gameId) => (dispatch) => {
+export const incrementGame = (gameId) => async (dispatch) => {
   dispatch(increment(gameId));
 };
 

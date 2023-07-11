@@ -2,13 +2,18 @@ import React from "react";
 // import styles from "./Registration.module.scss";
 import InputField from "../Form/InputField";
 import { validator } from "../../../utils/validator";
-import { getLoadingForm, login } from "../../../store/usersSlice";
+import {
+  getLoadingForm,
+  getLoginAuthError,
+  login
+} from "../../../store/usersSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Preloader from "../preloader/preloader";
 
 const LoginForm = (props) => {
   const dispatch = useDispatch();
   const loadingJoin = useSelector(getLoadingForm());
+  const enterError = useSelector(getLoginAuthError());
   const [data, setData] = React.useState({
     password: "",
     email: ""
@@ -78,6 +83,7 @@ const LoginForm = (props) => {
           name="password"
           onChange={handleChange}
         />
+        {enterError && <p className="errorAuth">{enterError}</p>}
 
         <div className="text-center mt-3 border-bottom">
           <button

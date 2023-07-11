@@ -4,24 +4,28 @@ import NavProfile from "./NavProfile";
 import { FaRegHeart, FaShoppingBasket } from "react-icons/fa";
 import {
   getLengthBasket,
-  getListBasket,
-  getTotalPrice
+  // getListBasket,
+  // getTotalPrice,
+  loadListBasket
 } from "../../store/basketSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getIsLoggedIn } from "../../store/usersSlice";
+import localStorageService from "../../services/localStorage.service";
+import { loadFavoriteList } from "../../store/favoriteSlice";
 
 const Navbar = () => {
-  const listBasket = useSelector(getListBasket());
+  // const listBasket = useSelector(getListBasket());
   const basketLength = useSelector(getLengthBasket());
-  const basketTotalPrice = useSelector(getTotalPrice());
+  // const basketTotalPrice = useSelector(getTotalPrice());
   const isLoggetIn = useSelector(getIsLoggedIn());
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
-    const jsonGamesCount = JSON.stringify(listBasket);
-    const jsonTotalPrice = JSON.stringify(basketTotalPrice);
-    localStorage.setItem("basketGames", jsonGamesCount);
-    localStorage.setItem("basketTotalPrice", jsonTotalPrice);
-  }, [listBasket, basketTotalPrice]);
+    if (isLoggetIn) {
+      dispatch(loadListBasket(localStorageService.getLocalIdKey()));
+      dispatch(loadFavoriteList(localStorageService.getLocalIdKey()));
+    }
+  }, [isLoggetIn]);
 
   return (
     <>

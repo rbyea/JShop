@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Popup from "../../ui/Popup/Popup";
 import styles from "./gamePage.module.scss";
-import { discountFunc } from "../../../utils/discountFunc";
 import {
   FaRegHeart,
   FaShoppingBasket,
@@ -20,6 +19,9 @@ import {
 import { getIsLoggedIn } from "../../../store/usersSlice";
 import { toast } from "react-toastify";
 import { getLocalIdKey } from "../../../services/localStorage.service";
+import { nanoid } from "nanoid";
+import Price from "../../ui/price";
+import { createFavorite } from "../../../store/favoriteSlice";
 
 const GamePageArticle = () => {
   const dispatch = useDispatch();
@@ -60,20 +62,44 @@ const GamePageArticle = () => {
     };
   }, []);
 
-  const addGame = (e) => {
+  const addGameFavorite = (e) => {
+    e.preventDefault();
+    if (isLoggetIn) {
+      const initialItem = {
+        _id: nanoid(),
+        gameId: gamePage._id,
+        userId: getLocalIdKey(),
+        discount: gamePage.discount,
+        title: gamePage.title,
+        price: gamePage.price,
+        picture: gamePage.picture
+      };
+
+      console.log(initialItem);
+
+      dispatch(createFavorite(initialItem));
+      toast.success("Игра добавлена в избранное!", {
+        autoClose: 3000,
+        theme: "dark"
+      });
+    }
+  };
+
+  const addGameBasket = (e) => {
     e.preventDefault();
     if (isLoggetIn) {
       if (!searchGameBasket) {
         const initialItem = {
-          _id: gamePage._id,
+          _id: nanoid(),
+          gameId: gamePage._id,
           userId: getLocalIdKey(),
           discount: gamePage.discount,
           title: gamePage.title,
           price: gamePage.price,
-          picture: gamePage.picture
+          picture: gamePage.picture,
+          count: 1
         };
 
-        console.log(initialItem);
         dispatch(addGameInBasket(initialItem));
         setVisibleModal(true);
       } else {
@@ -97,27 +123,15 @@ const GamePageArticle = () => {
           </div>
           <h3 className="mt-4 mb-3">{gamePage.title}</h3>
           <div className={styles.priceWrapper}>
-            {Number(gamePage.discount) !== 0 && (
-              <>
-                <div
-                  className={`${
-                    Number(gamePage.discount) > 20 ? "bg-danger" : "bg-primary"
-                  }  d-inline-block text-center px-2 py-1 text-white`}
-                >
-                  -{gamePage.discount}%
-                </div>
-                <del className="text-white-50 mx-1">{gamePage.price} руб.</del>
-              </>
-            )}
-
-            <span className="text-white">
-              {gamePage.price - discountFunc(gamePage.price, gamePage.discount)}{" "}
-              руб.
-            </span>
+            <Price discount={gamePage.discount} price={gamePage.price} />
           </div>
 
           <div className="d-flex mb-4">
-            <a href="#" className="btn btn-danger col-8">
+            <a
+              href="#"
+              onClick={(e) => addGameFavorite(e)}
+              className="btn btn-danger col-8"
+            >
               <span className={styles.btnWrapper}>
                 <i className="feather-heart mr-1">
                   <FaRegHeart />
@@ -127,7 +141,7 @@ const GamePageArticle = () => {
             </a>
             <a
               href="#"
-              onClick={(e) => addGame(e)}
+              onClick={(e) => addGameBasket(e)}
               className="btn btn-warning col-4 px-2"
             >
               <span className={styles.btnWrapper}>

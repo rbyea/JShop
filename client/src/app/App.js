@@ -12,7 +12,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "./components/layouts/login";
 import ProtectedRoute from "./components/ui/protectedRoute";
-import PersonalAccount from "./components/layouts/personalAccout";
+import PersonalAccount from "./components/layouts/personalAccount";
 // import useMockData from "./utils/mockData";
 
 function App() {

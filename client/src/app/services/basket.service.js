@@ -13,6 +13,15 @@ const basketService = {
     );
     return data;
   },
+  getBasketGames: async (userId) => {
+    const { data } = await httpService.get(basketEndPoint, {
+      params: {
+        orderBy: '"userId"',
+        equalTo: `"${userId}"`
+      }
+    });
+    return data;
+  },
   updateBasket: async (payload) => {
     const { data } = await httpService.patch(
       basketEndPoint + payload._id,

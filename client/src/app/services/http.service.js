@@ -1,5 +1,7 @@
 import axios from "axios";
 import configFire from "../config.json";
+import localStorageService from "./localStorage.service";
+import authService from "./auth.service";
 
 const http = axios.create({
   baseURL: configFire.apiEndPoint
@@ -7,15 +9,31 @@ const http = axios.create({
 
 http.interceptors.request.use(
   async function (config) {
-      if (configFire.isFireBase) {
-          const containSlash = /\/$/gi.test(config.url);
-          config.url =
-              (containSlash ? config.url.slice(0, -1) : config.url) + ".json";
+    if (configFire.isFireBase) {
+      const containSlash = /\/$/gi.test(config.url);
+      config.url =
+        (containSlash ? config.url.slice(0, -1) : config.url) + ".json";
+      const expiresDate = localStorageService.getExpiresKey();
+      const refreshToken = localStorageService.getRefreshKey();
+      if (refreshToken && expiresDate > Date.now()) {
+        const data = await authService.refresh();
+
+        localStorageService.setTokens({
+          refreshToken: data.refresh_token,
+          idToken: data.id_token,
+          localId: data.user_id,
+          expiresIn: data.expires_in
+        });
       }
-      return config;
+      const accessToken = localStorageService.getTokenKey();
+      if (accessToken) {
+        config.params = { ...config.params, auth: accessToken };
+      }
+    }
+    return config;
   },
   function (error) {
-      return Promise.reject(error);
+    return Promise.reject(error);
   }
 );
 
@@ -30,7 +48,6 @@ function transformData(data) {
 http.interceptors.response.use(
   (res) => {
     if (configFire.isFireBase) {
-      console.log("res.data", res.data);
       res.data = { content: transformData(res.data) };
     }
     return res;

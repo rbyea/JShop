@@ -264,3 +264,7 @@
   pointer-events: none;
   opacity: 0.4;
 }
+
+.errorAuth {
+  color: #dc3545
+}

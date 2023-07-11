@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
 import { getCurrentUserId } from "../../store/usersSlice";
 import UsersLoader from "../ui/hoc/userLoader";
-import UserPage from "../common/page/UserPage";
-import ArticlePage from "../common/page/ArticlePage";
-import RefreshUser from "../common/page/RefreshUser";
-import FavoritePage from "../common/page/FavoritePage";
+import UserPage from "../common/Account/UserPage";
+import ArticlePage from "../common/Account/ArticlePage";
+import RefreshUser from "../common/Account/RefreshUser";
+import FavoritePage from "../common/Account/FavoritePage";
 
 const PersonalAccount = (props) => {
   const { userId, edit } = useParams();

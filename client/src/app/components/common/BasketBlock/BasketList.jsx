@@ -15,7 +15,6 @@ import styles from "./BasketBlock.module.scss";
 
 const BasketList = ({ listBasket }) => {
   const dispatch = useDispatch();
-
   const handleIncrementGame = (gameId) => {
     dispatch(incrementGame(gameId));
   };

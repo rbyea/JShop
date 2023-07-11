@@ -35,6 +35,7 @@ const usersSlice = createSlice({
     usersRequestFailed: (state, action) => {
       state.isLoading = true;
       state.error = action.payload;
+      state.isLoadingReg = true;
     },
     usersReceived: (state, action) => {
       state.entities = action.payload;
@@ -48,6 +49,7 @@ const usersSlice = createSlice({
     },
     authRequestFailed: (state, action) => {
       state.error = action.payload;
+      state.isLoadingReg = false;
     },
     userCreated: (state, action) => {
       if (!Array.isArray(state.entities)) {
@@ -168,5 +170,6 @@ export const getCurrentUser = (payload) => (state) => {
     : null;
 };
 export const getCurrentUserId = () => (state) => state.users.auth.userId;
+export const getLoginAuthError = () => (state) => state.users.error;
 
 export default usersReducer;
