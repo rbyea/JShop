@@ -26,7 +26,6 @@ import { createFavorite } from "../../../store/favoriteSlice";
 const GamePageArticle = () => {
   const dispatch = useDispatch();
   const { gameId } = useParams();
-
   const searchGameBasket = useSelector(searchGameInBasket(gameId));
   const isLoggetIn = useSelector(getIsLoggedIn());
 

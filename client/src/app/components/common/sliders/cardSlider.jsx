@@ -13,6 +13,7 @@ import { getSliderGame } from "../../../store/sliderCardSlice";
 
 const CardSlider = () => {
   const { gameId } = useParams();
+
   const getPictures = useSelector((state) => getSliderGame(state, gameId));
 
   const sliderRef = React.useRef(null);

@@ -22,6 +22,8 @@ const GameList = ({ title, guid }) => {
     setData(topSalesGames);
   }, []);
 
+  console.log(data);
+
   return (
     <section className="pb-5">
       <div className="container">

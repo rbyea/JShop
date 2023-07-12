@@ -43,11 +43,15 @@ const getSliderCardPictures = (state) => state.sliderCard.entities;
 const getGameIdSliderCard = (_, id) => id;
 
 export const getSliderCardList = () => (state) => state.sliderCard.entities;
-export const getLoadingSliderCardStatus = () => (state) => state.sliderCard.isLoading;
+export const getLoadingSliderCardStatus = () => (state) =>
+  state.sliderCard.isLoading;
 
 export const getSliderGame = createSelector(
   [getSliderCardPictures, getGameIdSliderCard],
   (sliderCard, id) => {
+    console.log("sliderCard", sliderCard);
+    console.log("id", id);
+
     return sliderCard ? sliderCard.find((slide) => slide.gameId === id) : null;
   }
 );

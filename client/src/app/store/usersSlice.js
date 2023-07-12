@@ -51,13 +51,6 @@ const usersSlice = createSlice({
       state.error = action.payload;
       state.isLoadingReg = false;
     },
-    userCreated: (state, action) => {
-      if (!Array.isArray(state.entities)) {
-        state.entities = [];
-      }
-      state.entities.push(action.payload);
-      state.isLoadingReg = false;
-    },
     userRequestedForm: (state) => {
       state.isLoadingReg = true;
     },
@@ -78,42 +71,19 @@ const {
   authRequestSuccess,
   userRequestedForm,
   authRequestFailed,
-  userCreated,
   userLogOut
 } = actions;
 
 const authRequested = createAction("users/authRequested");
-const createUserFailed = createAction("user/createUserFailed");
-
-function createUser(payload) {
-  return async function (dispatch) {
-    dispatch(userRequestedForm());
-    try {
-      const { content } = await userService.create(payload);
-      dispatch(userCreated(content));
-      history.push("/");
-    } catch (error) {
-      dispatch(createUserFailed(error.message));
-    }
-  };
-}
 
 export const signUp =
-  ({ email, password, ...rest }) =>
+  (payload) =>
   async (dispatch) => {
     dispatch(authRequested());
     try {
-      const data = await authService.register({ email, password });
+      const data = await authService.register(payload);
       localStorageService.setTokens(data);
-      dispatch(authRequestSuccess({ userId: data.localId }));
-      dispatch(
-        createUser({
-          _id: data.localId,
-          email,
-          password,
-          ...rest
-        })
-      );
+      dispatch(authRequestSuccess({ userId: data.userId }));
     } catch (error) {
       dispatch(authRequestFailed(error.message));
     }

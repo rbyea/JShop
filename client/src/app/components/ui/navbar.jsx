@@ -2,30 +2,30 @@ import React from "react";
 import { Link } from "react-router-dom";
 import NavProfile from "./NavProfile";
 import { FaRegHeart, FaShoppingBasket } from "react-icons/fa";
-import {
-  getLengthBasket,
-  // getListBasket,
-  // getTotalPrice,
-  loadListBasket
-} from "../../store/basketSlice";
-import { useDispatch, useSelector } from "react-redux";
+// import {
+//   getLengthBasket,
+//   getListBasket,
+//   getTotalPrice,
+//   loadListBasket
+// } from "../../store/basketSlice";
+import { useSelector } from "react-redux";
 import { getIsLoggedIn } from "../../store/usersSlice";
-import localStorageService from "../../services/localStorage.service";
-import { loadFavoriteList } from "../../store/favoriteSlice";
+// import localStorageService from "../../services/localStorage.service";
+// import { loadFavoriteList } from "../../store/favoriteSlice";
 
 const Navbar = () => {
   // const listBasket = useSelector(getListBasket());
-  const basketLength = useSelector(getLengthBasket());
+  // const basketLength = useSelector(getLengthBasket());
   // const basketTotalPrice = useSelector(getTotalPrice());
   const isLoggetIn = useSelector(getIsLoggedIn());
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    if (isLoggetIn) {
-      dispatch(loadListBasket(localStorageService.getLocalIdKey()));
-      dispatch(loadFavoriteList(localStorageService.getLocalIdKey()));
-    }
-  }, [isLoggetIn]);
+  // React.useEffect(() => {
+  //   if (isLoggetIn) {
+  //     dispatch(loadListBasket(localStorageService.getLocalIdKey()));
+  //     dispatch(loadFavoriteList(localStorageService.getLocalIdKey()));
+  //   }
+  // }, [isLoggetIn]);
 
   return (
     <>
@@ -53,11 +53,11 @@ const Navbar = () => {
               <Link className="nav-link dropdown-toggle" to="/basket">
                 <FaShoppingBasket />
 
-                {basketLength > 0 && (
+                {/* {basketLength > 0 && (
                   <span className="badge badge-info badge-counter">
                     {basketLength}
                   </span>
-                )}
+                )} */}
               </Link>
             </li>
           </>
