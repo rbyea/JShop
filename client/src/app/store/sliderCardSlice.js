@@ -49,9 +49,6 @@ export const getLoadingSliderCardStatus = () => (state) =>
 export const getSliderGame = createSelector(
   [getSliderCardPictures, getGameIdSliderCard],
   (sliderCard, id) => {
-    console.log("sliderCard", sliderCard);
-    console.log("id", id);
-
     return sliderCard ? sliderCard.find((slide) => slide.gameId === id) : null;
   }
 );

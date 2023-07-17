@@ -28,6 +28,15 @@ class TokenService {
     return token;
   }
 
+  validateAccess(accessToken) {
+    try {
+      return jwt.verify(accessToken, config.get("accessSecret"));
+    } catch (error) {
+      return null;
+    }
+  }
+
+
   validateRefresh(refreshToken) {
     try {
       return jwt.verify(refreshToken, config.get("refreshSecret"));

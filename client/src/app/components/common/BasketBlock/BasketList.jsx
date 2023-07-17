@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   basketClear,
   decrementGame,
@@ -12,15 +12,17 @@ import { FaMinusCircle, FaPlusCircle, FaWindowClose } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import styles from "./BasketBlock.module.scss";
+import { getCurrentUserId } from "../../../store/usersSlice";
 
 const BasketList = ({ listBasket }) => {
   const dispatch = useDispatch();
-  const handleIncrementGame = (gameId) => {
-    dispatch(incrementGame(gameId));
+  const currentUserId = useSelector(getCurrentUserId());
+  const handleIncrementGame = (game) => {
+    dispatch(incrementGame(game));
   };
 
-  const handleDecrementGame = (gameId) => {
-    dispatch(decrementGame(gameId));
+  const handleDecrementGame = (game) => {
+    dispatch(decrementGame(game));
   };
 
   const handleRemove = (gameId) => {
@@ -47,7 +49,9 @@ const BasketList = ({ listBasket }) => {
         autoClose: 3000,
         theme: "dark"
       });
-      dispatch(basketClear());
+
+      console.log(currentUserId);
+      dispatch(basketClear(currentUserId));
     }
   };
   return (
@@ -89,7 +93,7 @@ const BasketList = ({ listBasket }) => {
           <div className="basket-right-side__count">
             <a
               href="#"
-              onClick={() => handleDecrementGame(game.gameId)}
+              onClick={() => handleDecrementGame(game)}
               className={`basket-minus ${game.count === 1 ? "disabled" : ""}`}
             >
               <FaMinusCircle />
@@ -97,7 +101,7 @@ const BasketList = ({ listBasket }) => {
             <div className="basket-count">{game.count}</div>
             <a
               href="#"
-              onClick={() => handleIncrementGame(game.gameId)}
+              onClick={() => handleIncrementGame(game)}
               className="basket-plus"
             >
               <FaPlusCircle />
@@ -111,7 +115,7 @@ const BasketList = ({ listBasket }) => {
           <div className="basket-right-side">
             <a
               href="#"
-              onClick={() => handleRemove(game.gameId)}
+              onClick={() => handleRemove(game)}
               className="basket-right-side__delete"
             >
               <FaWindowClose />

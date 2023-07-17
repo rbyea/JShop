@@ -1,14 +1,20 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCurrentUser, logOut } from "../../../store/usersSlice";
+import {
+  getCurrentUser,
+  getLoadingUsersStatus,
+  logOut
+} from "../../../store/usersSlice";
 import { Link, useLocation, useParams } from "react-router-dom";
 import User from "../../../assets/p13.png";
+import Preloader from "../../ui/preloader/preloader";
 
 const ArticlePage = (props) => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const { userId } = useParams();
 
+  const loadingUser = useSelector(getLoadingUsersStatus());
   const currentUser = useSelector(getCurrentUser(userId));
   const exitAcc = () => {
     dispatch(logOut());
@@ -18,6 +24,10 @@ const ArticlePage = (props) => {
     const strPathname = pathname.substring(pathname.lastIndexOf("/") + 1);
     return strPathname === path ? "active" : "";
   };
+
+  console.log(currentUser);
+
+  if (loadingUser) return <Preloader />;
 
   return (
     <div className="col-lg-3">

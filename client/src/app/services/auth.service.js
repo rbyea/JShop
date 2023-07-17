@@ -5,18 +5,13 @@ import config from "../config.json";
 const httpAuth = axios.create({
   baseURL: config.apiEndPoint + "/auth/",
   params: {
-    key: "AIzaSyCWyGreJnQoWfuZqrzykM7b3d1sqD_6xs8"
+    key: process.env.REACT_APP_FIREBASE_KEY
   }
 });
 
 const authService = {
-  register: async ({ email, password, name }) => {
-    const { data } = await httpAuth.post(`signUp`, {
-      name,
-      email,
-      password,
-      returnSecureToken: true
-    });
+  register: async (payload) => {
+    const { data } = await httpAuth.post(`signUp`, payload);
 
     return data;
   },
@@ -31,7 +26,7 @@ const authService = {
   refresh: async () => {
     const { data } = await httpAuth.post("token", {
       grant_type: "refresh_token",
-      refresh_token: localStorageService.getRefreshKey()
+      refresh_token: localStorageService.getRefreshToken()
     });
     return data;
   }

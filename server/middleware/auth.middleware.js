@@ -8,22 +8,19 @@ module.exports = (req, res, next) => {
   try {
     //  Bearer dwklqhdqwlkhdqwl
     const token = req.headers.authorization.split(" ")[1];
+
     if (!token) {
-      return res.status(401).json({ message: "Unauthorized" });
+      return res.status(401).json({ message: "Unauthorized 2" });
     }
-
     const data = tokenService.validateAccess(token);
-
-    console.log("Decoded", data);
-
     if (!data) {
-      return res.status(401).json({ message: "Unauthorized" });
+      return res.status(401).json({ message: "Unauthorized 3" });
     }
 
     req.user = data;
 
     next();
   } catch (error) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Unauthorized 4" });
   }
 };

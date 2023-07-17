@@ -35,8 +35,7 @@ const basketSlice = createSlice({
 
       if (!countItems) {
         state.entities.push({
-          ...action.payload,
-          count: 1
+          ...action.payload
         });
       }
 
@@ -47,7 +46,10 @@ const basketSlice = createSlice({
       state.isLoading = false;
     },
     increment: (state, action) => {
-      const game = state.entities.find((obj) => obj.gameId === action.payload);
+      const game = state.entities.find(
+        (obj) => obj.gameId === action.payload.gameId
+      );
+
       if (game) {
         game.count++;
         updateFirebaseBasket(game);
@@ -60,7 +62,9 @@ const basketSlice = createSlice({
       state.isLoading = false;
     },
     decrement: (state, action) => {
-      const game = state.entities.find((obj) => obj.gameId === action.payload);
+      const game = state.entities.find(
+        (obj) => obj.gameId === action.payload.gameId
+      );
       if (game && game.count > 0) {
         game.count--;
         updateFirebaseBasket(game);
@@ -74,7 +78,7 @@ const basketSlice = createSlice({
     },
     remove: (state, action) => {
       state.entities = state.entities.filter(
-        (game) => game.gameId !== action.payload
+        (game) => game._id !== action.payload._id
       );
       state.totalPrice = state.entities.reduce((sum, obj) => {
         const discountGame = obj.price - discountFunc(obj.price, obj.discount);
@@ -104,10 +108,11 @@ const {
 } = actions;
 
 const updateFirebaseBasket = async (game) => {
+  const gameObj = JSON.parse(JSON.stringify(game));
   try {
-    await basketService.updateBasket(game);
+    await basketService.updateBasket(gameObj);
   } catch (error) {
-    console.log("Ошибка при обновлении корзины в Firebase:", error);
+    console.log("Ошибка при обновлении корзины в MongoDb:", error);
   }
 };
 
@@ -115,7 +120,6 @@ export const loadListBasket = (userId) => async (dispatch) => {
   dispatch(basketRequested());
   try {
     const { content } = await basketService.getBasketGames(userId);
-    console.log("content", content);
     dispatch(basketReceived(content));
   } catch (error) {
     dispatch(basketRequestFailed(error.message));
@@ -133,20 +137,35 @@ export const addGameInBasket = (obj) => async (dispatch) => {
   }
 };
 
-export const incrementGame = (gameId) => async (dispatch) => {
-  dispatch(increment(gameId));
+export const incrementGame = (game) => async (dispatch) => {
+  dispatch(increment(game));
 };
 
-export const decrementGame = (gameId) => (dispatch) => {
-  dispatch(decrement(gameId));
+export const decrementGame = (game) => async (dispatch) => {
+  dispatch(decrement(game));
 };
 
-export const removeGame = (gameId) => (dispatch) => {
-  dispatch(remove(gameId));
+export const removeGame = (game) => async (dispatch) => {
+  try {
+    const { content } = await basketService.removeGame(game);
+    console.log(game);
+    if (!content) {
+      dispatch(remove(game));
+    }
+  } catch (error) {
+    dispatch(basketRequestFailed(error.message));
+  }
 };
 
-export const basketClear = () => (dispatch) => {
-  dispatch(clear());
+export const basketClear = (userId) => async (dispatch) => {
+  try {
+    const { content } = await basketService.removeGame(userId);
+    if (!content) {
+      dispatch(clear());
+    }
+  } catch (error) {
+    dispatch(basketRequestFailed(error.message));
+  }
 };
 
 export const getListBasket = () => (state) => state.basket.entities;

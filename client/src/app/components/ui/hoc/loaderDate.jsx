@@ -18,18 +18,21 @@ import { loadFeaturesList } from "../../../store/featuresSlice";
 import { loadListSpecifications } from "../../../store/specificationSlice";
 import { loadSliderCardList } from "../../../store/sliderCardSlice";
 import {
+  getCurrentUserId,
   getIsLoggedIn,
   // getLoadingUsersStatus,
   loadUsersList
 } from "../../../store/usersSlice";
+import { loadListBasket } from "../../../store/basketSlice";
 
 const loaderDate = ({ children }) => {
   const dispatch = useDispatch();
   const loadingStatusGames = useSelector(getLoadingStatusGames());
-  const isLoggetIn = useSelector(getIsLoggedIn());
+  const isLoggedIn = useSelector(getIsLoggedIn());
   // const usersStatusLoading = useSelector(getLoadingUsersStatus());
   // const loadingStatusCategories = useSelector(getLoadingStatusCategories());
   // const loadingStatusSlider = useSelector(getLoadingSliderStatus());
+  const currentUserId = useSelector(getCurrentUserId());
 
   React.useEffect(() => {
     dispatch(loadListGames());
@@ -38,10 +41,14 @@ const loaderDate = ({ children }) => {
     dispatch(loadFeaturesList());
     dispatch(loadListSpecifications());
     dispatch(loadSliderCardList());
-    if (isLoggetIn) {
+  }, []);
+
+  React.useEffect(() => {
+    if (isLoggedIn) {
       dispatch(loadUsersList());
+      dispatch(loadListBasket(currentUserId));
     }
-  }, [isLoggetIn]);
+  }, [isLoggedIn]);
 
   if (loadingStatusGames) {
     return <Preloader />;

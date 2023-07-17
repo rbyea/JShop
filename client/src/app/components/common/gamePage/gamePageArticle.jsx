@@ -89,7 +89,7 @@ const GamePageArticle = () => {
     if (isLoggetIn) {
       if (!searchGameBasket) {
         const initialItem = {
-          _id: nanoid(),
+          // _id: nanoid(),
           gameId: gamePage._id,
           userId: getLocalIdKey(),
           discount: gamePage.discount,

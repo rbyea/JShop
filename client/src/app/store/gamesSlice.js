@@ -22,6 +22,31 @@ const gameSlice = createSlice({
     gamesReceived: (state, action) => {
       state.entities = action.payload;
       state.isLoading = false;
+    },
+    filterGames: (state, action) => {
+      const { categoryIds, minPrice, maxPrice } = action.payload;
+      state.entities = state.entities.filter((game) => {
+        let match = true;
+
+        if (categoryIds && categoryIds.length > 0) {
+          const hasMatchingCategory = categoryIds.some((categoryId) =>
+            game.categories.includes(categoryId)
+          );
+          if (!hasMatchingCategory) {
+            match = false;
+          }
+        }
+
+        if (minPrice && game.price < minPrice) {
+          match = false;
+        }
+
+        if (maxPrice && game.price > maxPrice) {
+          match = false;
+        }
+
+        return match;
+      });
     }
   }
 });
@@ -31,13 +56,17 @@ const { actions, reducer: gamesReducer } = gameSlice;
 const { gamesRequested, gamesFailed, gamesReceived } = actions;
 
 export const loadListGames = () => async (dispatch) => {
-  dispatch(gamesRequested);
+  dispatch(gamesRequested());
   try {
     const { content } = await gameService.get();
     dispatch(gamesReceived(content));
   } catch (error) {
     dispatch(gamesFailed(error.message));
   }
+};
+
+export const filterGame = (state) => (dispatch) => {
+  dispatch(filterGame(state));
 };
 
 const getGames = (state) => state.games.entities;

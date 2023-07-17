@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import {
-  getLoadingStatusGames,
+  // getLoadingStatusGames,
   // getReceiptsGames,
   getTopSalesGames
 } from "../../../store/gamesSlice";
@@ -12,17 +12,12 @@ import Button from "../../ui/button";
 const GameList = ({ title, guid }) => {
   const [data, setData] = React.useState([]);
 
-  const loadingGames = useSelector(getLoadingStatusGames());
   const topSalesGames = useSelector(getTopSalesGames);
   // const receiptsGames = useSelector(getReceiptsGames);
-
-  if (loadingGames) return "Загрузка...";
 
   React.useEffect(() => {
     setData(topSalesGames);
   }, []);
-
-  console.log(data);
 
   return (
     <section className="pb-5">
