@@ -15,7 +15,7 @@ const GameListCard = ({
   return (
     <div className="col-lg-3 col-md-6">
       <div className="osahan-card">
-        <Link to={`card/${id}`}>
+        <Link to={`/card/${id}`}>
           <div className="osahan-card__image">
             <img className="img-fluid" src={picture} alt="" />
           </div>

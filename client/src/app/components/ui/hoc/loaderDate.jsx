@@ -25,6 +25,7 @@ import {
 } from "../../../store/usersSlice";
 import { loadListBasket } from "../../../store/basketSlice";
 import { loadListPayment } from "../../../store/paymentSlice";
+import { loadFavoriteList } from "../../../store/favoriteSlice";
 
 const loaderDate = ({ children }) => {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ const loaderDate = ({ children }) => {
       dispatch(loadUsersList());
       dispatch(loadListBasket(currentUserId));
       dispatch(loadListPayment(currentUserId));
+      dispatch(loadFavoriteList(currentUserId));
     }
   }, [isLoggedIn]);
 

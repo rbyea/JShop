@@ -35,8 +35,6 @@ router.patch("/", async (req, res) => {
     const updateGame = await Basket.findByIdAndUpdate(req.body._id, req.body, {
       new: true,
     });
-
-    console.log(updateGame);
     res.send(updateGame);
   } catch (error) {
     res.status(500).json({

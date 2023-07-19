@@ -9,8 +9,8 @@ const favoriteService = {
   getFavoriteGames: async (userId) => {
     const { data } = await httpService.get(favoriteEndPoint, {
       params: {
-        orderBy: '"userId"',
-        equalTo: `"${userId}"`
+        orderBy: "userId",
+        equalTo: `${userId}`
       }
     });
     return data;

@@ -31,7 +31,7 @@ const BasketList = ({ listBasket }) => {
     );
 
     if (confirmDelete) {
-      toast.success("Игра удалена из корзины!", {
+      toast.error("Игра удалена из корзины!", {
         autoClose: 3000,
         theme: "dark"
       });
@@ -45,7 +45,7 @@ const BasketList = ({ listBasket }) => {
     );
 
     if (confirmClear) {
-      toast.success("Корзина очищена!", {
+      toast.error("Корзина очищена!", {
         autoClose: 3000,
         theme: "dark"
       });

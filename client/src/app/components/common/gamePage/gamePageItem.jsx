@@ -2,8 +2,17 @@ import React from "react";
 import CardSlider from "../Sliders/CardSlider";
 import GamePageAbout from "./GamePageAbout";
 import GamePageSpecification from "./GamePageSpecification";
+import { useSelector } from "react-redux";
+import { getFavoriteList } from "../../../store/favoriteSlice";
+import GameListCard from "../GameList/GameListCard";
+import { Link } from "react-router-dom";
+import { getCurrentUserId } from "../../../store/usersSlice";
 
 const GamePageItem = () => {
+  const favoriteList = useSelector(getFavoriteList());
+  const currentUserId = useSelector(getCurrentUserId());
+
+  console.log(favoriteList);
   return (
     <div className="col-lg-9">
       <div className="row">
@@ -25,103 +34,35 @@ const GamePageItem = () => {
               ></iframe>
             </div>
           </div>
+          <GamePageSpecification />
+
           <div className="section-card pt-4" id="offers">
             <div className="d-flex align-item-center title mb-3 mt-4">
-              <h5 className="m-0">Похожие игры</h5>
-              <a
-                href="coupons.html"
+              <h5 className="m-0">Избранные игры</h5>
+              <Link
+                to={`/account/${currentUserId}/favorite`}
                 className="btn btn-sm btn-outline-light ml-auto"
               >
-                VIEW MORE
-              </a>
+                Смотреть все
+              </Link>
             </div>
             <div className="row">
-              <div className="col-lg-6">
-                <div className="osahan-card">
-                  <a href="store-single.html">
-                    <img
-                      className="img-fluid"
-                      src="https://askbootstrap.com/preview/jarda/img/slider/1.jpg"
-                      alt=""
-                    />
-                    <div className="bg-primary text-center p-1 text-white">
-                      COUPON CODE - 2020COUPON
-                    </div>
-                    <div className="osahan-card-body mt-3">
-                      <h6 className="text-white mb-1">Pathway</h6>
-                      <p className="m-0 text-white-50">
-                        Free Now - Jun 25 at 08:30 PM
-                      </p>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div className="col-lg-6">
-                <div className="osahan-card">
-                  <a href="store-single.html">
-                    <img
-                      className="img-fluid"
-                      src="https://askbootstrap.com/preview/jarda/img/slider/2.png"
-                      alt=""
-                    />
-                    <div className="bg-primary text-center p-1 text-white">
-                      COUPON CODE - 2020COUPON
-                    </div>
-                    <div className="osahan-card-body mt-3">
-                      <h6 className="text-white mb-1">AER Memories of Old</h6>
-                      <p className="m-0 text-white-50">
-                        Free Now - Jun 25 at 08:30 PM
-                      </p>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div className="col-lg-6">
-                <div className="osahan-card">
-                  <a href="store-single.html">
-                    <img
-                      className="img-fluid"
-                      src="https://askbootstrap.com/preview/jarda/img/slider/3.jpg"
-                      alt=""
-                    />
-                    <div className="bg-primary text-center p-1 text-white">
-                      COUPON CODE - 2020COUPON
-                    </div>
-                    <div className="osahan-card-body mt-3">
-                      <h6 className="text-white mb-1">
-                        Stranger Things 3: The Game
-                      </h6>
-                      <p className="m-0 text-white-50">
-                        Free Now - Jun 25 at 08:30 PM
-                      </p>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div className="col-lg-6">
-                <div className="osahan-card">
-                  <a href="store-single.html">
-                    <img
-                      className="img-fluid"
-                      src="https://askbootstrap.com/preview/jarda/img/slider/5.jpg"
-                      alt=""
-                    />
-                    <div className="bg-primary text-center p-1 text-white">
-                      COUPON CODE - 2020COUPON
-                    </div>
-                    <div className="osahan-card-body mt-3">
-                      <h6 className="text-white mb-1">Pathway</h6>
-                      <p className="m-0 text-white-50">
-                        Free Now - Jun 25 at 08:30 PM
-                      </p>
-                    </div>
-                  </a>
-                </div>
-              </div>
+              {favoriteList.length > 0 ? (
+                favoriteList.map((game) => (
+                  <GameListCard
+                    key={game._id}
+                    title={game.title}
+                    discount={game.discount}
+                    price={game.price}
+                    picture={game.picture}
+                    _id={game.gameId}
+                  />
+                ))
+              ) : (
+                <div className="col-md-6">Пусто</div>
+              )}
             </div>
           </div>
-
-          <GamePageSpecification />
         </div>
       </div>
     </div>

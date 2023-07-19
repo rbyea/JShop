@@ -2,7 +2,6 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Main from "./components/layouts/main";
 import Header from "./components/common/Header/Header";
-
 import LoaderDate from "./components/ui/hoc/loaderDate";
 import Catalog from "./components/layouts/catalog";
 import Card from "./components/layouts/card";
@@ -13,15 +12,9 @@ import "react-toastify/dist/ReactToastify.css";
 import Login from "./components/layouts/login";
 import ProtectedRoute from "./components/ui/protectedRoute";
 import PersonalAccount from "./components/layouts/personalAccount";
-// import UsersLoader from "./components/ui/hoc/userLoader";
-// import useMockData from "./utils/mockData";
+import NotFound from "./components/layouts/NotFound";
 
 function App() {
-  // const { initialData } = useMockData();
-  // React.useEffect(() => {
-  //   initialData();
-  // }, []);
-
   return (
     <LoaderDate>
       <Header />
@@ -30,11 +23,12 @@ function App() {
         <Route path="/basket" component={Basket} />
         <Route path="/login/:type?" component={Login} />
         <Route path="/card/:gameId" component={Card} />
-        <Route exact path="/" component={Main} />
         <ProtectedRoute
           path="/account/:userId?/:edit?"
           component={PersonalAccount}
         />
+        <Route exact path="/" component={Main} />
+        <Route path="*" component={NotFound} />
       </Switch>
       <ToastContainer />
       <Footer />

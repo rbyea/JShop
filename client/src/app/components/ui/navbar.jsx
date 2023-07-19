@@ -4,11 +4,14 @@ import NavProfile from "./NavProfile";
 import { FaRegHeart, FaShoppingBasket } from "react-icons/fa";
 import { getLengthBasket } from "../../store/basketSlice";
 import { useSelector } from "react-redux";
-import { getIsLoggedIn } from "../../store/usersSlice";
+import { getCurrentUserId, getIsLoggedIn } from "../../store/usersSlice";
+import { getFavoriteLength } from "../../store/favoriteSlice";
 
 const Navbar = () => {
   const basketLength = useSelector(getLengthBasket());
   const isLoggedIn = useSelector(getIsLoggedIn());
+  const favoriteLength = useSelector(getFavoriteLength());
+  const currentUserId = useSelector(getCurrentUserId());
 
   return (
     <>
@@ -26,10 +29,16 @@ const Navbar = () => {
         {isLoggedIn && (
           <>
             <li className="nav-item dropdown no-arrow mx-1 osahan-list-dropdown">
-              <Link className="nav-link dropdown-toggle" to="/favorite">
+              <Link
+                className="nav-link dropdown-toggle"
+                to={`/account/${currentUserId}/favorite`}
+              >
                 <FaRegHeart />
-
-                <span className="badge badge-danger badge-counter">8</span>
+                {favoriteLength > 0 && (
+                  <span className="badge badge-danger badge-counter">
+                    {favoriteLength}
+                  </span>
+                )}
               </Link>
             </li>
             <li className="nav-item dropdown no-arrow mx-1 osahan-list-dropdown">

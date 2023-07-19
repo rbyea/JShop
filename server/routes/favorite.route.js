@@ -18,7 +18,7 @@ router
   })
   .post(auth, async (req, res) => {
     try {
-      const newItem = await Payment.create({
+      const newItem = await Favorite.create({
         ...req.body,
         userId: req.user._id,
       });

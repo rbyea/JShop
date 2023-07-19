@@ -68,11 +68,10 @@ export const createFavorite = (payload) => async (dispatch) => {
 
 export const deleteFavorite = (favoriteId) => async (dispatch) => {
   dispatch(deleteFavoriteRequested());
-
   try {
     const { content } = await favoriteService.deleteFavorite(favoriteId);
-    if (content === null) {
-      dispatch(favoriteDeleteReceived(content));
+    if (!content) {
+      dispatch(favoriteDeleteReceived(favoriteId));
     }
   } catch (error) {
     dispatch(favoriteRequestFailed(error.message));
@@ -80,5 +79,10 @@ export const deleteFavorite = (favoriteId) => async (dispatch) => {
 };
 
 export const getFavoriteList = () => (state) => state.favorite.entities;
+export const getFavoriteLength = () => (state) =>
+  state.favorite.entities.length;
+export const searchGameInFavorite = (gameId) => (state) => {
+  return state.favorite.entities.find((game) => game.gameId === gameId);
+};
 
 export default favoriteReducer;

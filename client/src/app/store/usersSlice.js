@@ -59,6 +59,11 @@ const usersSlice = createSlice({
       state.isLoggedIn = false;
       state.auth = null;
       state.dataLoader = false;
+    },
+    userUpdateProfile: (state, action) => {
+      state.entities[
+        state.entities.findIndex((u) => u._id === action.payload._id)
+      ] = action.payload;
     }
   }
 });
@@ -68,6 +73,7 @@ const {
   usersRequested,
   usersRequestFailed,
   usersReceived,
+  userUpdateProfile,
   authRequestSuccess,
   userRequestedForm,
   authRequestFailed,
@@ -120,6 +126,17 @@ export const loadUsersList = () => async (dispatch) => {
     dispatch(usersRequestFailed(error.message));
   }
 };
+
+export const updateUser =
+  ({ payload, redirect }) =>
+  async (dispatch) => {
+    try {
+      const { content } = await userService.updateUser(payload);
+      dispatch(userUpdateProfile(content));
+    } catch (error) {
+      dispatch(usersRequestFailed(error.message));
+    }
+  };
 
 export const logOut = () => (dispatch) => {
   localStorageService.removeAllKey();

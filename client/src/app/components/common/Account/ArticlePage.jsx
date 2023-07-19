@@ -25,8 +25,6 @@ const ArticlePage = (props) => {
     return strPathname === path ? "active" : "";
   };
 
-  console.log(currentUser);
-
   if (loadingUser) return <Preloader />;
 
   return (
@@ -35,9 +33,6 @@ const ArticlePage = (props) => {
         <div className="gradient-1 inner-profile text-white p-5 widget text-center">
           <img className="img-profile rounded-circle" src={User} />
           <h5 className="mb-1 mt-3">{currentUser.name}</h5>
-          <p>
-            <span className="text-white-50"> India, Punjab</span>
-          </p>
           <a href="#" onClick={exitAcc} className="btn btn btn-light btn-sm">
             Выход
           </a>
