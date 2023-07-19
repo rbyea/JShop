@@ -35,10 +35,6 @@ const schema = new Schema(
       type: String,
       required: true,
     },
-    receipts: {
-      type: String,
-      required: true,
-    },
     developer: {
       type: String,
       required: true,

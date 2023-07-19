@@ -22,6 +22,10 @@ const basketService = {
   removeGame: async (payload) => {
     const { data } = await httpService.delete(basketEndPoint + payload._id);
     return data;
+  },
+  removeAllGame: async (userId) => {
+    const { data } = await httpService.delete(basketEndPoint, userId);
+    return data;
   }
 };
 

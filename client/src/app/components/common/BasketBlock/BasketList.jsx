@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  basketClear,
   decrementGame,
   incrementGame,
+  removeAllGame,
   removeGame
 } from "../../../store/basketSlice";
 import { discountFunc } from "../../../utils/discountFunc";
@@ -39,7 +39,7 @@ const BasketList = ({ listBasket }) => {
     }
   };
 
-  const handleBtnClear = () => {
+  const handleBtnClear = (gameId) => {
     const confirmClear = confirm(
       "Уверены, что хотите очистить список корзины?"
     );
@@ -50,10 +50,10 @@ const BasketList = ({ listBasket }) => {
         theme: "dark"
       });
 
-      console.log(currentUserId);
-      dispatch(basketClear(currentUserId));
+      dispatch(removeAllGame(currentUserId));
     }
   };
+
   return (
     <div className="basket-block-list">
       {listBasket.length > 1 && (

@@ -4,11 +4,15 @@ const schema = new Schema(
   {
     gameId: { type: Schema.Types.ObjectId, ref: "Games" },
     userId: { type: Schema.Types.ObjectId, ref: "User" },
-    title: {
+    price: {
       type: String,
       required: true,
     },
-    price: {
+    discount: {
+      type: String,
+      required: true,
+    },
+    title: {
       type: String,
       required: true,
     },
@@ -16,18 +20,10 @@ const schema = new Schema(
       type: String,
       required: true,
     },
-    discount: {
-      type: Number,
-      required: true,
-    },
-    count: {
-      type: Number,
-      required: true,
-    }
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = model("Basket", schema);
+module.exports = model("Favorite", schema);

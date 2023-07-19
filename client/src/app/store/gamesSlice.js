@@ -90,5 +90,10 @@ export const getGamePage = createSelector(
     return games ? games.find((game) => game._id === id) : null;
   }
 );
+export const getGameById = (gameId) => (state) => {
+  return state.games
+    ? state.games.entities.find((game) => game._id === gameId)
+    : null;
+};
 
 export default gamesReducer;

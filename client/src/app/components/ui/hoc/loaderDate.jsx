@@ -24,6 +24,7 @@ import {
   loadUsersList
 } from "../../../store/usersSlice";
 import { loadListBasket } from "../../../store/basketSlice";
+import { loadListPayment } from "../../../store/paymentSlice";
 
 const loaderDate = ({ children }) => {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ const loaderDate = ({ children }) => {
     if (isLoggedIn) {
       dispatch(loadUsersList());
       dispatch(loadListBasket(currentUserId));
+      dispatch(loadListPayment(currentUserId));
     }
   }, [isLoggedIn]);
 

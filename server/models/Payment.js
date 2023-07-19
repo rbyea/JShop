@@ -2,25 +2,17 @@ const { Schema, model } = require("mongoose");
 
 const schema = new Schema(
   {
-    gameId: { type: Schema.Types.ObjectId, ref: "Games" },
+    games: [{ type: Schema.Types.ObjectId, ref: "Games" }],
     userId: { type: Schema.Types.ObjectId, ref: "User" },
-    title: {
+    email: {
       type: String,
       required: true,
     },
-    price: {
+    name: {
       type: String,
       required: true,
     },
-    picture: {
-      type: String,
-      required: true,
-    },
-    discount: {
-      type: Number,
-      required: true,
-    },
-    count: {
+    totalPrice: {
       type: Number,
       required: true,
     }
@@ -30,4 +22,4 @@ const schema = new Schema(
   }
 );
 
-module.exports = model("Basket", schema);
+module.exports = model("Payment", schema);

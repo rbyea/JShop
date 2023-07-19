@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { discountFunc } from "../utils/discountFunc";
 import basketService from "../services/basket.service";
+import { createSelector } from "reselect";
 
 const initialState = {
   entities: JSON.parse(localStorage.getItem("basketGames")) || [],
@@ -52,7 +53,7 @@ const basketSlice = createSlice({
 
       if (game) {
         game.count++;
-        updateFirebaseBasket(game);
+        updateMongoBasket(game);
       }
 
       state.totalPrice = state.entities.reduce((sum, obj) => {
@@ -67,7 +68,7 @@ const basketSlice = createSlice({
       );
       if (game && game.count > 0) {
         game.count--;
-        updateFirebaseBasket(game);
+        updateMongoBasket(game);
       }
 
       state.totalPrice = state.entities.reduce((sum, obj) => {
@@ -107,7 +108,7 @@ const {
   basketRequestFailed
 } = actions;
 
-const updateFirebaseBasket = async (game) => {
+const updateMongoBasket = async (game) => {
   const gameObj = JSON.parse(JSON.stringify(game));
   try {
     await basketService.updateBasket(gameObj);
@@ -130,7 +131,6 @@ export const addGameInBasket = (obj) => async (dispatch) => {
   dispatch(basketRequested());
   try {
     const { content } = await basketService.create(obj);
-    console.log("content", content);
     dispatch(setAddGame(content));
   } catch (error) {
     dispatch(basketRequestFailed(error.message));
@@ -157,6 +157,18 @@ export const removeGame = (game) => async (dispatch) => {
   }
 };
 
+export const removeAllGame = (userId) => async (dispatch) => {
+  try {
+    const { content } = await basketService.removeAllGame(userId);
+    console.log(userId);
+    if (!content) {
+      dispatch(clear());
+    }
+  } catch (error) {
+    dispatch(basketRequestFailed(error.message));
+  }
+};
+
 export const basketClear = (userId) => async (dispatch) => {
   try {
     const { content } = await basketService.removeGame(userId);
@@ -168,13 +180,26 @@ export const basketClear = (userId) => async (dispatch) => {
   }
 };
 
-export const getListBasket = () => (state) => state.basket.entities;
+export const getListBasket = createSelector(
+  (state) => state.basket.entities,
+  (entities) => entities
+);
 export const getLengthBasket = () => (state) => state.basket.entities.length;
-
 export const searchGameInBasket = (id) => (state) => {
   return state.basket.entities.find((game) => game.gameId === id);
 };
-
+export const getLoadingStatusBasket = () => (state) => state.basket.isLoading;
 export const getTotalPrice = () => (state) => state.basket.totalPrice;
+
+const selectBasket = (state) => state.basket;
+export const getGamesId = createSelector(
+  selectBasket,
+  (basket) => {
+    if (basket) {
+      return basket.entities.map((game) => game.gameId);
+    }
+    return null;
+  }
+);
 
 export default basketReducer;

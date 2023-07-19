@@ -57,4 +57,16 @@ router.delete("/:gameId", async (req, res) => {
   }
 });
 
+router.delete("/", auth, async (req, res) => {
+  try {
+    const userId = req.user._id;
+    await Basket.deleteMany({ userId });
+    res.send(null);
+  } catch (error) {
+    res.status(500).json({
+      message: "На сервере произошла ошибка. Попробуйте позже",
+    });
+  }
+});
+
 module.exports = router;

@@ -19,7 +19,6 @@ import {
 import { getIsLoggedIn } from "../../../store/usersSlice";
 import { toast } from "react-toastify";
 import { getLocalIdKey } from "../../../services/localStorage.service";
-import { nanoid } from "nanoid";
 import Price from "../../ui/price";
 import { createFavorite } from "../../../store/favoriteSlice";
 
@@ -27,7 +26,7 @@ const GamePageArticle = () => {
   const dispatch = useDispatch();
   const { gameId } = useParams();
   const searchGameBasket = useSelector(searchGameInBasket(gameId));
-  const isLoggetIn = useSelector(getIsLoggedIn());
+  const isLoggedIn = useSelector(getIsLoggedIn());
 
   const gamePage = useSelector((state) => getGamePage(state, gameId));
   const [activeNavbarLink, setActiveNavbarLink] = React.useState("");
@@ -63,9 +62,8 @@ const GamePageArticle = () => {
 
   const addGameFavorite = (e) => {
     e.preventDefault();
-    if (isLoggetIn) {
+    if (isLoggedIn) {
       const initialItem = {
-        _id: nanoid(),
         gameId: gamePage._id,
         userId: getLocalIdKey(),
         discount: gamePage.discount,
@@ -86,10 +84,9 @@ const GamePageArticle = () => {
 
   const addGameBasket = (e) => {
     e.preventDefault();
-    if (isLoggetIn) {
+    if (isLoggedIn) {
       if (!searchGameBasket) {
         const initialItem = {
-          // _id: nanoid(),
           gameId: gamePage._id,
           userId: getLocalIdKey(),
           discount: gamePage.discount,

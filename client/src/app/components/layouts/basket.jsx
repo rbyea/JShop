@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { getListBasket } from "../../store/basketSlice";
+import { getListBasket, getLoadingStatusBasket } from "../../store/basketSlice";
 import { windowScroll } from "../../utils/windowScroll";
 import BasketEmpty from "../common/BasketBlock/BasketEmpty";
 import BasketList from "../common/BasketBlock/BasketList";
+import Preloader from "../ui/preloader/preloader";
 import BasketUnder from "../common/BasketBlock/BasketUnder";
 
 const Basket = (props) => {
@@ -11,7 +12,10 @@ const Basket = (props) => {
     windowScroll();
   }, []);
 
-  const listBasket = useSelector(getListBasket());
+  const listBasket = useSelector(getListBasket);
+  const loadStatusBasket = useSelector(getLoadingStatusBasket());
+
+  if (loadStatusBasket) return <Preloader />;
 
   return (
     <section className="py-5 basket">
@@ -21,7 +25,6 @@ const Basket = (props) => {
         ) : (
           <>
             <BasketList listBasket={listBasket} />
-
             <BasketUnder listBasket={listBasket} />
           </>
         )}
