@@ -268,3 +268,20 @@
 .errorAuth {
   color: #dc3545
 }
+
+.basket .container {
+  height: 100%;
+}
+
+.css-13cymwt-control {
+  background-color: #404040 !important;
+  min-height: 42px !important;
+}
+
+.css-t3ipsp-control {
+  background-color: #404040 !important;
+}
+
+.basic-multi-select {
+  color: #404040 !important
+}

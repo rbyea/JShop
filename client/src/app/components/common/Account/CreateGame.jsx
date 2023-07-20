@@ -1,0 +1,328 @@
+import React from "react";
+import { validator } from "../../../utils/validator";
+import CheckBoxField from "../../ui/Form/CheckboxField";
+import InputField from "../../ui/Form/InputField";
+import { toast } from "react-toastify";
+import TextareaField from "../../ui/Form/TextareaField";
+import { useSelector } from "react-redux";
+import { getListCategories } from "../../../store/categoriesSlice";
+import MultiSelectField from "../../ui/Form/MultiSelectField";
+import { getListFeatures } from "../../../store/featuresSlice";
+
+const CreateGame = (props) => {
+  const [data, setData] = React.useState({
+    title: "",
+    price: "",
+    discount: "",
+    series: "",
+    language: "",
+    work: "",
+    data: "",
+    receipts: "",
+    developer: "",
+    description: "",
+    picture: "",
+    categories: [],
+    features: [],
+    topSales: false
+  });
+  const [error, setError] = React.useState({});
+
+  const categoriesList = useSelector(getListCategories());
+  const featuresList = useSelector(getListFeatures());
+  const [categories, setCategories] = React.useState();
+  const [features, setFeatures] = React.useState();
+
+  React.useEffect(() => {
+    if (categoriesList) {
+      const categoriesObj = categoriesList.map((optionName) => ({
+        value: optionName._id,
+        label: optionName.name
+      }));
+      setCategories(categoriesObj);
+    }
+
+    console.log(categories);
+  }, [categoriesList]);
+
+  React.useEffect(() => {
+    if (featuresList) {
+      const featuresObj = featuresList.map((optionName) => ({
+        value: optionName._id,
+        label: optionName.name
+      }));
+      setFeatures(featuresObj);
+    }
+  }, [featuresList]);
+
+  const validatorConfig = {
+    title: {
+      isRequired: {
+        message: "Поле обязательна для заполнения!"
+      }
+    },
+    price: {
+      isRequired: {
+        message: "Поле обязателена для заполнения!"
+      }
+    },
+    discount: {
+      isRequired: {
+        message: "Поле обязателена для заполнения!"
+      }
+    },
+    work: {
+      isRequired: {
+        message: "Поле обязателена для заполнения!"
+      }
+    },
+    data: {
+      isRequired: {
+        message: "Поле обязателена для заполнения!"
+      }
+    },
+    series: {
+      isRequired: {
+        message: "Поле обязателена для заполнения!"
+      }
+    },
+    language: {
+      isRequired: {
+        message: "Поле обязателена для заполнения!"
+      }
+    },
+    receipts: {
+      isRequired: {
+        message: "Поле обязателена для заполнения!"
+      }
+    },
+    developer: {
+      isRequired: {
+        message: "Поле обязателена для заполнения!"
+      }
+    },
+    description: {
+      isRequired: {
+        message: "Поле обязателена для заполнения!"
+      }
+    },
+    picture: {
+      isRequired: {
+        message: "Поле обязателена для заполнения!"
+      }
+    },
+    topSales: {
+      isRequired: {
+        message: "Поле обязателена для заполнения!"
+      }
+    }
+  };
+
+  const validate = () => {
+    const errors = validator(data, validatorConfig);
+    setError(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // React.useEffect(() => {
+  //   validate();
+  // }, [data]);
+
+  const handleChange = (target) => {
+    setData((prevState) => ({
+      ...prevState,
+      [target.name]: target.value
+    }));
+  };
+
+  // const isValid = Object.keys(error).length === 0;
+
+  // React.useEffect(() => {
+  //   if (!loadingUsersStatus) {
+  //     setData({
+  //       name: currentUser.name,
+  //       email: currentUser.email,
+  //       password: currentUser.password
+  //     });
+  //   }
+  // }, [currentUser, loadingUsersStatus]);
+
+  const transformData = (data) => {
+    return data.map((qual) => ({ _id: qual.value, title: qual.label }));
+  };
+
+  const onSubmitForm = async (e) => {
+    e.preventDefault();
+    const isValid = validate();
+
+    setData((prevState) => ({
+      ...prevState,
+      categories: transformData(data.categories),
+      features: transformData(data.features)
+    }));
+
+    if (!isValid) return;
+
+    console.log(data);
+
+    toast.success("Данные изменены!", {
+      autoClose: 3000,
+      theme: "dark"
+    });
+  };
+  return (
+    <form onSubmit={onSubmitForm} className="col-lg-9">
+      <div className="d-flex align-item-center title mb-3">
+        <h5 className="m-0 font-weight-normal">Добавить игру</h5>
+      </div>
+      <div className="p-4 bg-dark">
+        <div className="row gutter-1">
+          <div className="col-md-6">
+            <InputField
+              error={error.title}
+              type="text"
+              title="Название"
+              value={data.title}
+              name="title"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6">
+            <InputField
+              error={error.price}
+              type="text"
+              title="Цена"
+              value={data.price}
+              name="price"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6">
+            <InputField
+              error={error.discount}
+              type="text"
+              title="Скидка"
+              value={data.discount}
+              name="discount"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6">
+            <InputField
+              error={error.series}
+              type="text"
+              title="Серия"
+              value={data.series}
+              name="series"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6">
+            <InputField
+              error={error.language}
+              type="text"
+              title="Язык"
+              value={data.language}
+              name="language"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6">
+            <MultiSelectField
+              defaultValue={data.categories}
+              options={categories}
+              onChange={handleChange}
+              name="categories"
+              label="Категории"
+              defaultOption="Выбрать..."
+            />
+          </div>
+          <div className="col-md-6">
+            <MultiSelectField
+              defaultValue={data.features}
+              options={features}
+              onChange={handleChange}
+              name="features"
+              label="Особенности"
+              defaultOption="Выбрать..."
+            />
+          </div>
+          <div className="col-md-6">
+            <InputField
+              error={error.work}
+              type="text"
+              title="Платформа"
+              value={data.work}
+              name="work"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6">
+            <InputField
+              error={error.data}
+              type="data"
+              title="Дата"
+              value={data.data}
+              name="data"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6">
+            <InputField
+              error={error.receipts}
+              type="data"
+              title="Еще одна дата, не помню"
+              value={data.receipts}
+              name="receipts"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6">
+            <InputField
+              error={error.picture}
+              type="data"
+              title="Картинка"
+              value={data.picture}
+              name="picture"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6">
+            <TextareaField
+              error={error.description}
+              title="Описание"
+              value={data.description}
+              name="description"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6">
+            <InputField
+              error={error.developer}
+              type="text"
+              title="Разработчик"
+              value={data.developer}
+              name="developer"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6">
+            <CheckBoxField
+              error={error.topSales}
+              value={data.topSales}
+              name="topSales"
+              onChange={handleChange}
+            >
+              Топ продажи (отображение на главной странице)
+            </CheckBoxField>
+          </div>
+        </div>
+      </div>
+      <div className="text-right mt-4">
+        <button className="btn btn-light">Добавить игру</button>
+      </div>
+    </form>
+  );
+};
+
+export default CreateGame;

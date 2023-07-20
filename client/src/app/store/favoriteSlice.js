@@ -84,5 +84,10 @@ export const getFavoriteLength = () => (state) =>
 export const searchGameInFavorite = (gameId) => (state) => {
   return state.favorite.entities.find((game) => game.gameId === gameId);
 };
+export const getFavoriteCard = (gameId) => (state) => {
+  return state.favorite
+    ? state.favorite.entities.filter((game) => game.gameId !== gameId)
+    : null;
+};
 
 export default favoriteReducer;

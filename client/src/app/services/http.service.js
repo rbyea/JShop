@@ -34,9 +34,7 @@ http.interceptors.request.use(
       }
     } else {
       if (isExpired) {
-        console.log("тут");
         const data = await authService.refresh();
-        console.log("data тут", data);
         localStorageService.setTokens(data);
       }
       const accessToken = localStorageService.getTokenKey();

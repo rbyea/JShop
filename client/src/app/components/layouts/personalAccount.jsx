@@ -6,6 +6,7 @@ import UserPage from "../common/Account/UserPage";
 import ArticlePage from "../common/Account/ArticlePage";
 import RefreshUser from "../common/Account/RefreshUser";
 import FavoritePage from "../common/Account/FavoritePage";
+import CreateGame from "../common/Account/CreateGame";
 
 const PersonalAccount = (props) => {
   const { userId, edit } = useParams();
@@ -26,6 +27,8 @@ const PersonalAccount = (props) => {
                 )
               ) : edit === "favorite" ? (
                 <FavoritePage />
+              ) : edit === "create-game" ? (
+                <CreateGame />
               ) : (
                 <div className="col-lg-9">
                   <UserPage />

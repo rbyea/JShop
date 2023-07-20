@@ -82,16 +82,21 @@ const {
 
 const authRequested = createAction("users/authRequested");
 
-export const signUp = (payload) => async (dispatch) => {
-  dispatch(authRequested());
-  try {
-    const data = await authService.register(payload);
-    localStorageService.setTokens(data);
-    dispatch(authRequestSuccess({ userId: data.userId }));
-  } catch (error) {
-    dispatch(authRequestFailed(error.message));
-  }
-};
+export const signUp =
+  ({ payload, redirect }) =>
+  async (dispatch) => {
+    dispatch(authRequested());
+    dispatch(userRequestedForm());
+    try {
+      const data = await authService.register(payload);
+      dispatch(authRequestSuccess({ userId: data.userId }));
+      localStorageService.setTokens(data);
+
+      history.push(redirect);
+    } catch (error) {
+      dispatch(authRequestFailed(error.message));
+    }
+  };
 
 export const login =
   ({ payload, redirect }) =>

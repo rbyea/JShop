@@ -9,6 +9,7 @@ import {
 } from "../../../store/usersSlice";
 import { validator } from "../../../utils/validator";
 import Preloader from "../../ui/preloader/preloader";
+import { toast } from "react-toastify";
 
 const RefreshUser = (props) => {
   const dispatch = useDispatch();
@@ -83,7 +84,10 @@ const RefreshUser = (props) => {
       })
     );
 
-    // history.push(`/account/${userId}`);
+    toast.success("Данные изменены!", {
+      autoClose: 3000,
+      theme: "dark"
+    });
   };
 
   if (loadingUsersStatus) return <Preloader />;

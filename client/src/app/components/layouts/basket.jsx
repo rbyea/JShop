@@ -19,15 +19,17 @@ const Basket = (props) => {
 
   return (
     <section className="py-5 basket">
-      <div className="container">
-        {listBasket.length === 0 ? (
-          <BasketEmpty />
-        ) : (
-          <>
-            <BasketList listBasket={listBasket} />
-            <BasketUnder listBasket={listBasket} />
-          </>
-        )}
+      <div className="vh-100">
+        <div className="container">
+          {listBasket.length === 0 ? (
+            <BasketEmpty />
+          ) : (
+            <>
+              <BasketList listBasket={listBasket} />
+              <BasketUnder listBasket={listBasket} />
+            </>
+          )}
+        </div>
       </div>
     </section>
   );

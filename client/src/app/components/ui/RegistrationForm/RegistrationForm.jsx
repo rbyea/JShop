@@ -7,6 +7,7 @@ import { validator } from "../../../utils/validator";
 import { useDispatch, useSelector } from "react-redux";
 import { getLoadingForm, signUp } from "../../../store/usersSlice";
 import Preloader from "../preloader/preloader";
+// import history from "../../../utils/history";
 
 const RegistrationForm = (props) => {
   const dispatch = useDispatch();
@@ -15,7 +16,8 @@ const RegistrationForm = (props) => {
     name: "",
     password: "",
     email: "",
-    license: false
+    license: false,
+    isAdmin: false
   });
 
   const [error, setError] = React.useState({});
@@ -87,8 +89,9 @@ const RegistrationForm = (props) => {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return;
+    const redirect = "/";
 
-    dispatch(signUp(data));
+    dispatch(signUp({ payload: data, redirect }));
   };
 
   return (

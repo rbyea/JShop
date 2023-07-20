@@ -34,9 +34,17 @@ const PopupPayment = ({ title, visibleModal, setVisibleModal }) => {
     games: listGamesId,
     userId: currentUserId,
     email: currentUser.email || "",
-    name: currentUser.name || "",
-    totalPrice: totalPrice || 0
+    name: currentUser.name || ""
   });
+
+  React.useEffect(() => {
+    setData((prevState) => ({
+      ...prevState,
+      totalPrice: totalPrice
+    }));
+  }, [totalPrice]);
+
+  console.log(totalPrice);
 
   const validatorConfig = {
     email: {

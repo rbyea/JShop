@@ -3,16 +3,15 @@ import CardSlider from "../Sliders/CardSlider";
 import GamePageAbout from "./GamePageAbout";
 import GamePageSpecification from "./GamePageSpecification";
 import { useSelector } from "react-redux";
-import { getFavoriteList } from "../../../store/favoriteSlice";
 import GameListCard from "../GameList/GameListCard";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getCurrentUserId } from "../../../store/usersSlice";
+import { getFavoriteCard } from "../../../store/favoriteSlice";
 
 const GamePageItem = () => {
-  const favoriteList = useSelector(getFavoriteList());
+  const { gameId } = useParams();
   const currentUserId = useSelector(getCurrentUserId());
-
-  console.log(favoriteList);
+  const favoriteCard = useSelector(getFavoriteCard(gameId));
   return (
     <div className="col-lg-9">
       <div className="row">
@@ -47,8 +46,8 @@ const GamePageItem = () => {
               </Link>
             </div>
             <div className="row">
-              {favoriteList.length > 0 ? (
-                favoriteList.map((game) => (
+              {favoriteCard.length > 0 ? (
+                favoriteCard.map((game) => (
                   <GameListCard
                     key={game._id}
                     title={game.title}
