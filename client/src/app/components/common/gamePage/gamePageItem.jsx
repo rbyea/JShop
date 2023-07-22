@@ -7,6 +7,7 @@ import GameListCard from "../GameList/GameListCard";
 import { Link, useParams } from "react-router-dom";
 import { getCurrentUserId } from "../../../store/usersSlice";
 import { getFavoriteCard } from "../../../store/favoriteSlice";
+import GamePageVideo from "./GamePageVideo";
 
 const GamePageItem = () => {
   const { gameId } = useParams();
@@ -18,21 +19,7 @@ const GamePageItem = () => {
         <div className="col-lg-12">
           <CardSlider />
           <GamePageAbout />
-          <div className="section-card pt-4" id="video">
-            <h5 className="mb-3 mt-4">Видео</h5>
-            <div className="bg-dark">
-              <iframe
-                frameBorder="0"
-                scrolling="no"
-                marginHeight="0"
-                marginWidth="0"
-                width="100%"
-                height="443"
-                type="text/html"
-                src="https://www.youtube.com/embed/9FCRaSwU3W8?autoplay=0&amp;fs=0&amp;iv_load_policy=3&amp;showinfo=0&amp;rel=0&amp;cc_load_policy=0&amp;start=0&amp;end=0&amp;origin=https://youtubeembedcode.com"
-              ></iframe>
-            </div>
-          </div>
+          <GamePageVideo />
           <GamePageSpecification />
 
           <div className="section-card pt-4" id="offers">

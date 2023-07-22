@@ -35,7 +35,7 @@ InputField.propTypes = {
   error: PropTypes.string,
   type: PropTypes.string.isRequired,
   title: PropTypes.string,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string

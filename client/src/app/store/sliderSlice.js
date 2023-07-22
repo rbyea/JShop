@@ -22,18 +22,32 @@ const sliderSlice = createSlice({
     sliderError: (state, action) => {
       state.error = action.payload;
       state.isLoading = true;
+    },
+    sliderCreate: (state, action) => {
+      state.entities.push(action.payload);
+      state.isLoading = false;
     }
   }
 });
 
 const { actions, reducer: sliderReducer } = sliderSlice;
-const { sliderRequested, sliderReceived, sliderError } = actions;
+const { sliderRequested, sliderReceived, sliderError, sliderCreate } = actions;
 
 export const loadSliderList = () => async (dispatch) => {
   dispatch(sliderRequested());
   try {
     const { content } = await sliderServices.get();
     dispatch(sliderReceived(content));
+  } catch (error) {
+    dispatch(sliderError(error.message));
+  }
+};
+
+export const createSlide = (payload) => async (dispatch) => {
+  dispatch(sliderRequested());
+  try {
+    const { content } = await sliderServices.create(payload);
+    dispatch(sliderCreate(content));
   } catch (error) {
     dispatch(sliderError(error.message));
   }

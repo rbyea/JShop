@@ -1,6 +1,7 @@
 const express = require("express");
-const SliderCard = require("../models/SliderCard")
+const SliderCard = require("../models/SliderCard");
 const router = express.Router({ mergeParams: true });
+const auth = require("../middleware/auth.middleware");
 
 router.get("/", async (req, res) => {
   try {

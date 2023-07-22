@@ -47,19 +47,33 @@ const gameSlice = createSlice({
 
         return match;
       });
+    },
+    gameCreated: (state, action) => {
+      state.entities.push(action.payload);
+      state.isLoading = false;
     }
   }
 });
 
 const { actions, reducer: gamesReducer } = gameSlice;
 
-const { gamesRequested, gamesFailed, gamesReceived } = actions;
+const { gamesRequested, gamesFailed, gamesReceived, gameCreated } = actions;
 
 export const loadListGames = () => async (dispatch) => {
   dispatch(gamesRequested());
   try {
     const { content } = await gameService.get();
     dispatch(gamesReceived(content));
+  } catch (error) {
+    dispatch(gamesFailed(error.message));
+  }
+};
+
+export const createGame = (payload) => async (dispatch) => {
+  dispatch(gamesRequested());
+  try {
+    const { content } = await gameService.create(payload);
+    dispatch(gameCreated(content));
   } catch (error) {
     dispatch(gamesFailed(error.message));
   }

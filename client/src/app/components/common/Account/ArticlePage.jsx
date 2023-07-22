@@ -40,12 +40,21 @@ const ArticlePage = (props) => {
         <div className="bg-dark p-3 sidebar-widget mb-4">
           <div className="nav nav-pills flex-column lavalamp">
             {currentUser.isAdmin && (
-              <Link
-                to={`/account/${userId}/create-game`}
-                className={`nav-link ${pathClass("create-game")}`}
-              >
-                <i className="feather-edit mr-1"></i> Добавить товар
-              </Link>
+              <>
+                <Link
+                  to={`/account/${userId}/create-game`}
+                  className={`nav-link ${pathClass("create-game")}`}
+                >
+                  <i className="feather-edit mr-1"></i> Добавить товар
+                </Link>
+                <Link
+                  to={`/account/${userId}/create-slider`}
+                  className={`nav-link ${pathClass("create-slider")}`}
+                >
+                  <i className="feather-edit mr-1"></i> Добавить слайд на
+                  главной
+                </Link>
+              </>
             )}
             <Link
               to={`/account/${userId}`}

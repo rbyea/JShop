@@ -17,6 +17,10 @@ const gameService = {
 
     const { data } = await httpService.get(gameEndpoint, { params });
     return data;
+  },
+  create: async (payload) => {
+    const { data } = await httpService.post(gameEndpoint, payload);
+    return data;
   }
 };
 export default gameService;

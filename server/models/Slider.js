@@ -11,22 +11,11 @@ const schema = new Schema(
       type: String,
       required: true,
     },
-    discount: {
-      type: Number,
-      required: true,
-    },
-    gameId: {
-      type: String,
-      required: true,
-    },
+    gameId: { type: Schema.Types.ObjectId, ref: "Games" },
     image: {
       type: String,
       required: true,
     },
-    price: {
-      type: String,
-      required: true,
-    }
   },
   {
     timestamps: true,

@@ -35,6 +35,9 @@ const schema = new Schema(
       type: String,
       required: true,
     },
+    video: {
+      type: String,
+    },
     developer: {
       type: String,
       required: true,
@@ -47,8 +50,10 @@ const schema = new Schema(
     picture: {
       type: String,
       required: true,
-    }
-
+    },
+    topSales: {
+      type: Boolean,
+    },
   },
   {
     timestamps: true,

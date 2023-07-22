@@ -285,3 +285,15 @@
 .basic-multi-select {
   color: #404040 !important
 }
+
+.tab.active {
+  display: block;
+}
+
+.tab {
+  display: none;
+}
+
+.btn-disabled {
+  display: none;
+}
