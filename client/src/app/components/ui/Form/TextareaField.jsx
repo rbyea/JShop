@@ -8,7 +8,7 @@ const TextareaField = ({ error, value, onChange, title, name, rows }) => {
 
   return (
     <div className="form-group">
-      <label htmlFor={name}>{title}</label>
+      {title && <label htmlFor={name}>{title}</label>}
       <textarea
         className={
           error

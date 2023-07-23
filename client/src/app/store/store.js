@@ -9,6 +9,7 @@ import basketReducer from "./basketSlice";
 import usersReducer from "./usersSlice";
 import favoriteReducer from "./favoriteSlice";
 import paymentReducer from "./paymentSlice";
+import commentsReducer from "./commentsSlice";
 
 const rootReducer = combineReducers({
   games: gamesReducer,
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   basket: basketReducer,
   users: usersReducer,
   favorite: favoriteReducer,
-  payment: paymentReducer
+  payment: paymentReducer,
+  comments: commentsReducer
 });
 
 export function createStore() {

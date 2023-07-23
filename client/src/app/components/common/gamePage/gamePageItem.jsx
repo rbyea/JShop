@@ -8,6 +8,7 @@ import { Link, useParams } from "react-router-dom";
 import { getCurrentUserId } from "../../../store/usersSlice";
 import { getFavoriteCard } from "../../../store/favoriteSlice";
 import GamePageVideo from "./GamePageVideo";
+import Comments from "../Comments/Comments";
 
 const GamePageItem = () => {
   const { gameId } = useParams();
@@ -49,6 +50,8 @@ const GamePageItem = () => {
               )}
             </div>
           </div>
+
+          <Comments />
         </div>
       </div>
     </div>

@@ -12,5 +12,6 @@ router.use("/users", require("./user.routes"));
 router.use("/basket", require("./basket.routes"));
 router.use("/payment", require("./payment.routes"));
 router.use("/favorite", require("./favorite.route"));
+router.use("/comments", require("./comments.routes"));
 
 module.exports = router;

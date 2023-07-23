@@ -17,8 +17,6 @@ const GamePageAbout = () => {
     loadSliderCategory(state, gamePage.categories)
   );
 
-  console.log(gamePage);
-
   const time = +gamePage.receipts;
 
   return (

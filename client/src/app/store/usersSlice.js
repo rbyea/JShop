@@ -172,5 +172,7 @@ export const getUser = () => (state) => state.users.entities;
 export const getCurrentUserId = () => (state) =>
   state.users.auth ? state.users.auth.userId : null;
 export const getLoginAuthError = () => (state) => state.users.error;
+export const getAuthId = () => (state) =>
+  state.users.auth ? state.users.auth.userId : null;
 
 export default usersReducer;
