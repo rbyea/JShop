@@ -2,8 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { FaArrowRight } from "react-icons/fa";
 import CheckField from "../../ui/Form/CheckboxField";
+import { useDispatch } from "react-redux";
+import { loadCategories } from "../../../store/gamesSlice";
 
 const AccordionCatalog = ({ title, data }) => {
+  const dispatch = useDispatch();
   const [activeAccordion, setActiveAccordion] = React.useState(false);
   const [visibleList, setVisibleList] = React.useState(false);
 
@@ -19,17 +22,23 @@ const AccordionCatalog = ({ title, data }) => {
     setVisibleList(!visibleList);
   };
 
-  const [entities, setEntities] = React.useState();
+  const [entities, setEntities] = React.useState({});
 
   const handleChange = (target) => {
     setEntities((prevState) => ({
       ...prevState,
       [target.name]: target.value
     }));
+
+    console.log(entities);
   };
 
   React.useEffect(() => {
-    console.log(entities);
+    dispatch(
+      loadCategories({
+        categories: entities
+      })
+    );
   }, [entities]);
 
   return (

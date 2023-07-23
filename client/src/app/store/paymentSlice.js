@@ -58,6 +58,16 @@ export const loadListPayment = (userId) => async (dispatch) => {
   }
 };
 
+export const loadAllPaymentList = () => async (dispatch) => {
+  dispatch(paymentRequested());
+  try {
+    const { content } = await paymentService.getAllPayments();
+    dispatch(paymentReceived(content));
+  } catch (error) {
+    dispatch(paymentRequestFailed(error.message));
+  }
+};
+
 export const getListPayment = () => (state) => state.payment.entities;
 export const getLengthPayment = () => (state) => state.payment.entities.length;
 export const getLoadingStatusPayment = () => (state) => state.payment.isLoading;

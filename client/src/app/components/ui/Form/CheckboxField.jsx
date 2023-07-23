@@ -9,13 +9,14 @@ const CheckBoxField = ({ error, value, onChange, children, name }) => {
     <div className="custom-control custom-checkbox">
       <input
         onChange={handleChange}
-        checked={value}
+        checked={value || false}
         type="checkbox"
         className={
-          error ? "custom-control-input is-invalid" : "custom-control-input is-valid"
+          error
+            ? "custom-control-input is-invalid"
+            : "custom-control-input is-valid"
         }
         id={name}
-        value=""
       />
       <label className="custom-control-label" htmlFor={name}>
         {children}
@@ -27,7 +28,7 @@ const CheckBoxField = ({ error, value, onChange, children, name }) => {
 
 CheckBoxField.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.bool.isRequired,
+  value: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   error: PropTypes.string,
   children: PropTypes.oneOfType([

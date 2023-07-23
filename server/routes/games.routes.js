@@ -7,13 +7,16 @@ const router = express.Router({ mergeParams: true });
 
 router.get("/", async (req, res) => {
   try {
-    const { category, minPrice, maxPrice } = req.query;
+    const { categories, minPrice, maxPrice } = req.query;
 
     let query = Games.find();
 
     // Применение фильтра по категории
-    if (category) {
-      query = query.where("categories").equals(category);
+    if (categories && Object.values(categories).includes(true)) {
+      const categoryIds = Object.keys(categories).filter(
+        (key) => categories[key] === true
+      );
+      query = query.where("categories").in(categoryIds);
     }
 
     // Применение фильтра по диапазону цен
@@ -43,9 +46,9 @@ router.post("/", auth, async (req, res) => {
       series: req.body.series,
       video: req.body.video,
       language: req.body.language,
+      receipts: req.body.receipts,
       work: req.body.work,
       data: req.body.data,
-      receipts: req.body.receipts,
       developer: req.body.developer,
       description: req.body.description,
       picture: req.body.picture,
@@ -73,6 +76,66 @@ router.post("/", auth, async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "На сервере произошла ошибка. Попробуйте позже",
+    });
+  }
+});
+
+router.put("/", async (req, res) => {
+  try {
+    const updateGame = await Games.findOneAndReplace(
+      { _id: req.body._id },
+      {
+        title: req.body.title,
+        price: req.body.price,
+        discount: req.body.discount,
+        series: req.body.series,
+        video: req.body.video,
+        language: req.body.language,
+        work: req.body.work,
+        data: req.body.data,
+        receipts: req.body.receipts,
+        developer: req.body.developer,
+        description: req.body.description,
+        picture: req.body.picture,
+        categories: req.body.categories,
+        features: req.body.features,
+        topSales: req.body.topSales,
+      },
+      {
+        new: true,
+      }
+    );
+
+    await SliderCard.findOneAndUpdate(
+      { gameId: req.body._id },
+      {
+        images: req.body.images,
+      },
+      {
+        new: true,
+      }
+    );
+
+    await Specification.findOneAndUpdate(
+      { gameId: req.body._id },
+      {
+        cpu: req.body.cpu,
+        gpu: req.body.gpu,
+        directx: req.body.directx,
+        system: req.body.system,
+        size: req.body.size,
+        ram: req.body.ram,
+      },
+      {
+        new: true,
+      }
+    );
+
+    res.send(updateGame);
+  } catch (error) {
+    res.status(500).json({
+      message: "На сервере произошла ошибка. Попробуйте позже",
+      error: error.message,
     });
   }
 });

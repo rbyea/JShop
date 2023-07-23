@@ -96,18 +96,6 @@ const Footer = (props) => {
             </small>
             <div className="app mt-4 pt-2">
               <h6 className="text-gray-900">DOWNLOAD APP</h6>
-              <a href="#">
-                <img
-                  className="img-fluid"
-                  src="https://askbootstrap.com/preview/jarda/img/google.png"
-                />
-              </a>
-              <a href="#">
-                <img
-                  className="img-fluid"
-                  src="https://askbootstrap.com/preview/jarda/img/apple.png"
-                />
-              </a>
             </div>
           </div>
         </div>

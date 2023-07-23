@@ -20,9 +20,15 @@ const InputField = ({
       <input
         type={type}
         onChange={(e) => handleChange(e.target.value)}
-        className={error ? "form-control is-invalid" : "form-control is-valid"}
+        className={
+          error
+            ? "form-control is-invalid"
+            : error === undefined
+            ? "form-control"
+            : "form-control is-valid"
+        }
         id={name}
-        value={value}
+        value={value || ""}
         name={name}
         placeholder={placeholder}
       />

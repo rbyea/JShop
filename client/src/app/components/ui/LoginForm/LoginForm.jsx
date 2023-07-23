@@ -36,10 +36,6 @@ const LoginForm = (props) => {
     }
   };
 
-  React.useEffect(() => {
-    validate();
-  }, [data]);
-
   const validate = () => {
     const errors = validator(data, validatorConfig);
     setError(errors);
@@ -58,6 +54,10 @@ const LoginForm = (props) => {
   const onSubmitForm = (e) => {
     e.preventDefault();
     const redirect = "/";
+
+    const isValid = validate();
+
+    if (!isValid) return;
 
     dispatch(login({ payload: data, redirect }));
   };

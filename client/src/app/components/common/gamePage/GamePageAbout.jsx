@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { loadFeaturesCardPage } from "../../../store/featuresSlice";
 import { convectorTime } from "../../../utils/convectorTime";
+import { loadSliderCategory } from "../../../store/categoriesSlice";
 
 const GamePageAbout = () => {
   const { gameId } = useParams();
@@ -12,6 +13,11 @@ const GamePageAbout = () => {
   const getFeaturesList = useSelector((state) =>
     loadFeaturesCardPage(state, gamePage.features)
   );
+  const getCategoriesList = useSelector((state) =>
+    loadSliderCategory(state, gamePage.categories)
+  );
+
+  console.log(gamePage);
 
   const time = +gamePage.receipts;
 
@@ -28,8 +34,15 @@ const GamePageAbout = () => {
           </div>
           <div className="col-lg-4 col-md-4">
             <div className="list-icon mb-3">
-              <p className="text-white-50 mb-1">Publisher</p>
-              <p className="text-white">XYZ Games</p>
+              <p className="text-white-50 mb-1">Категории</p>
+              <p className="text-white">
+                {getCategoriesList.map((category, index, array) => (
+                  <span className="feature-card-item" key={category._id}>
+                    {category.name}
+                    {index + 1 !== array.length ? "," : "."}
+                  </span>
+                ))}
+              </p>
             </div>
           </div>
           <div className="col-lg-4 col-md-4">
@@ -62,9 +75,7 @@ const GamePageAbout = () => {
         </div>
         <hr />
         {/* <p className="mt-4">{gamePage.title}</p> */}
-        <p className="text-white-50 mb-0">
-          {gamePage.description}
-        </p>
+        <p className="text-white-50 mb-0">{gamePage.description}</p>
       </div>
     </div>
   );

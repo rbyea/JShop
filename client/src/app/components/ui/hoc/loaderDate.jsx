@@ -20,8 +20,8 @@ import { loadSliderCardList } from "../../../store/sliderCardSlice";
 import {
   getCurrentUserId,
   getIsLoggedIn,
+  loadUser
   // getLoadingUsersStatus,
-  loadUsersList
 } from "../../../store/usersSlice";
 import { loadListBasket } from "../../../store/basketSlice";
 import { loadListPayment } from "../../../store/paymentSlice";
@@ -47,10 +47,10 @@ const loaderDate = ({ children }) => {
 
   React.useEffect(() => {
     if (isLoggedIn) {
-      dispatch(loadUsersList());
+      dispatch(loadUser());
       dispatch(loadListBasket(currentUserId));
-      dispatch(loadListPayment(currentUserId));
       dispatch(loadFavoriteList(currentUserId));
+      dispatch(loadListPayment(currentUserId));
     }
   }, [isLoggedIn]);
 

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import gameService from "../services/games.service";
 import { createSelector } from "reselect";
+import history from "../utils/history";
 
 const initialState = {
   entities: null,
@@ -21,6 +22,12 @@ const gameSlice = createSlice({
     },
     gamesReceived: (state, action) => {
       state.entities = action.payload;
+      state.isLoading = false;
+    },
+    gameUpdateReceived: (state, action) => {
+      state.entities[
+        state.entities.findIndex((u) => u._id === action.payload._id)
+      ] = action.payload;
       state.isLoading = false;
     },
     filterGames: (state, action) => {
@@ -57,7 +64,13 @@ const gameSlice = createSlice({
 
 const { actions, reducer: gamesReducer } = gameSlice;
 
-const { gamesRequested, gamesFailed, gamesReceived, gameCreated } = actions;
+const {
+  gamesRequested,
+  gameUpdateReceived,
+  gamesFailed,
+  gamesReceived,
+  gameCreated
+} = actions;
 
 export const loadListGames = () => async (dispatch) => {
   dispatch(gamesRequested());
@@ -69,11 +82,33 @@ export const loadListGames = () => async (dispatch) => {
   }
 };
 
-export const createGame = (payload) => async (dispatch) => {
+export const loadCategories = (payload) => async (dispatch) => {
+  try {
+    const { content } = await gameService.getCategories(payload);
+    dispatch(gamesReceived(content));
+  } catch (error) {
+    dispatch(gamesFailed(error.message));
+  }
+};
+
+export const createGame =
+  ({ payload, redirect }) =>
+  async (dispatch) => {
+    dispatch(gamesRequested());
+    try {
+      const { content } = await gameService.create(payload);
+      dispatch(gameCreated(content));
+      history.push(redirect);
+    } catch (error) {
+      dispatch(gamesFailed(error.message));
+    }
+  };
+
+export const updateGame = (payload) => async (dispatch) => {
   dispatch(gamesRequested());
   try {
-    const { content } = await gameService.create(payload);
-    dispatch(gameCreated(content));
+    const { content } = await gameService.updateGame(payload);
+    dispatch(gameUpdateReceived(content));
   } catch (error) {
     dispatch(gamesFailed(error.message));
   }

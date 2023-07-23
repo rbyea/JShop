@@ -7,8 +7,10 @@ export function validator(data, config) {
       case "isRequired": {
         if (typeof data === "boolean") {
           statusValidate = !data;
-        } else {
+        } else if (typeof data === "string") {
           statusValidate = data.trim() === "";
+        } else {
+          statusValidate = false;
         }
         break;
       }

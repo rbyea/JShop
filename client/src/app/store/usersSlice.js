@@ -132,6 +132,16 @@ export const loadUsersList = () => async (dispatch) => {
   }
 };
 
+export const loadUser = () => async (dispatch) => {
+  dispatch(usersRequested());
+  try {
+    const { content } = await userService.getUser();
+    dispatch(usersReceived(content));
+  } catch (error) {
+    dispatch(usersRequestFailed(error.message));
+  }
+};
+
 export const updateUser =
   ({ payload, redirect }) =>
   async (dispatch) => {
@@ -158,6 +168,7 @@ export const getCurrentUser = (payload) => (state) => {
     ? state.users.entities.find((user) => user._id === payload)
     : null;
 };
+export const getUser = () => (state) => state.users.entities;
 export const getCurrentUserId = () => (state) =>
   state.users.auth ? state.users.auth.userId : null;
 export const getLoginAuthError = () => (state) => state.users.error;

@@ -279,6 +279,7 @@
 }
 
 .css-t3ipsp-control {
+  min-height: 42px !important;
   background-color: #404040 !important;
 }
 
@@ -296,4 +297,37 @@
 
 .btn-disabled {
   display: none;
+}
+
+.modal-dialog-game {
+  align-items: flex-start;
+  overflow-y: scroll;
+}
+
+.modal-dialog-game::-webkit-scrollbar {
+  width: 12px;
+}
+.modal-dialog-game::-webkit-scrollbar-track {
+  background: #121212;
+}
+.modal-dialog-game::-webkit-scrollbar-thumb {
+  background-color: #2a2a2a;
+  border-radius: 20px;
+  border: 3px solid #121212;
+}
+
+textarea::-webkit-scrollbar {
+  width: 12px;
+}
+textarea::-webkit-scrollbar-track {
+  background: #121212;
+}
+textarea::-webkit-scrollbar-thumb {
+  background-color: #2a2a2a;
+  border-radius: 20px;
+  border: 3px solid #121212;
+}
+
+textarea {
+  resize: none;
 }

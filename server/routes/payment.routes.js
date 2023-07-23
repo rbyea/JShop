@@ -8,8 +8,13 @@ router
   .get(auth, async (req, res) => {
     try {
       const { orderBy, equalTo } = req.query;
-      const list = await Payment.find({ [orderBy]: equalTo });
-      res.send(list);
+      if (orderBy && equalTo) {
+        const list = await Payment.find({ [orderBy]: equalTo });
+        res.send(list);
+      } else {
+        const list = await Payment.find();
+        res.send(list);
+      }
     } catch (error) {
       res.status(500).json({
         message: "На сервере произошла ошибка. Попробуйте позже",

@@ -4,6 +4,7 @@ import { getListCategories } from "../../../store/categoriesSlice";
 import { validator } from "../../../utils/validator";
 import InputField from "../../ui/Form/InputField";
 import SelectField from "../../ui/Form/SelectField";
+import { toast } from "react-toastify";
 import TextareaField from "../../ui/Form/TextareaField";
 import { getListGames } from "../../../store/gamesSlice";
 import MultiSelectField from "../../ui/Form/MultiSelectField";
@@ -102,7 +103,14 @@ const CreateSlider = (props) => {
     e.preventDefault();
     const isValid = validate();
 
-    if (!isValid) return;
+    if (!isValid) {
+      console.log(true);
+      toast.error("Поля не заполнены!", {
+        autoClose: 3000,
+        theme: "dark"
+      });
+      return;
+    }
 
     const { category, gameId } = data;
 
@@ -111,8 +119,6 @@ const CreateSlider = (props) => {
       category: transformData(category),
       gameId: gameId
     };
-
-    console.log(newData);
 
     dispatch(createSlide(newData));
   };

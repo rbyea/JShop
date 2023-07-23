@@ -23,6 +23,15 @@ const userService = {
       payload
     );
     return data;
+  },
+  getUser: async () => {
+    const { data } = await httpService.get(userEndpoint, {
+      params: {
+        orderBy: "_id",
+        equalTo: `${localStorageService.getLocalIdKey()}`
+      }
+    });
+    return data;
   }
 };
 export default userService;

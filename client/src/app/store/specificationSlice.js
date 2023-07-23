@@ -53,4 +53,10 @@ export const getSpecificationItem = createSelector(
   }
 );
 
+export const getSpecificationId = (gameId) => (state) => {
+  return state.specifications
+    ? state.specifications.entities.find((spec) => spec.gameId === gameId)
+    : null;
+};
+
 export default specificationReducer;

@@ -7,7 +7,11 @@ const SelectField = ({ label, name, value, onChange, options, error }) => {
   };
 
   const getInputClassName = () => {
-    return "form-control" + (error ? " is-invalid" : " is-valid");
+    return error
+      ? "form-control is-invalid"
+      : error === undefined
+      ? "form-control"
+      : "form-control is-valid";
   };
 
   const optionsArray =

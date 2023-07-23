@@ -42,17 +42,22 @@ const ArticlePage = (props) => {
             {currentUser.isAdmin && (
               <>
                 <Link
+                  to={`/account/${userId}/table-games`}
+                  className={`nav-link ${pathClass("table-games")}`}
+                >
+                  Таблица товаров
+                </Link>
+                <Link
                   to={`/account/${userId}/create-game`}
                   className={`nav-link ${pathClass("create-game")}`}
                 >
-                  <i className="feather-edit mr-1"></i> Добавить товар
+                  Добавить товар
                 </Link>
                 <Link
                   to={`/account/${userId}/create-slider`}
                   className={`nav-link ${pathClass("create-slider")}`}
                 >
-                  <i className="feather-edit mr-1"></i> Добавить слайд на
-                  главной
+                  Добавить слайд на главной
                 </Link>
               </>
             )}
@@ -60,19 +65,19 @@ const ArticlePage = (props) => {
               to={`/account/${userId}`}
               className={`nav-link ${pathClass(userId)}`}
             >
-              <i className="feather-edit mr-1"></i> Личный кабинет
+              Личный кабинет
             </Link>
             <Link
               to={`/account/${userId}/favorite`}
               className={`nav-link ${pathClass("favorite")}`}
             >
-              <i className="feather-heart mr-1"></i> Избранное
+              Избранное
             </Link>
             <Link
               className={`nav-link ${pathClass("edit")}`}
               to={`/account/${userId}/edit`}
             >
-              <i className="feather-edit mr-1"></i> Настройки
+              Настройки
             </Link>
           </div>
         </div>

@@ -53,4 +53,10 @@ export const getSliderGame = createSelector(
   }
 );
 
+export const getSliderId = (gameId) => (state) => {
+  return state.sliderCard
+    ? state.sliderCard.entities.find((slide) => slide.gameId === gameId)
+    : null;
+};
+
 export default sliderCardReducer;

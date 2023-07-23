@@ -15,7 +15,7 @@ const CatalogGames = (props) => {
         : "Загрузка..."}
 
       <div className="col-lg-12 text-center">
-        <Button title="Загрузить еще" name="btn-light btn-lg" />
+        <Button title="Загрузить еще" name="btn-light btn-lg" link="/catalog" />
       </div>
     </div>
   );

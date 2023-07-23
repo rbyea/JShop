@@ -71,6 +71,31 @@ const CreateGame = (props) => {
         message: "Поле обязательна для заполнения!"
       }
     },
+    video: {
+      isRequired: {
+        message: "Поле обязательна для заполнения!"
+      }
+    },
+    images: {
+      isRequired: {
+        message: "Поле обязательна для заполнения!"
+      }
+    },
+    cpu: {
+      isRequired: {
+        message: "Поле обязательна для заполнения!"
+      }
+    },
+    gpu: {
+      isRequired: {
+        message: "Поле обязательна для заполнения!"
+      }
+    },
+    system: {
+      isRequired: {
+        message: "Поле обязательна для заполнения!"
+      }
+    },
     price: {
       isRequired: {
         message: "Поле обязателена для заполнения!"
@@ -149,7 +174,13 @@ const CreateGame = (props) => {
     e.preventDefault();
     const isValid = validate();
 
-    if (!isValid) return;
+    if (!isValid) {
+      toast.error("Поля не заполнены!", {
+        autoClose: 3000,
+        theme: "dark"
+      });
+      return;
+    }
     const { categories, features, images } = data;
 
     const newData = {
@@ -159,7 +190,9 @@ const CreateGame = (props) => {
       images: images.split(/[ ,]+/)
     };
 
-    dispatch(createGame(newData));
+    const redirect = "/catalog";
+
+    dispatch(createGame({ newData, redirect }));
     toast.success("Игра добавлена!", {
       autoClose: 3000,
       theme: "dark"
