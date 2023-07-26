@@ -148,7 +148,6 @@ export const decrementGame = (game) => async (dispatch) => {
 export const removeGame = (game) => async (dispatch) => {
   try {
     const { content } = await basketService.removeGame(game);
-    console.log(game);
     if (!content) {
       dispatch(remove(game));
     }

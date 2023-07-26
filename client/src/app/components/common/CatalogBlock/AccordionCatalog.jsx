@@ -2,11 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { FaArrowRight } from "react-icons/fa";
 import CheckField from "../../ui/Form/CheckboxField";
-import { useDispatch } from "react-redux";
-import { loadCategories } from "../../../store/gamesSlice";
 
-const AccordionCatalog = ({ title, data }) => {
-  const dispatch = useDispatch();
+const AccordionCatalog = ({ title, data, selectedItems, setSelectedItems }) => {
   const [activeAccordion, setActiveAccordion] = React.useState(false);
   const [visibleList, setVisibleList] = React.useState(false);
 
@@ -22,24 +19,11 @@ const AccordionCatalog = ({ title, data }) => {
     setVisibleList(!visibleList);
   };
 
-  const [entities, setEntities] = React.useState({});
-
   const handleChange = (target) => {
-    setEntities((prevState) => ({
-      ...prevState,
-      [target.name]: target.value
-    }));
-
-    console.log(entities);
+    const updatedItems = { ...selectedItems };
+    updatedItems[target.name] = target.value;
+    setSelectedItems(updatedItems);
   };
-
-  React.useEffect(() => {
-    dispatch(
-      loadCategories({
-        categories: entities
-      })
-    );
-  }, [entities]);
 
   return (
     <>
@@ -62,20 +46,20 @@ const AccordionCatalog = ({ title, data }) => {
         <div className={`${activeAccordion ? "" : "show"} collapse`}>
           <div className="filters-card-body card-shop-filters">
             {data &&
-              data.map((category, index) => (
+              data.map((item, index) => (
                 <div
-                  key={category._id}
+                  key={item._id}
                   className={`filters-card__item ${
                     index > 3 && !visibleList ? "hidden" : ""
                   }`}
                 >
                   <CheckField
                     type="checkbox"
-                    value={entities && entities[category._id]}
+                    value={selectedItems[item._id]}
                     onChange={handleChange}
-                    name={category._id}
+                    name={item._id}
                   >
-                    {category.name}
+                    {item.name}
                   </CheckField>
                 </div>
               ))}
@@ -94,7 +78,12 @@ const AccordionCatalog = ({ title, data }) => {
 
 AccordionCatalog.propTypes = {
   title: PropTypes.string,
-  data: PropTypes.array
+  data: PropTypes.array,
+  selectedItems: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array
+  ]),
+  setSelectedItems: PropTypes.func
 };
 
 export default AccordionCatalog;

@@ -4,6 +4,7 @@ const SliderCard = require("../models/SliderCard");
 const Specification = require("../models/Specification");
 const auth = require("../middleware/auth.middleware");
 const router = express.Router({ mergeParams: true });
+const mongoose = require('mongoose');
 
 router.get("/", async (req, res) => {
   try {
@@ -38,6 +39,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", auth, async (req, res) => {
+  console.log(req.body);
   try {
     const newItem = await Games.create({
       title: req.body.title,
@@ -136,6 +138,20 @@ router.put("/", async (req, res) => {
     res.status(500).json({
       message: "На сервере произошла ошибка. Попробуйте позже",
       error: error.message,
+    });
+  }
+});
+
+router.delete("/:gameId", auth, async (req, res) => {
+  try {
+    const gameId = req.params.gameId;
+    await Games.deleteMany({ _id: gameId });
+    await SliderCard.deleteMany({ gameId: gameId });
+    await Specification.deleteMany({ gameId: gameId });
+    res.send(null);
+  } catch (error) {
+    res.status(500).json({
+      message: "На сервере произошла ошибка. Попробуйте позже",
     });
   }
 });

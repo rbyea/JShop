@@ -20,7 +20,7 @@ const SelectField = ({ label, name, value, onChange, options, error }) => {
       : options;
   return (
     <div className="form-group">
-      <label htmlFor={name}>{label}</label>
+      {label && <label htmlFor={name}>{label}</label>}
       <select
         name={name}
         value={value}
@@ -32,7 +32,7 @@ const SelectField = ({ label, name, value, onChange, options, error }) => {
         </option>
         {optionsArray.length > 0 &&
           optionsArray.map((prof) => (
-            <option key={prof.value} value={prof.value}>
+            <option name={prof.task} key={prof.value} value={prof.task}>
               {prof.label}
             </option>
           ))}

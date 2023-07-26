@@ -190,9 +190,7 @@ const CreateGame = (props) => {
       images: images.split(/[ ,]+/)
     };
 
-    const redirect = "/catalog";
-
-    dispatch(createGame({ newData, redirect }));
+    dispatch(createGame(newData));
     toast.success("Игра добавлена!", {
       autoClose: 3000,
       theme: "dark"

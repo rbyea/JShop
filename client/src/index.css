@@ -361,3 +361,22 @@ textarea {
   margin-right: 10px;
   margin-top: -1px;
 }
+
+.sort-flex {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.sort-flex .form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.sort-flex .form-group label {
+  flex-shrink: 0;
+  margin-bottom: 0;
+  margin-right: 10px;
+}

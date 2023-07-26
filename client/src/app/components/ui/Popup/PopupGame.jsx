@@ -235,7 +235,6 @@ const PopupGame = ({ visibleModal, setVisibleModal, gameId }) => {
       images: images.split(/[ ,]+/)
     };
 
-    console.log("newData", newData);
     dispatch(updateGame(newData));
     setVisibleModal(false);
   };

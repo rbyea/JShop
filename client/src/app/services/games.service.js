@@ -19,6 +19,7 @@ const gameService = {
     return data;
   },
   create: async (payload) => {
+    console.log("servise", payload);
     const { data } = await httpService.post(gameEndpoint, payload);
     return data;
   },
@@ -30,6 +31,10 @@ const gameService = {
   },
   updateGame: async (payload) => {
     const { data } = await httpService.put(gameEndpoint, payload);
+    return data;
+  },
+  deleteGame: async (gameId) => {
+    const { data } = await httpService.delete(gameEndpoint + gameId);
     return data;
   }
 };

@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteGame, getListGames } from "../../../store/gamesSlice";
 import { Link } from "react-router-dom";
 import PopupGame from "../../ui/Popup/PopupGame";
-const TableGames = (props) => {
+
+const TableSlider = (props) => {
   const dispatch = useDispatch();
   const tableList = useSelector(getListGames());
 
@@ -74,4 +75,4 @@ const TableGames = (props) => {
   );
 };
 
-export default TableGames;
+export default TableSlider;

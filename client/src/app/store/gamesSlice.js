@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import gameService from "../services/games.service";
 import { createSelector } from "reselect";
-import history from "../utils/history";
 
 const initialState = {
   entities: null,
@@ -30,33 +29,14 @@ const gameSlice = createSlice({
       ] = action.payload;
       state.isLoading = false;
     },
-    filterGames: (state, action) => {
-      const { categoryIds, minPrice, maxPrice } = action.payload;
-      state.entities = state.entities.filter((game) => {
-        let match = true;
-
-        if (categoryIds && categoryIds.length > 0) {
-          const hasMatchingCategory = categoryIds.some((categoryId) =>
-            game.categories.includes(categoryId)
-          );
-          if (!hasMatchingCategory) {
-            match = false;
-          }
-        }
-
-        if (minPrice && game.price < minPrice) {
-          match = false;
-        }
-
-        if (maxPrice && game.price > maxPrice) {
-          match = false;
-        }
-
-        return match;
-      });
-    },
     gameCreated: (state, action) => {
       state.entities.push(action.payload);
+      state.isLoading = false;
+    },
+    gameRemove: (state, action) => {
+      state.entities = state.entities.filter(
+        (game) => game._id !== action.payload
+      );
       state.isLoading = false;
     }
   }
@@ -69,7 +49,8 @@ const {
   gameUpdateReceived,
   gamesFailed,
   gamesReceived,
-  gameCreated
+  gameCreated,
+  gameRemove
 } = actions;
 
 export const loadListGames = () => async (dispatch) => {
@@ -91,18 +72,16 @@ export const loadCategories = (payload) => async (dispatch) => {
   }
 };
 
-export const createGame =
-  ({ payload, redirect }) =>
-  async (dispatch) => {
-    dispatch(gamesRequested());
-    try {
-      const { content } = await gameService.create(payload);
-      dispatch(gameCreated(content));
-      history.push(redirect);
-    } catch (error) {
-      dispatch(gamesFailed(error.message));
-    }
-  };
+export const createGame = (payload) => async (dispatch) => {
+  dispatch(gamesRequested());
+  try {
+    console.log("slice", payload);
+    const { content } = await gameService.create(payload);
+    dispatch(gameCreated(content));
+  } catch (error) {
+    dispatch(gamesFailed(error.message));
+  }
+};
 
 export const updateGame = (payload) => async (dispatch) => {
   dispatch(gamesRequested());
@@ -114,8 +93,18 @@ export const updateGame = (payload) => async (dispatch) => {
   }
 };
 
-export const filterGame = (state) => (dispatch) => {
-  dispatch(filterGame(state));
+export const deleteGame = (gameId) => async (dispatch) => {
+  dispatch(gamesRequested());
+  console.log(gameId);
+  try {
+    const { content } = await gameService.deleteGame(gameId);
+    if (!content) {
+      console.log("gameId", gameId);
+      dispatch(gameRemove(gameId));
+    }
+  } catch (error) {
+    dispatch(gamesFailed(error.message));
+  }
 };
 
 const getGames = (state) => state.games.entities;

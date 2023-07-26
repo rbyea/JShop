@@ -12,6 +12,7 @@ import {
 import Preloader from "../preloader/preloader";
 import {
   // getLoadingSliderStatus,
+  // getLoadingSliderStatus,
   loadSliderList
 } from "../../../store/sliderSlice";
 import { loadFeaturesList } from "../../../store/featuresSlice";
@@ -30,6 +31,7 @@ import { loadFavoriteList } from "../../../store/favoriteSlice";
 const loaderDate = ({ children }) => {
   const dispatch = useDispatch();
   const loadingStatusGames = useSelector(getLoadingStatusGames());
+  // const loadingSliderStatus = useSelector(getLoadingSliderStatus());
   const isLoggedIn = useSelector(getIsLoggedIn());
   // const usersStatusLoading = useSelector(getLoadingUsersStatus());
   // const loadingStatusCategories = useSelector(getLoadingStatusCategories());
