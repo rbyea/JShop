@@ -21,11 +21,6 @@ const Navbar = () => {
             Каталог
           </Link>
         </li>
-        <li className="nav-item dropdown mr-2">
-          <Link className="nav-link pr-0" to="/news">
-            Новости
-          </Link>
-        </li>
         {isLoggedIn && (
           <>
             <li className="nav-item dropdown no-arrow mx-1 osahan-list-dropdown">

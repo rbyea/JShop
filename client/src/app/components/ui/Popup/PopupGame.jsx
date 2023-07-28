@@ -448,7 +448,7 @@ const PopupGame = ({ visibleModal, setVisibleModal, gameId }) => {
                   className="btn btn-primary"
                   onClick={(e) => onSubmitForm(e)}
                 >
-                  Оплатить
+                  Обновить
                 </button>
               </div>
             </div>

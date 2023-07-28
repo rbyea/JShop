@@ -2,63 +2,76 @@ import React from "react";
 import styles from "./account.module.scss";
 import { FaRegEdit, FaWindowClose } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteGame, getListGames } from "../../../store/gamesSlice";
-import { Link } from "react-router-dom";
-import PopupGame from "../../ui/Popup/PopupGame";
+import { Link, Redirect, useParams } from "react-router-dom";
+import { deleteSlide, getSliderList } from "../../../store/sliderSlice";
+import PopupSlider from "../../ui/Popup/PopupSlider";
+import { toast } from "react-toastify";
+import { getUser } from "../../../store/usersSlice";
 
 const TableSlider = (props) => {
+  const { userId } = useParams();
+  const currentUser = useSelector(getUser());
+
+  const isAdmin =
+    currentUser && currentUser.length > 0 && currentUser[0].isAdmin;
+
+  if (!isAdmin) {
+    return <Redirect to={`/account/${userId}`} />;
+  }
+
   const dispatch = useDispatch();
-  const tableList = useSelector(getListGames());
+  const tableList = useSelector(getSliderList());
 
   const [visibleModal, setVisibleModal] = React.useState(false);
-  const [gameId, setGameId] = React.useState();
+  const [slideGame, setSlideGame] = React.useState();
 
-  const handleEdit = (gameId) => {
-    setGameId(gameId);
+  const handleEdit = (slideGame) => {
+    setSlideGame(slideGame);
     setVisibleModal(true);
   };
 
-  const handleRemove = (gameId) => {
+  const handleRemove = (slideId) => {
     const conf = confirm("Действительно хотите удалить игру с БД?");
     if (conf) {
-      dispatch(deleteGame(gameId));
+      dispatch(deleteSlide(slideId));
+      toast.success("Слайд удален", {
+        autoClose: 3000,
+        theme: "dark"
+      });
     }
   };
 
   return (
     <div className="col-lg-9">
       {visibleModal && (
-        <PopupGame
+        <PopupSlider
           setVisibleModal={setVisibleModal}
           visibleModal={visibleModal}
-          gameId={gameId}
+          slideId={slideGame}
         />
       )}
       <div className="d-flex align-item-center title mb-3">
-        <h5 className="m-0 font-weight-normal">Таблица игр</h5>
+        <h5 className="m-0 font-weight-normal">Таблица слайдов</h5>
       </div>
       {tableList ? (
         <>
           <div className={styles.tableCollumn}>
-            {tableList.map((game) => (
-              <div key={game._id} className={styles.gameList}>
+            {tableList.map((slide) => (
+              <div key={slide._id} className={styles.gameList}>
                 <div className={styles.gameLeft}>
-                  <Link to={`/card/${game._id}`} className={styles.gameImage}>
-                    <img src={game.picture} alt="" />
-                  </Link>
-                  <Link to={`/card/${game._id}`} className={styles.gameTitle}>
-                    {game.title}
+                  <Link to={`/`} className={styles.gameTitle}>
+                    {slide.title}
                   </Link>
                 </div>
                 <div className={styles.gameWrap}>
                   <button
-                    onClick={() => handleEdit(game._id)}
+                    onClick={() => handleEdit(slide._id)}
                     className="btn btn-light"
                   >
                     <FaRegEdit />
                   </button>
                   <button
-                    onClick={() => handleRemove(game._id)}
+                    onClick={() => handleRemove(slide._id)}
                     className="btn btn-danger"
                   >
                     <FaWindowClose />

@@ -3,9 +3,20 @@ import styles from "./account.module.scss";
 import { FaRegEdit, FaWindowClose } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteGame, getListGames } from "../../../store/gamesSlice";
-import { Link } from "react-router-dom";
+import { Link, Redirect, useParams } from "react-router-dom";
 import PopupGame from "../../ui/Popup/PopupGame";
+import { getUser } from "../../../store/usersSlice";
 const TableGames = (props) => {
+  const { userId } = useParams();
+  const currentUser = useSelector(getUser());
+
+  const isAdmin =
+    currentUser && currentUser.length > 0 && currentUser[0].isAdmin;
+
+  if (!isAdmin) {
+    return <Redirect to={`/account/${userId}`} />;
+  }
+
   const dispatch = useDispatch();
   const tableList = useSelector(getListGames());
 

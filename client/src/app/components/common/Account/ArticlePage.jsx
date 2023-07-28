@@ -39,6 +39,7 @@ const ArticlePage = (props) => {
         </div>
         <div className="bg-dark p-3 sidebar-widget mb-4">
           <div className="nav nav-pills flex-column lavalamp">
+          {/* 64b9893927897bef82caa12e */}
             {currentUser.isAdmin && (
               <>
                 <Link
@@ -46,6 +47,12 @@ const ArticlePage = (props) => {
                   className={`nav-link ${pathClass("table-games")}`}
                 >
                   Таблица товаров
+                </Link>
+                <Link
+                  to={`/account/${userId}/table-slider`}
+                  className={`nav-link ${pathClass("table-slider")}`}
+                >
+                  Таблица слайдов
                 </Link>
                 <Link
                   to={`/account/${userId}/create-game`}

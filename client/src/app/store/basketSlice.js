@@ -10,6 +10,24 @@ const initialState = {
   error: null
 };
 
+const calculateDiscountedPrice = (price, discount) => {
+  if (discount > 0) {
+    return price - discountFunc(price, discount);
+  } else {
+    return price;
+  }
+};
+
+const calculateTotalPrice = (entities) => {
+  return entities.reduce((sum, obj) => {
+    const price =
+      obj.discount > 0
+        ? obj.price - discountFunc(obj.price, obj.discount)
+        : obj.price;
+    return price * obj.count + sum;
+  }, 0);
+};
+
 const basketSlice = createSlice({
   name: "basket",
   initialState,
@@ -21,8 +39,11 @@ const basketSlice = createSlice({
       state.entities = action.payload;
       state.isLoading = false;
       state.totalPrice = state.entities.reduce((sum, obj) => {
-        const discountGame = obj.price - discountFunc(obj.price, obj.discount);
-        return discountGame * obj.count + sum;
+        const priceWithDiscount = calculateDiscountedPrice(
+          obj.price,
+          obj.discount
+        );
+        return priceWithDiscount * obj.count + sum;
       }, 0);
     },
     basketRequestFailed: (state, action) => {
@@ -40,10 +61,7 @@ const basketSlice = createSlice({
         });
       }
 
-      state.totalPrice = state.entities.reduce((sum, obj) => {
-        const discountGame = obj.price - discountFunc(obj.price, obj.discount);
-        return discountGame * 1 + sum;
-      }, 0);
+      state.totalPrice = calculateTotalPrice(state.entities);
       state.isLoading = false;
     },
     increment: (state, action) => {
@@ -54,12 +72,8 @@ const basketSlice = createSlice({
       if (game) {
         game.count++;
         updateMongoBasket(game);
+        state.totalPrice = calculateTotalPrice(state.entities);
       }
-
-      state.totalPrice = state.entities.reduce((sum, obj) => {
-        const discountGame = obj.price - discountFunc(obj.price, obj.discount);
-        return discountGame * obj.count + sum;
-      }, 0);
       state.isLoading = false;
     },
     decrement: (state, action) => {
@@ -69,12 +83,8 @@ const basketSlice = createSlice({
       if (game && game.count > 0) {
         game.count--;
         updateMongoBasket(game);
+        state.totalPrice = calculateTotalPrice(state.entities);
       }
-
-      state.totalPrice = state.entities.reduce((sum, obj) => {
-        const discountGame = obj.price - discountFunc(obj.price, obj.discount);
-        return discountGame * obj.count + sum;
-      }, 0);
       state.isLoading = false;
     },
     remove: (state, action) => {
@@ -191,14 +201,11 @@ export const getLoadingStatusBasket = () => (state) => state.basket.isLoading;
 export const getTotalPrice = () => (state) => state.basket.totalPrice;
 
 const selectBasket = (state) => state.basket;
-export const getGamesId = createSelector(
-  selectBasket,
-  (basket) => {
-    if (basket) {
-      return basket.entities.map((game) => game.gameId);
-    }
-    return null;
+export const getGamesId = createSelector(selectBasket, (basket) => {
+  if (basket) {
+    return basket.entities.map((game) => game.gameId);
   }
-);
+  return null;
+});
 
 export default basketReducer;

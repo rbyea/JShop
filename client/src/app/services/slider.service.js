@@ -9,6 +9,14 @@ const sliderServices = {
   create: async (payload) => {
     const { data } = await httpService.post(sliderEndpoint, payload);
     return data;
+  },
+  update: async (payload) => {
+    const { data } = await httpService.patch(sliderEndpoint, payload);
+    return data;
+  },
+  delete: async (slideId) => {
+    const { data } = await httpService.delete(sliderEndpoint + slideId);
+    return data;
   }
 };
 

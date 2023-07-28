@@ -75,17 +75,26 @@ const BasketList = ({ listBasket }) => {
               </Link>
               <div className="basket__price">
                 <div className="price">
-                  <div
-                    className={`${
-                      Number(game.discount) > 20 ? "bg-danger" : "bg-primary"
-                    } d-inline-block text-center px-2 py-1 text-white`}
-                  >
-                    -{game.discount}%
-                  </div>
-                  <s className="text-white-50 mx-1">{game.price} руб.</s>
-                  <span className="text-white">
-                    {game.price - discountFunc(game.price, game.discount)} руб.
-                  </span>
+                  {game.discount > 0 ? (
+                    <>
+                      <div
+                        className={`${
+                          Number(game.discount) > 20
+                            ? "bg-danger"
+                            : "bg-primary"
+                        } d-inline-block text-center px-2 py-1 text-white`}
+                      >
+                        -{game.discount}%
+                      </div>
+                      <s className="text-white-50 mx-1">{game.price} руб.</s>
+                      <span className="text-white">
+                        {game.price - discountFunc(game.price, game.discount)}{" "}
+                        руб.
+                      </span>
+                    </>
+                  ) : (
+                    <span className="text-white">{game.price} руб.</span>
+                  )}
                 </div>
               </div>
             </div>
@@ -108,8 +117,10 @@ const BasketList = ({ listBasket }) => {
             </a>
           </div>
           <div className="game-price">
-            {(game.price - discountFunc(game.price, game.discount)) *
-              game.count}
+            {game.discount > 0
+              ? (game.price - discountFunc(game.price, game.discount)) *
+                game.count
+              : game.price * game.count}
           </div>
 
           <div className="basket-right-side">

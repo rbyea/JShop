@@ -18,6 +18,7 @@ const SelectField = ({ label, name, value, onChange, options, error }) => {
     !Array.isArray(options) && typeof options === "object"
       ? Object.values(options)
       : options;
+
   return (
     <div className="form-group">
       {label && <label htmlFor={name}>{label}</label>}
@@ -32,7 +33,11 @@ const SelectField = ({ label, name, value, onChange, options, error }) => {
         </option>
         {optionsArray.length > 0 &&
           optionsArray.map((prof) => (
-            <option name={prof.task} key={prof.value} value={prof.task}>
+            <option
+              name={prof.task}
+              key={prof.value}
+              value={prof.task ? prof.task : prof.value}
+            >
               {prof.label}
             </option>
           ))}

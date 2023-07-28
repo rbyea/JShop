@@ -9,8 +9,21 @@ import { getListCategories } from "../../../store/categoriesSlice";
 import MultiSelectField from "../../ui/Form/MultiSelectField";
 import { getListFeatures } from "../../../store/featuresSlice";
 import { createGame } from "../../../store/gamesSlice";
+import { getUser } from "../../../store/usersSlice";
+import { Redirect, useParams } from "react-router-dom";
 
 const CreateGame = (props) => {
+  const { userId } = useParams();
+  const currentUser = useSelector(getUser());
+
+  const isAdmin =
+    currentUser && currentUser.length > 0 && currentUser[0].isAdmin;
+
+  if (!isAdmin) {
+    console.log(isAdmin);
+    return <Redirect to={`/account/${userId}`} />;
+  }
+
   const dispatch = useDispatch();
 
   const [error, setError] = React.useState({});
@@ -45,6 +58,7 @@ const CreateGame = (props) => {
     size: 0,
     ram: 0
   });
+
   React.useEffect(() => {
     if (categoriesList) {
       const categoriesObj = categoriesList.map((optionName) => ({

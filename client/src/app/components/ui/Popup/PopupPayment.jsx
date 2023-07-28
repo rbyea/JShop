@@ -44,8 +44,6 @@ const PopupPayment = ({ title, visibleModal, setVisibleModal }) => {
     }));
   }, [totalPrice]);
 
-  console.log(totalPrice);
-
   const validatorConfig = {
     email: {
       isRequired: {

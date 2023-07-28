@@ -8,28 +8,43 @@ import { toast } from "react-toastify";
 import TextareaField from "../../ui/Form/TextareaField";
 import { getListGames } from "../../../store/gamesSlice";
 import MultiSelectField from "../../ui/Form/MultiSelectField";
-import { createSlide } from "../../../store/sliderSlice";
+import {
+  createSlide,
+  getLoadingSliderStatus
+} from "../../../store/sliderSlice";
 import Preloader from "../../ui/preloader/preloader";
+import { Redirect, useParams } from "react-router-dom";
+import { getUser } from "../../../store/usersSlice";
 
 const CreateSlider = (props) => {
+  const { userId } = useParams();
+  const currentUser = useSelector(getUser());
+
+  const isAdmin =
+    currentUser && currentUser.length > 0 && currentUser[0].isAdmin;
+
+  if (!isAdmin) {
+    return <Redirect to={`/account/${userId}`} />;
+  }
   const dispatch = useDispatch();
 
   const [error, setError] = React.useState({});
 
   const [count, setCount] = React.useState(0);
 
+  const loadingStatus = useSelector(getLoadingSliderStatus());
   const categoriesList = useSelector(getListCategories());
   const gameList = useSelector(getListGames());
   const [categories, setCategories] = React.useState();
   const [game, setGame] = React.useState();
-
-  const [data, setData] = React.useState({
+  const initialState = {
     title: "",
     category: [],
     description: "",
     gameId: "",
     image: ""
-  });
+  };
+  const [data, setData] = React.useState(initialState);
 
   React.useEffect(() => {
     if (categoriesList.length > 0) {
@@ -84,6 +99,7 @@ const CreateSlider = (props) => {
   };
 
   const handleChange = (target) => {
+    console.log(target.value);
     setData((prevState) => ({
       ...prevState,
       [target.name]: target.value
@@ -104,7 +120,6 @@ const CreateSlider = (props) => {
     const isValid = validate();
 
     if (!isValid) {
-      console.log(true);
       toast.error("Поля не заполнены!", {
         autoClose: 3000,
         theme: "dark"
@@ -121,9 +136,15 @@ const CreateSlider = (props) => {
     };
 
     dispatch(createSlide(newData));
+    toast.success("Слайд добавлен!", {
+      autoClose: 3000,
+      theme: "dark"
+    });
+    setData({ ...initialState, category: [] });
+    console.log(data);
   };
 
-  if (count === 2) return <Preloader />;
+  if (count === 2 || loadingStatus) return <Preloader />;
   return (
     <>
       <form onSubmit={onSubmitForm} className="col-lg-9">

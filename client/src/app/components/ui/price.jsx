@@ -18,9 +18,13 @@ const Price = ({ discount, price }) => {
         </>
       )}
 
-      <span className="text-white">
-        {price - discountFunc(price, discount)} руб.
-      </span>
+      {Number(discount) !== 0 ? (
+        <span className="text-white">
+          {price - discountFunc(price, discount)} руб.
+        </span>
+      ) : (
+        <span className="text-white">{price} руб.</span>
+      )}
     </>
   );
 };

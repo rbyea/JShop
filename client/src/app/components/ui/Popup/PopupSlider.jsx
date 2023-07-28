@@ -4,60 +4,110 @@ import styles from "./popup.module.scss";
 import InputField from "../Form/InputField";
 import { validator } from "../../../utils/validator";
 import { useDispatch, useSelector } from "react-redux";
-import { createPayment } from "../../../store/paymentSlice";
-import {
-  getGamesId,
-  getTotalPrice,
-  removeAllGame
-} from "../../../store/basketSlice";
-import {
-  getCurrentUser,
-  getCurrentUserId,
-  getLoadingUsersStatus
-} from "../../../store/usersSlice";
-import history from "../../../utils/history";
+import { getLoadingUsersStatus } from "../../../store/usersSlice";
 import Preloader from "../preloader/preloader";
+import { getListGames } from "../../../store/gamesSlice";
+import SelectField from "../Form/SelectField";
+import MultiSelectField from "../Form/MultiSelectField";
+import { getListCategories } from "../../../store/categoriesSlice";
+import TextareaField from "../Form/TextareaField";
+import { getSliderById, updateSlide } from "../../../store/sliderSlice";
+import { toast } from "react-toastify";
 
-const PopupSlider = ({ title, visibleModal, setVisibleModal }) => {
+const PopupSlider = ({ visibleModal, setVisibleModal, slideId }) => {
   const dispatch = useDispatch();
   const handleClose = (e) => {
     setVisibleModal(false);
   };
-  const listGamesId = useSelector(getGamesId);
-  const currentUserId = useSelector(getCurrentUserId());
-  const currentUser = useSelector(getCurrentUser(currentUserId));
+
+  const gameList = useSelector(getListGames());
+
   const userLoading = useSelector(getLoadingUsersStatus());
-  const totalPrice = useSelector(getTotalPrice());
+  const categoriesList = useSelector(getListCategories());
+  const listSliderId = useSelector(getSliderById(slideId));
+
   const [error, setError] = React.useState({});
 
   const [data, setData] = React.useState({
-    games: listGamesId,
-    userId: currentUserId,
-    email: currentUser.email || "",
-    name: currentUser.name || ""
+    title: "",
+    category: [],
+    description: "",
+    gameId: "",
+    image: ""
   });
+  const [game, setGame] = React.useState();
+  const [categories, setCategories] = React.useState();
+
+  React.useEffect(() => {
+    if (gameList.length > 0) {
+      const gameObj = gameList.map((optionName) => ({
+        value: optionName._id,
+        label: optionName.title
+      }));
+
+      setGame(gameObj);
+    }
+  }, [gameList]);
+
+  const getCategoriesSlider = (categoriesIds) => {
+    const resultArray = [];
+    for (const ids of categoriesIds) {
+      for (const category of categoriesList) {
+        if (ids === category._id) {
+          resultArray.push({
+            label: category.name,
+            value: category._id
+          });
+          break;
+        }
+      }
+    }
+    return resultArray;
+  };
+
+  React.useEffect(() => {
+    if (categoriesList.length > 0) {
+      const categoriesObj = categoriesList.map((optionName) => ({
+        value: optionName._id,
+        label: optionName.name
+      }));
+      setCategories(categoriesObj);
+    }
+  }, [categoriesList]);
 
   React.useEffect(() => {
     setData((prevState) => ({
       ...prevState,
-      totalPrice: totalPrice
+      ...listSliderId,
+      category: getCategoriesSlider(listSliderId.category)
     }));
-  }, [totalPrice]);
-
-  console.log(totalPrice);
+  }, [listSliderId]);
 
   const validatorConfig = {
-    email: {
+    gameId: {
       isRequired: {
-        message: "Электронная почта обязательна для заполнения!"
-      },
-      isEmail: {
-        message: "Почта введена некорректно"
+        message: "Поле обязательна для заполнения!"
       }
     },
-    name: {
+    category: {
+      min: {
+        message: "Добавьте хотя бы одно свойство!",
+        value: 1
+      }
+    },
+    title: {
       isRequired: {
-        message: "Имя обязателена для заполнения!"
+        message: "Поле обязательна для заполнения!"
+      }
+    },
+    description: {
+      isRequired: {
+        message: "Поле обязательна для заполнения!"
+      }
+    },
+    image: {
+      isRequired: {
+        message: "Поле обязательна для заполнения!"
       }
     }
   };
@@ -80,13 +130,36 @@ const PopupSlider = ({ title, visibleModal, setVisibleModal }) => {
     }));
   };
 
+  const transformData = (data) => {
+    const transformArray = [];
+    data.map((qual) =>
+      transformArray.push({ _id: qual.value, title: qual.label })
+    );
+
+    return transformArray;
+  };
+
   const onSubmitForm = (e) => {
     e.preventDefault();
+    const isValid = validate();
 
-    dispatch(createPayment(data));
-    setVisibleModal(false);
-    history.push(`/account/${currentUserId}`);
-    dispatch(removeAllGame(currentUserId));
+    if (!isValid) {
+      toast.error("Поля не заполнены!", {
+        autoClose: 3000,
+        theme: "dark"
+      });
+      return;
+    }
+
+    const { category } = data;
+    const newData = {
+      ...data,
+      category: transformData(category)
+    };
+
+    dispatch(updateSlide(newData));
+
+    console.log(newData);
   };
 
   if (userLoading) return <Preloader />;
@@ -97,7 +170,7 @@ const PopupSlider = ({ title, visibleModal, setVisibleModal }) => {
         <div className="modal-content bg-dark">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">
-              {title}
+              Редактировать
             </h5>
             <button
               type="button"
@@ -111,32 +184,55 @@ const PopupSlider = ({ title, visibleModal, setVisibleModal }) => {
 
           <div className="modal-body">
             <div style={styles.modalWrapper}>
+              {game && (
+                <SelectField
+                  error={error.gameId}
+                  label="Игра"
+                  options={game}
+                  value={data.gameId}
+                  name="gameId"
+                  onChange={handleChange}
+                />
+              )}
+              {categories && (
+                <MultiSelectField
+                  defaultValue={data.category}
+                  options={categories}
+                  onChange={handleChange}
+                  name="category"
+                  label="Особенности"
+                  defaultOption="Выбрать..."
+                />
+              )}
               <InputField
+                error={error.title}
                 type="text"
-                value={data.name}
-                error={error.name}
-                title="Имя"
-                name="name"
+                title="Заголовок"
+                value={data.title}
+                name="title"
                 onChange={handleChange}
               />
+              <TextareaField
+                error={error.description}
+                value={data.description}
+                onChange={handleChange}
+                title="Описание"
+                rows="5"
+                name="description"
+              />
               <InputField
-                type="email"
-                value={data.email}
-                error={error.email}
-                title="Почта"
-                name="email"
+                error={error.image}
+                type="text"
+                title="Картинка"
+                value={data.image}
+                name="image"
                 onChange={handleChange}
               />
             </div>
           </div>
 
           <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={handleClose}
-              data-dismiss="modal"
-            >
+            <button className="btn btn-secondary" onClick={handleClose}>
               Закрыть
             </button>
 
@@ -145,7 +241,7 @@ const PopupSlider = ({ title, visibleModal, setVisibleModal }) => {
               className="btn btn-primary"
               onClick={(e) => onSubmitForm(e)}
             >
-              Оплатить
+              Обновить
             </button>
           </div>
         </div>
@@ -157,7 +253,8 @@ const PopupSlider = ({ title, visibleModal, setVisibleModal }) => {
 PopupSlider.propTypes = {
   visibleModal: PropTypes.bool.isRequired,
   setVisibleModal: PropTypes.func,
-  title: PropTypes.string
+  title: PropTypes.string,
+  slideId: PropTypes.string
 };
 
 export default PopupSlider;
