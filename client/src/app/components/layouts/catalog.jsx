@@ -3,11 +3,11 @@ import { windowScroll } from "../../utils/windowScroll";
 import { useSelector } from "react-redux";
 import { getListCategories } from "../../store/categoriesSlice";
 import { getListFeatures } from "../../store/featuresSlice";
-import SortCatalog from "../common/catalogBlock/sortCatalog";
 // import SearchCatalog from "../ui/form/searchCatalog";
 import AccordionCatalog from "../common/catalogBlock/accordionCatalog";
 import CatalogGames from "../common/catalogBlock/catalogGames";
 import { FaSearch } from "react-icons/fa";
+import SortCatalog from "../common/catalogBlock/SortCatalog";
 
 const Catalog = (props) => {
   React.useEffect(() => {
