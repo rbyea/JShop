@@ -1,7 +1,6 @@
 import React from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import Main from "./components/layouts/main";
-import Header from "./components/common/Header/Header";
 import LoaderDate from "./components/ui/hoc/loaderDate";
 import Catalog from "./components/layouts/catalog";
 import Card from "./components/layouts/card";
@@ -27,7 +26,6 @@ function App() {
           <Navbar />
         </div>
       </nav>
-      <Header />
       <Switch>
         <Route path="/catalog" component={Catalog} />
         <Route path="/basket" component={Basket} />
