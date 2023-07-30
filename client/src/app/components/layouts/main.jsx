@@ -1,5 +1,5 @@
 import React from "react";
-import MainSlider from "../common/Sliders/MainSlider";
+import MainSlider from "../common/Sliders/mainSlider";
 import GameList from "../common/GameList/GameList";
 import { windowScroll } from "../../utils/windowScroll";
 
