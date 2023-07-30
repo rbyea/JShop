@@ -79,12 +79,6 @@ const Catalog = (props) => {
                   />
                 </div>
               </form>
-              {/* <SearchCatalog
-                onChange={handleChange}
-                name="search"
-                value={data.search}
-                type="text"
-              /> */}
               <div className="filters-body">
                 <div id="accordion">
                   <AccordionCatalog

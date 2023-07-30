@@ -1,5 +1,4 @@
 import React from "react";
-import GameList from "../common/gameList/gameList";
 import { windowScroll } from "../../utils/windowScroll";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade } from "swiper";
@@ -10,6 +9,9 @@ import { getLoadingSliderStatus, getSliderList } from "../../store/sliderSlice";
 import { getLoadingStatusCategories } from "../../store/categoriesSlice";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import SliderCard from "../common/sliders/sliderItem";
+import Button from "../ui/button";
+import GameListCard from "../common/gameList/gameListCard";
+import { getTopSalesGames } from "../../store/gamesSlice";
 
 const Main = (props) => {
   React.useEffect(() => {
@@ -29,6 +31,14 @@ const Main = (props) => {
   const handleNext = React.useCallback(() => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
+  }, []);
+
+  const [data, setData] = React.useState([]);
+
+  const topSalesGames = useSelector(getTopSalesGames);
+
+  React.useEffect(() => {
+    setData(topSalesGames);
   }, []);
 
   return (
@@ -88,7 +98,23 @@ const Main = (props) => {
           </section>
         )}
       </>
-      <GameList title="Лидеры продаж" guid="leader" />
+      <section className="pb-5">
+      <div className="container">
+        <div className="d-flex align-item-center title mb-3">
+          <h5 className="m-0 font-weight-normal">Лидеры продаж</h5>
+          <Button
+            link="catalog/"
+            title="Смотреть все"
+            name="btn-sm btn-outline-light ml-auto"
+          />
+        </div>
+        <div className="row">
+          {data.map((game) => (
+            <GameListCard key={game._id} {...game} />
+          ))}
+        </div>
+      </div>
+    </section>
     </>
   );
 };
