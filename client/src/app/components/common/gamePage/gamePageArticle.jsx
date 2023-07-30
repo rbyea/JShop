@@ -7,7 +7,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Popup from "../../ui/Popup/Popup";
-import styles from "./gamePage.module.scss";
 import {
   FaRegHeart,
   FaShoppingBasket,
@@ -132,7 +131,7 @@ const GamePageArticle = () => {
             <img className="img-fluid" src={gamePage.picture} alt="" />
           </div>
           <h3 className="mt-4 mb-3">{gamePage.title}</h3>
-          <div className={styles.priceWrapper}>
+          <div className="priceWrapper">
             <Price discount={gamePage.discount} price={gamePage.price} />
           </div>
 
@@ -142,7 +141,7 @@ const GamePageArticle = () => {
               onClick={(e) => addGameFavorite(e)}
               className="btn btn-danger col-8"
             >
-              <span className={styles.btnWrapper}>
+              <span className="btnWrapper">
                 <i className="feather-heart mr-1">
                   <FaRegHeart />
                 </i>{" "}
@@ -154,7 +153,7 @@ const GamePageArticle = () => {
               onClick={(e) => addGameBasket(e)}
               className="btn btn-warning col-4 px-2"
             >
-              <span className={styles.btnWrapper}>
+              <span className="btnWrapper">
                 <i className="feather-download-cloud mr-1">
                   <FaShoppingBasket />
                 </i>{" "}

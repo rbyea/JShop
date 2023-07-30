@@ -11,7 +11,6 @@ import { discountFunc } from "../../../utils/discountFunc";
 import { FaMinusCircle, FaPlusCircle, FaWindowClose } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import styles from "./BasketBlock.module.scss";
 import { getCurrentUserId } from "../../../store/usersSlice";
 
 const BasketList = ({ listBasket }) => {
@@ -57,7 +56,7 @@ const BasketList = ({ listBasket }) => {
   return (
     <div className="basket-block-list">
       {listBasket.length > 1 && (
-        <div className={styles.basketListTopSide}>
+        <div className="basketListTopSide">
           <a href="#" onClick={handleBtnClear} className="btn btn-light">
             Очистить список
           </a>

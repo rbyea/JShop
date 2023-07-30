@@ -1,8 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import {
-  // getLoadingStatusGames,
-  // getReceiptsGames,
   getTopSalesGames
 } from "../../../store/gamesSlice";
 import GameListCard from "./GameListCard";
@@ -13,7 +11,6 @@ const GameList = ({ title, guid }) => {
   const [data, setData] = React.useState([]);
 
   const topSalesGames = useSelector(getTopSalesGames);
-  // const receiptsGames = useSelector(getReceiptsGames);
 
   React.useEffect(() => {
     setData(topSalesGames);

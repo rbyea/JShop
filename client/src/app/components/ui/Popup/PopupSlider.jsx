@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "./popup.module.scss";
 import InputField from "../Form/InputField";
 import { validator } from "../../../utils/validator";
 import { useDispatch, useSelector } from "react-redux";
@@ -183,7 +182,7 @@ const PopupSlider = ({ visibleModal, setVisibleModal, slideId }) => {
           </div>
 
           <div className="modal-body">
-            <div style={styles.modalWrapper}>
+            <div>
               {game && (
                 <SelectField
                   error={error.gameId}

@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./account.module.scss";
 import { FaRegEdit, FaWindowClose } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useParams } from "react-router-dom";
@@ -55,15 +54,15 @@ const TableSlider = (props) => {
       </div>
       {tableList ? (
         <>
-          <div className={styles.tableCollumn}>
+          <div className="tableCollumn">
             {tableList.map((slide) => (
-              <div key={slide._id} className={styles.gameList}>
-                <div className={styles.gameLeft}>
-                  <Link to={`/`} className={styles.gameTitle}>
+              <div key={slide._id} className="gameList">
+                <div className="gameLeft">
+                  <Link to={`/`} className="gameTitle">
                     {slide.title}
                   </Link>
                 </div>
-                <div className={styles.gameWrap}>
+                <div className="gameWrap">
                   <button
                     onClick={() => handleEdit(slide._id)}
                     className="btn btn-light"

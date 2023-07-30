@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "./popup.module.scss";
 import InputField from "../Form/InputField";
 import { validator } from "../../../utils/validator";
 import { useDispatch, useSelector } from "react-redux";
@@ -263,7 +262,7 @@ const PopupGame = ({ visibleModal, setVisibleModal, gameId }) => {
               </div>
 
               <div className="modal-body">
-                <div style={styles.modalWrapper}>
+                <div>
                   <InputField
                     type="text"
                     value={data.title}

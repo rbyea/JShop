@@ -11,7 +11,6 @@ const Main = (props) => {
     <>
       <MainSlider />
       <GameList title="Лидеры продаж" guid="leader" />
-      <GameList title="Скоро в продаже" guid="new" />
     </>
   );
 };

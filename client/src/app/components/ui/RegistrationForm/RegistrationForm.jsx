@@ -1,5 +1,4 @@
 import React from "react";
-// import styles from "./Registration.module.scss";
 import InputField from "../Form/InputField";
 import CheckBoxField from "../Form/CheckboxField";
 import { Link } from "react-router-dom";
@@ -7,7 +6,6 @@ import { validator } from "../../../utils/validator";
 import { useDispatch, useSelector } from "react-redux";
 import { getLoadingForm, signUp } from "../../../store/usersSlice";
 import Preloader from "../preloader/preloader";
-// import history from "../../../utils/history";
 
 const RegistrationForm = (props) => {
   const dispatch = useDispatch();

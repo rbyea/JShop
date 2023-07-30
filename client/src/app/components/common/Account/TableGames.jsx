@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./account.module.scss";
 import { FaRegEdit, FaWindowClose } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteGame, getListGames } from "../../../store/gamesSlice";
@@ -49,18 +48,18 @@ const TableGames = (props) => {
       </div>
       {tableList ? (
         <>
-          <div className={styles.tableCollumn}>
+          <div className="tableCollumn">
             {tableList.map((game) => (
-              <div key={game._id} className={styles.gameList}>
-                <div className={styles.gameLeft}>
-                  <Link to={`/card/${game._id}`} className={styles.gameImage}>
+              <div key={game._id} className="gameList">
+                <div className="gameLeft">
+                  <Link to={`/card/${game._id}`} className="gameImage">
                     <img src={game.picture} alt="" />
                   </Link>
-                  <Link to={`/card/${game._id}`} className={styles.gameTitle}>
+                  <Link to={`/card/${game._id}`} className="gameTitle">
                     {game.title}
                   </Link>
                 </div>
-                <div className={styles.gameWrap}>
+                <div className="gameWrap">
                   <button
                     onClick={() => handleEdit(game._id)}
                     className="btn btn-light"

@@ -10,6 +10,7 @@ import "swiper/css/effect-fade";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getSliderGame } from "../../../store/sliderCardSlice";
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
 const CardSlider = () => {
   const { gameId } = useParams();
@@ -65,21 +66,17 @@ const CardSlider = () => {
           onClick={handlePrev}
           className="carousel-pointer carousel-control-prev"
         >
-          <span
-            className="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="sr-only">Пред.</span>
+          <span className="carousel-control-prev-icon" aria-hidden="true">
+            <FaArrowLeft />
+          </span>
         </div>
         <div
           onClick={handleNext}
           className="carousel-pointer carousel-control-next"
         >
-          <span
-            className="carousel-control-next-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="sr-only">След.</span>
+          <span className="carousel-control-next-icon" aria-hidden="true">
+            <FaArrowRight />
+          </span>
         </div>
       </div>
     </div>

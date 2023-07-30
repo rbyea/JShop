@@ -18,7 +18,7 @@ const PersonalAccount = (props) => {
   return (
     <>
       {userId === currentUserId ? (
-        <section className="py-5 account-page">
+        <section className="py-5 account-page vh-100">
           <div className="container">
             <div className="row">
               <ArticlePage />
