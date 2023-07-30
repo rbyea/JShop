@@ -4,7 +4,6 @@ import Main from "./components/layouts/main";
 import LoaderDate from "./components/ui/hoc/loaderDate";
 import Catalog from "./components/layouts/catalog";
 import Card from "./components/layouts/card";
-import Footer from "./components/common/Footer/Footer";
 import Basket from "./components/layouts/basket";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -39,7 +38,20 @@ function App() {
         <Route path="*" component={NotFound} />
       </Switch>
       <ToastContainer />
-      <Footer />
+      <section className="footer py-5 bg-dark section-padding">
+        <div className="container">
+          <div className="row py-lg-4">
+            <div className="col-lg-2 col-sm-6">
+              <div className="footer-brand">
+                <img
+                  className="img-fluid"
+                  src={LogoJSHOP}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </LoaderDate>
   );
 }
