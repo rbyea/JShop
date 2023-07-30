@@ -1,18 +1,18 @@
 import React from "react";
+import { windowScroll } from "../../utils/windowScroll";
 import { useSelector } from "react-redux";
 import { getListBasket, getLoadingStatusBasket } from "../../store/basketSlice";
-import { windowScroll } from "../../utils/windowScroll";
 import BasketEmpty from "../common/basketBlock/basketEmpty";
+import BasketUnder from "../common/basketBlock/basketUnder";
 import BasketList from "../common/basketBlock/basketList";
 import Preloader from "../ui/preloader/preloader";
-import BasketUnder from "../common/basketBlock/basketUnder";
 
 const Basket = (props) => {
   React.useEffect(() => {
     windowScroll();
   }, []);
 
-  const listBasket = useSelector(getListBasket);
+  const listBasket = useSelector(getListBasket());
   const loadStatusBasket = useSelector(getLoadingStatusBasket());
 
   if (loadStatusBasket) return <Preloader />;

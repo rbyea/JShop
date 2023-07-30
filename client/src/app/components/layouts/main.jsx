@@ -10,9 +10,9 @@ import { getLoadingSliderStatus, getSliderList } from "../../store/sliderSlice";
 import { getLoadingStatusCategories } from "../../store/categoriesSlice";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import SliderCard from "../common/sliders/sliderItem";
-// import { getTopSalesGames } from "../../store/gamesSlice";
-// import GameListCard from "../common/gameList/gameListCard";
-// import Button from "../ui/button";
+import { getTopSalesGames } from "../../store/gamesSlice";
+import GameListCard from "../common/gameList/gameListCard";
+import Button from "../ui/button";
 
 const Main = (props) => {
   React.useEffect(() => {
@@ -33,12 +33,12 @@ const Main = (props) => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
   }, []);
-  // const [data, setData] = React.useState([]);
-  // const topSalesGames = useSelector(getTopSalesGames);
+  const [data, setData] = React.useState([]);
+  const topSalesGames = useSelector(getTopSalesGames);
 
-  // React.useEffect(() => {
-  //   setData(topSalesGames);
-  // }, []);
+  React.useEffect(() => {
+    setData(topSalesGames);
+  }, []);
   return (
     <>
       <>
@@ -96,7 +96,7 @@ const Main = (props) => {
           </section>
         )}
       </>
-      {/* <section className="pb-5">
+      <section className="pb-5">
         <div className="container">
           <div className="d-flex align-item-center title mb-3">
             <h5 className="m-0 font-weight-normal">Лидеры продаж</h5>
@@ -112,8 +112,7 @@ const Main = (props) => {
             ))}
           </div>
         </div>
-      </section> */}
-      {/* <GameList title="Лидеры продаж" guid="leader" /> */}
+      </section>
     </>
   );
 };

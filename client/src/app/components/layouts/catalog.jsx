@@ -7,7 +7,7 @@ import { getListFeatures } from "../../store/featuresSlice";
 import AccordionCatalog from "../common/catalogBlock/accordionCatalog";
 import CatalogGames from "../common/catalogBlock/catalogGames";
 import { FaSearch } from "react-icons/fa";
-import SortCatalog from "../common/catalogBlock/SortCatalog";
+import SortCatalog from "../common/catalogBlock/sortCatalog";
 
 const Catalog = (props) => {
   React.useEffect(() => {

@@ -43,10 +43,7 @@ function App() {
           <div className="row py-lg-4">
             <div className="col-lg-2 col-sm-6">
               <div className="footer-brand">
-                <img
-                  className="img-fluid"
-                  src={LogoJSHOP}
-                />
+                <img className="img-fluid" src={LogoJSHOP} />
               </div>
             </div>
           </div>
