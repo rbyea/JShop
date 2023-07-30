@@ -12,7 +12,7 @@ import {
   getLoadingSliderStatus,
   getSliderList
 } from "../../../store/sliderSlice";
-import SliderCard from "./SliderItem";
+import SliderCard from "./sliderItem";
 import { getLoadingStatusCategories } from "../../../store/categoriesSlice";
 
 const MainSlider = (props) => {

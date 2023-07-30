@@ -1,5 +1,5 @@
 import React from "react";
-import CardSlider from "../Sliders/CardSlider";
+import CardSlider from "../sliders/cardSlider";
 import GamePageAbout from "./GamePageAbout";
 import GamePageSpecification from "./GamePageSpecification";
 import { useSelector } from "react-redux";
