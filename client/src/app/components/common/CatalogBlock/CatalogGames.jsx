@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { getListGames, getLoadingStatusGames } from "../../../store/gamesSlice";
-import GameListCard from "../GameList/GameListCard";
+import GameListCard from "../gameList/gameListCard";
 import PropTypes from "prop-types";
 import { paginate } from "../../../utils/paginate";
 import Pagination from "../../ui/pagintaion";

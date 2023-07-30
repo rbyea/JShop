@@ -1,7 +1,7 @@
 import React from "react";
-import TextareaField from "../../ui/Form/TextareaField";
+import TextareaField from "../../ui/form/textareaField";
 import { validator } from "../../../utils/validator";
-import Comment from "./Comment";
+import Comment from "./comment";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {

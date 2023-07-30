@@ -1,15 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import InputField from "../Form/InputField";
+import InputField from "../form/inputField";
 import { validator } from "../../../utils/validator";
 import { useDispatch, useSelector } from "react-redux";
 import { getLoadingUsersStatus } from "../../../store/usersSlice";
 import Preloader from "../preloader/preloader";
 import { getListGames } from "../../../store/gamesSlice";
-import SelectField from "../Form/SelectField";
-import MultiSelectField from "../Form/MultiSelectField";
+import SelectField from "../form/selectField";
+import MultiSelectField from "../form/multiSelectField";
 import { getListCategories } from "../../../store/categoriesSlice";
-import TextareaField from "../Form/TextareaField";
+import TextareaField from "../form/textareaField";
 import { getSliderById, updateSlide } from "../../../store/sliderSlice";
 import { toast } from "react-toastify";
 

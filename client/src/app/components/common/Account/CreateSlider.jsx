@@ -2,12 +2,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getListCategories } from "../../../store/categoriesSlice";
 import { validator } from "../../../utils/validator";
-import InputField from "../../ui/Form/InputField";
-import SelectField from "../../ui/Form/SelectField";
+import InputField from "../../ui/form/inputField";
+import SelectField from "../../ui/form/selectField";
 import { toast } from "react-toastify";
-import TextareaField from "../../ui/Form/TextareaField";
+import TextareaField from "../../ui/form/textareaField";
 import { getListGames } from "../../../store/gamesSlice";
-import MultiSelectField from "../../ui/Form/MultiSelectField";
+import MultiSelectField from "../../ui/form/multiSelectField";
 import {
   createSlide,
   getLoadingSliderStatus

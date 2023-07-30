@@ -1,6 +1,6 @@
 import React from "react";
-import GamePageArticle from "../common/GamePage/GamePageArticle";
-import GamePageItem from "../common/GamePage/GamePageItem";
+import GamePageArticle from "../common/gamePage/gamePageArticle";
+import GamePageItem from "../common/gamePage/gamePageItem";
 import { windowScroll } from "../../utils/windowScroll";
 import { loadListSpecifications } from "../../store/specificationSlice";
 import { loadSliderCardList } from "../../store/sliderCardSlice";

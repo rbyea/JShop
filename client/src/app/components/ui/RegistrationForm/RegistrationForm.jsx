@@ -1,6 +1,6 @@
 import React from "react";
-import InputField from "../Form/InputField";
-import CheckBoxField from "../Form/CheckboxField";
+import InputField from "../form/inputField";
+import CheckBoxField from "../form/checkboxField";
 import { Link } from "react-router-dom";
 import { validator } from "../../../utils/validator";
 import { useDispatch, useSelector } from "react-redux";

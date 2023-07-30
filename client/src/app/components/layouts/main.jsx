@@ -1,5 +1,5 @@
 import React from "react";
-import GameList from "../common/GameList/GameList";
+import GameList from "../common/gameList/gameList";
 import { windowScroll } from "../../utils/windowScroll";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade } from "swiper";

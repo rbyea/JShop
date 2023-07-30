@@ -2,16 +2,16 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
 import { getCurrentUserId } from "../../store/usersSlice";
-import UserPage from "../common/Account/UserPage";
-import ArticlePage from "../common/Account/ArticlePage";
-import RefreshUser from "../common/Account/RefreshUser";
-import FavoritePage from "../common/Account/FavoritePage";
-import CreateGame from "../common/Account/CreateGame";
-import CreateSlider from "../common/Account/CreateSlider";
-import TableGames from "../common/Account/TableGames";
-import TableSlider from "../common/Account/TableSlider";
+import UserPage from "../common/account/userPage";
+import ArticlePage from "../common/account/articlePage";
+import RefreshUser from "../common/account/refreshUser";
+import FavoritePage from "../common/account/favoritePage";
+import CreateGame from "../common/account/createGame";
+import CreateSlider from "../common/account/createSlider";
+import TableGames from "../common/account/tableGames";
+import TableSlider from "../common/account/tableSlider";
 
-const PersonalAccount = (props) => {
+const Personalaccount = (props) => {
   const { userId, edit } = useParams();
   const currentUserId = useSelector(getCurrentUserId());
 
@@ -53,4 +53,4 @@ const PersonalAccount = (props) => {
   );
 };
 
-export default PersonalAccount;
+export default Personalaccount;

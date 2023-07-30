@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { getListGamesLength } from "../../../store/gamesSlice";
 import PropTypes from "prop-types";
-import SelectField from "../../ui/Form/SelectField";
+import SelectField from "../../ui/form/selectField";
 
 const SortCatalog = ({ onSortChange }) => {
   const gamesLength = useSelector(getListGamesLength());

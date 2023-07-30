@@ -3,7 +3,7 @@ import { FaRegEdit, FaWindowClose } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteGame, getListGames } from "../../../store/gamesSlice";
 import { Link, Redirect, useParams } from "react-router-dom";
-import PopupGame from "../../ui/Popup/PopupGame";
+import PopupGame from "../../ui/popup/popupGame";
 import { getUser } from "../../../store/usersSlice";
 const TableGames = (props) => {
   const { userId } = useParams();

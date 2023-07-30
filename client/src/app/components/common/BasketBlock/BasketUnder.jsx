@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getTotalPrice } from "../../../store/basketSlice";
 import PropTypes from "prop-types";
-import PopupPayment from "../../ui/Popup/PopupPayment";
+import PopupPayment from "../../ui/popup/popupPayment";
 
 const BasketUnder = ({ listBasket }) => {
   const [visibleModal, setVisibleModal] = React.useState(false);

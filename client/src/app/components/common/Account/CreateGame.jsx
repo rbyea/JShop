@@ -1,12 +1,12 @@
 import React from "react";
 import { validator } from "../../../utils/validator";
-import CheckBoxField from "../../ui/Form/CheckboxField";
-import InputField from "../../ui/Form/InputField";
+import CheckBoxField from "../../ui/form/checkboxField";
+import InputField from "../../ui/form/inputField";
 import { toast } from "react-toastify";
-import TextareaField from "../../ui/Form/TextareaField";
+import TextareaField from "../../ui/form/textareaField";
 import { useDispatch, useSelector } from "react-redux";
 import { getListCategories } from "../../../store/categoriesSlice";
-import MultiSelectField from "../../ui/Form/MultiSelectField";
+import MultiSelectField from "../../ui/form/multiSelectField";
 import { getListFeatures } from "../../../store/featuresSlice";
 import { createGame } from "../../../store/gamesSlice";
 import { getUser } from "../../../store/usersSlice";

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { FaArrowRight } from "react-icons/fa";
-import CheckField from "../../ui/Form/CheckboxField";
+import CheckField from "../../ui/form/checkboxField";
 
 const AccordionCatalog = ({ title, data, selectedItems, setSelectedItems }) => {
   const [activeAccordion, setActiveAccordion] = React.useState(false);

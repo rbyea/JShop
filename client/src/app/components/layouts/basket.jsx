@@ -2,10 +2,10 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { getListBasket, getLoadingStatusBasket } from "../../store/basketSlice";
 import { windowScroll } from "../../utils/windowScroll";
-import BasketEmpty from "../common/BasketBlock/BasketEmpty";
-import BasketList from "../common/BasketBlock/BasketList";
+import BasketEmpty from "../common/basketBlock/basketEmpty";
+import BasketList from "../common/basketBlock/basketList";
 import Preloader from "../ui/preloader/preloader";
-import BasketUnder from "../common/BasketBlock/BasketUnder";
+import BasketUnder from "../common/basketBlock/basketUnder";
 
 const Basket = (props) => {
   React.useEffect(() => {

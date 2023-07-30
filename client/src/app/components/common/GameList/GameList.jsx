@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import {
   getTopSalesGames
 } from "../../../store/gamesSlice";
-import GameListCard from "./GameListCard";
+import GameListCard from "./gameListCard";
 import PropTypes from "prop-types";
 import Button from "../../ui/button";
 

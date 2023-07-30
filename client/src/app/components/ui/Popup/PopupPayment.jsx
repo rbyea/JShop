@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import InputField from "../Form/InputField";
+import InputField from "../form/inputField";
 import { validator } from "../../../utils/validator";
 import { useDispatch, useSelector } from "react-redux";
 import { createPayment } from "../../../store/paymentSlice";

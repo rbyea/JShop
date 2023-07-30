@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import InputField from "../Form/InputField";
+import InputField from "../form/inputField";
 import { validator } from "../../../utils/validator";
 import { useDispatch, useSelector } from "react-redux";
 // import history from "../../../utils/history";
@@ -9,11 +9,11 @@ import { toast } from "react-toastify";
 import { getGameById, updateGame } from "../../../store/gamesSlice";
 import { getSliderId } from "../../../store/sliderCardSlice";
 import { getSpecificationId } from "../../../store/specificationSlice";
-import TextareaField from "../Form/TextareaField";
-import CheckBoxField from "../Form/CheckboxField";
+import TextareaField from "../form/textareaField";
+import CheckBoxField from "../form/checkboxField";
 import { getListCategories } from "../../../store/categoriesSlice";
 import { getListFeatures } from "../../../store/featuresSlice";
-import MultiSelectField from "../Form/MultiSelectField";
+import MultiSelectField from "../form/multiSelectField";
 
 const PopupGame = ({ visibleModal, setVisibleModal, gameId }) => {
   const dispatch = useDispatch();

@@ -3,10 +3,10 @@ import { windowScroll } from "../../utils/windowScroll";
 import { useSelector } from "react-redux";
 import { getListCategories } from "../../store/categoriesSlice";
 import { getListFeatures } from "../../store/featuresSlice";
-import SortCatalog from "../common/CatalogBlock/SortCatalog";
-import SearchCatalog from "../ui/Form/SearchCatalog";
-import AccordionCatalog from "../common/CatalogBlock/AccordionCatalog";
-import CatalogGames from "../common/CatalogBlock/CatalogGames";
+import SortCatalog from "../common/catalogBlock/sortCatalog";
+import SearchCatalog from "../ui/form/searchCatalog";
+import AccordionCatalog from "../common/catalogBlock/accordionCatalog";
+import CatalogGames from "../common/catalogBlock/catalogGames";
 
 const Catalog = (props) => {
   React.useEffect(() => {

@@ -1,7 +1,7 @@
 import React from "react";
-import RegistrationForm from "../ui/RegistrationForm/RegistrationForm";
+import RegistrationForm from "../ui/registrationForm/registrationForm";
 import { Link, useParams } from "react-router-dom";
-import LoginForm from "../ui/LoginForm/LoginForm";
+import LoginForm from "../ui/loginForm/loginForm";
 import LogoJSHOP from "../../assets/logo.svg";
 
 const Login = (props) => {

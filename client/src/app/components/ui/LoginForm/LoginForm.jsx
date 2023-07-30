@@ -1,6 +1,6 @@
 import React from "react";
 // import styles from "./Registration.module.scss";
-import InputField from "../Form/InputField";
+import InputField from "../form/inputField";
 import { validator } from "../../../utils/validator";
 import {
   getLoadingForm,

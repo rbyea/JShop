@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { getFavoriteList } from "../../../store/favoriteSlice";
-import GameFavorite from "../GameList/GameFavorite";
+import GameFavorite from "../gameList/gameFavorite";
 
 const FavoritePage = (props) => {
   const favoriteList = useSelector(getFavoriteList());

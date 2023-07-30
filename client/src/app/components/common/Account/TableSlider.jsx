@@ -3,7 +3,7 @@ import { FaRegEdit, FaWindowClose } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useParams } from "react-router-dom";
 import { deleteSlide, getSliderList } from "../../../store/sliderSlice";
-import PopupSlider from "../../ui/Popup/PopupSlider";
+import PopupSlider from "../../ui/popup/popupSlider";
 import { toast } from "react-toastify";
 import { getUser } from "../../../store/usersSlice";
 

@@ -1,14 +1,14 @@
 import React from "react";
 import CardSlider from "../sliders/cardSlider";
-import GamePageAbout from "./GamePageAbout";
-import GamePageSpecification from "./GamePageSpecification";
+import GamePageAbout from "./gamePageAbout";
+import GamePageSpecification from "./gamePageSpecification";
 import { useSelector } from "react-redux";
-import GameListCard from "../GameList/GameListCard";
+import GameListCard from "../gameList/gameListCard";
 import { Link, useParams } from "react-router-dom";
 import { getCurrentUserId } from "../../../store/usersSlice";
 import { getFavoriteCard } from "../../../store/favoriteSlice";
-import GamePageVideo from "./GamePageVideo";
-import Comments from "../Comments/Comments";
+import GamePageVideo from "./gamePageVideo";
+import Comments from "../comments/comments";
 
 const GamePageItem = () => {
   const { gameId } = useParams();

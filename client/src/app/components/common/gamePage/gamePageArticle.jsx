@@ -6,7 +6,7 @@ import {
 } from "../../../store/basketSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Popup from "../../ui/Popup/Popup";
+import Popup from "../../ui/popup/popup";
 import {
   FaRegHeart,
   FaShoppingBasket,
