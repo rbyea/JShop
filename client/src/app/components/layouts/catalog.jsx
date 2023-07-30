@@ -4,9 +4,10 @@ import { useSelector } from "react-redux";
 import { getListCategories } from "../../store/categoriesSlice";
 import { getListFeatures } from "../../store/featuresSlice";
 import SortCatalog from "../common/catalogBlock/sortCatalog";
-import SearchCatalog from "../ui/form/searchCatalog";
+// import SearchCatalog from "../ui/form/searchCatalog";
 import AccordionCatalog from "../common/catalogBlock/accordionCatalog";
 import CatalogGames from "../common/catalogBlock/catalogGames";
+import { FaSearch } from "react-icons/fa";
 
 const Catalog = (props) => {
   React.useEffect(() => {
@@ -24,7 +25,8 @@ const Catalog = (props) => {
   const [selectedCategories, setSelectedCategories] = React.useState([]);
   const [selectedFeatures, setSelectedFeatures] = React.useState([]);
 
-  const handleChange = (target) => {
+  const handleChange = (event) => {
+    const target = event.target;
     if (target.type === "checkbox") {
       if (target.name === "category") {
         setSelectedCategories((prevCategories) => {
@@ -62,12 +64,27 @@ const Catalog = (props) => {
         <div className="row">
           <div className="col-lg-3">
             <div className="filters rounded mb-4">
-              <SearchCatalog
+              <form className="filters-search mb-3">
+                <div className="form-group">
+                  <i className="feather-search">
+                    <FaSearch />
+                  </i>
+                  <input
+                    type="text"
+                    name="search"
+                    value={data.search}
+                    onChange={handleChange}
+                    className="form-control"
+                    placeholder="Поиск"
+                  />
+                </div>
+              </form>
+              {/* <SearchCatalog
                 onChange={handleChange}
                 name="search"
                 value={data.search}
                 type="text"
-              />
+              /> */}
               <div className="filters-body">
                 <div id="accordion">
                   <AccordionCatalog
