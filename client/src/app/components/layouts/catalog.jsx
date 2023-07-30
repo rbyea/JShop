@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { getListCategories } from "../../store/categoriesSlice";
 import { getListFeatures } from "../../store/featuresSlice";
 import SortCatalog from "../common/catalogBlock/sortCatalog";
-import SearchCatalog from "../ui/form/searchCatalog";
+import SearchCatalog from "../ui/form/searchCatalog.jsx";
 import AccordionCatalog from "../common/catalogBlock/accordionCatalog";
 import CatalogGames from "../common/catalogBlock/catalogGames";
 
