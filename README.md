@@ -19,7 +19,7 @@
 ## Запуск
 
 1. Запустите фронтенд: `cd client && npm start`
-2. Запустите бэкенд: `cd server && npm start`
+2. Запустите бэкенд: `cd server && npm run serve`
 
 ## Структура проекта
 
