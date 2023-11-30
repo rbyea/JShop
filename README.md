@@ -7,6 +7,7 @@
 - React
 - Node.js
 - Express
+- MongoDB
 
 ## Установка
 
